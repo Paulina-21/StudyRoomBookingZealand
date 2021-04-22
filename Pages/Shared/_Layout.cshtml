@@ -25,7 +25,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Shared/Login">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">SOMETHING</a>
@@ -35,15 +35,35 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
 
-    <footer class="border-top footer text-muted">
+<style>
+    .card{
+        border-color: transparent;
+    }
+    .card-image{
+        height:100px;
+        width: 200px;
+    }
+    .card:hover {
+        /*box-shadow: 8px 8px 8px lightgrey;*/
+        background-color: #FFE766;
+    }
+</style>
+
+
+<footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="card">
+                <div class="card-image">
+                    <img class="card-img-bottom" src="images/Zealand-Logo.png" alt="" align="right" />
+                </div>
+                </div>
         </div>
     </footer>
 
