@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\NewFolder\" />
+    <Folder Include="Pages\Teacher\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
