@@ -1,15 +1,45 @@
-﻿<!DOCTYPE html>
+﻿@using System.Net
+@using Microsoft.AspNetCore.Http
+@using Microsoft.VisualBasic
+
+<style>
+    .nav-item {
+        background-color: #4CAF50;
+    }
+    .header {
+        background-color: #ffe766
+    }
+    .card {
+        border-color: transparent;
+        background-color: #FFE766;
+    }
+
+    .card-image {
+        height: 100px;
+        width: 200px;
+    }
+    .footer:hover{
+        background-color: #FFE766;
+    }
+
+    .card:hover {
+        /*box-shadow: 8px 8px 8px lightgrey;*/
+        background-color: #FFE766;
+    }
+</style>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - StudyroomBookingZealand</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light @*bg-white*@ border-bottom box-shadow mb-3" style="background-color: rgba(255, 231, 102, 0.9)">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">StudyroomBookingZealand</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -25,7 +55,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">SOMETHING</a>
@@ -41,9 +71,16 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+
+<footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            
+                <div class="card-image" style="background-color: transparent">
+                    <a href="https://zealand.com/">
+                        <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
+                    </a>
+                </div>
         </div>
     </footer>
 

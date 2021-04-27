@@ -1,0 +1,40 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Shared.LoginModel
+@{
+}
+
+<style>
+    div.box {
+        /*  background: rgba(240, 248, 255,0.7);*/
+        /* background: rgba(255, 255, 255, 0.7)*/
+        /*background: linear-gradient(to right, rgba(255, 255, 255, 0.9),rgba(255, 231, 102, 0.9) )*/
+    }
+    </style>
+    <h1> Login </h1>
+    <div class="box">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div class="form-group">
+                        <label class="control-label"><b>Username</b></label>
+                        <input name="Username" class="form-control input-lg" required autofocus />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><b>Password</b> </label>
+                        <input name="Password" type="password" class="form-control input-lg" required />
+
+                    </div>
+                    <div class="form-group">
+                        <input id="LoginButton" type="submit" value="Login" class="btn btn-success">
+                    </div>
+                </form>
+                <div>
+                    <a asp-page="/PublicSection/RegisterPage">Create account</a>
+                </div>
+                <div>
+                    <a style="color: black" asp-page="/Index"><h6>Back to MainMenu</h6></a>
+                </div>
+            </div>
+        </div>
+    </div>
