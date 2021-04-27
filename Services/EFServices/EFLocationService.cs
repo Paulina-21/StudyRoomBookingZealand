@@ -9,39 +9,48 @@ namespace StudyroomBookingZealand.Services.EFServices
 {
     public class EFLocationService : ILocations
     {
+        private BookingDbContext _service;
+
+        public EFLocationService(BookingDbContext db)
+        {
+            _service = db;
+        }
+
         public void AddLocation(Location l)
         {
-            throw new NotImplementedException();
+            _service.Locations.Add(l);
+            _service.SaveChanges();
         }
 
         public void DeleteLocation(int id)
         {
-            throw new NotImplementedException();
+            _service.Locations.Remove(GetLocation(id));
+            _service.SaveChanges();
         }
 
         public List<Location> GetAllLocations()
         {
-            throw new NotImplementedException();
+            return _service.Locations.ToList();
         }
 
-        public List<Booking> GetBookingsForLocation()
+        public List<Booking> GetBookingsForLocation(int id)
         {
-            throw new NotImplementedException();
+            return _service.Bookings.Where(l => l.Location.LocationId == id).ToList();
         }
 
-        public Location GetLocation()
+        public Location GetLocation(int id)
         {
-            throw new NotImplementedException();
+            return _service.Locations.Find(id);
         }
 
         public List<Location> SmartBoardLocations()
         {
-            throw new NotImplementedException();
+            return _service.Locations.Where(l => l.SmartBoard == true).ToList();
         }
 
-        public void UpdateLocation(Location l)
+        public void UpdateLocation(int id)
         {
-            throw new NotImplementedException();
+            _service.Locations.Update(GetLocation(id));
         }
     }
 }
