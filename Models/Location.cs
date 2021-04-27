@@ -11,5 +11,8 @@ namespace StudyroomBookingZealand.Models
         public string Name { set; get; }
         public string Address { set; get; }
         public object Type { set; get; }
+        public ICollection<Booking> Bookings { set; get; }
+        public bool SmartBoard { set; get; }
+        public bool SmartBoardBooked { set; get; }
     }
 }
