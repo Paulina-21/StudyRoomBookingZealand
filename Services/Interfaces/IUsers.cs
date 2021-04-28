@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudyroomBookingZealand.Models
+namespace StudyroomBookingZealand.Services.Interfaces
 {
-    public class Student : User
+    public interface IUsers
     {
-        int GroupId { get; set; }
+
     }
 }

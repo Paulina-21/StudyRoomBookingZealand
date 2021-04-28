@@ -1,6 +1,7 @@
-﻿@page
+﻿@page "Login"
 @model StudyroomBookingZealand.Pages.Shared.LoginModel
 @{
+    ViewData["Title"] = "Login";
 }
 
 <style>
@@ -28,12 +29,16 @@
                     <div class="form-group">
                         <input id="LoginButton" type="submit" value="Login" class="btn btn-success">
                     </div>
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="RememberMe" type="checkbox" id="checkbox" class="custom-control-input" />
+                        <label for="checkbox" class="custom-control-label">Remember me</label>
+                    </div>
                 </form>
                 <div>
-                    <a asp-page="/PublicSection/RegisterPage">Create account</a>
+                    <a asp-page="/PublicSection/RegisterPage">Sign Up</a>
                 </div>
                 <div>
-                    <a style="color: black" asp-page="/Index"><h6>Back to MainMenu</h6></a>
+                    <a style="color: black" asp-page="/Index"><h6>Back to the homepage</h6></a>
                 </div>
             </div>
         </div>

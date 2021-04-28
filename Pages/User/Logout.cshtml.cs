@@ -11,8 +11,7 @@ namespace StudyroomBookingZealand.Pages.Shared
     {
         public IActionResult OnGet()
         {
-            //Clear the session and redirect to Index
-            return Redirect("/Index");
+            return Page();
         }
     }
 }
