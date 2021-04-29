@@ -5,15 +5,14 @@ using System.Threading.Tasks;
 
 namespace StudyroomBookingZealand.Models
 {
-    public class Teacher
+    public class User
     {
-        public int TeacherId { set; get; }
         public string Name { set; get; }
+        public int Id { set; get; }
         public string Address { set; get; }
+        public string Password { set; get; }
+        public string Username { set; get; }
         public string PhoneNr { set; get; }
         public string Email { set; get; }
-        public string Username { set; get; }
-        public string Password { set; get; }
-        public object Role { set; get; }  
     }
 }

@@ -9,8 +9,11 @@ namespace StudyroomBookingZealand.Pages.Shared
 {
     public class LoginModel : PageModel
     {
-        public void OnGet()
+        [BindProperty]
+        public bool RememberMe { get; set; }
+        public IActionResult OnGet()
         {
+            return Page();
         }
     }
 }
