@@ -17,6 +17,6 @@ namespace StudyroomBookingZealand.Models
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Student> Students { set; get; }
         public virtual DbSet<Location> Locations { set; get; }
-        public virtual DbSet<Teacher> Teachers { set; get; }
+        public virtual DbSet<Admin> Teachers { set; get; }
     }
 }
