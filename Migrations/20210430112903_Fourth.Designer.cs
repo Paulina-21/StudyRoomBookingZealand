@@ -10,8 +10,8 @@ using StudyroomBookingZealand.Models;
 namespace StudyroomBookingZealand.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20210430104535_First")]
-    partial class First
+    [Migration("20210430112903_Fourth")]
+    partial class Fourth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<bool>("SmartBoardBooked")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("LocationId");
 
                     b.ToTable("Locations");
@@ -90,15 +93,8 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsTeacher")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -115,30 +111,6 @@ namespace StudyroomBookingZealand.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Admin", b =>
-                {
-                    b.HasBaseType("StudyroomBookingZealand.Models.User");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("Admin");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Student", b =>
-                {
-                    b.HasBaseType("StudyroomBookingZealand.Models.User");
-
-                    b.Property<int?>("GroupId1")
-                        .HasColumnType("int");
-
-                    b.HasIndex("GroupId1");
-
-                    b.HasDiscriminator().HasValue("Student");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
@@ -148,18 +120,6 @@ namespace StudyroomBookingZealand.Migrations
                         .HasForeignKey("LocationId");
 
                     b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Student", b =>
-                {
-                    b.HasOne("StudyroomBookingZealand.Models.Group", null)
-                        .WithMany("StudentList")
-                        .HasForeignKey("GroupId1");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Group", b =>
-                {
-                    b.Navigation("StudentList");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>
