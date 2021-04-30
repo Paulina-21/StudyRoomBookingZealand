@@ -32,7 +32,6 @@ namespace StudyroomBookingZealand.Services.EFServices
             return null;
         }
         
-
         public void AddUser(User u)
         {
             _service.Users.Add(u);
@@ -41,15 +40,19 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public void DeleteUser(int id)
         {
-            //Searches on the DB, for a user with the specific ID and stores it
-            User u = _service.Users.Find(id);
-            _service.Users.Remove(u);
+            _service.Users.Remove(GetUserById(id));
             _service.SaveChanges();
         }
 
         public List<User> GetAllUsers()
         {
             return _service.Users.ToList();
+        }
+
+        public void UpdateUser(int id)
+        {
+            _service.Users.Update(GetUserById(id));
+            _service.SaveChanges();
         }
         
     }

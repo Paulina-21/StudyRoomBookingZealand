@@ -51,6 +51,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         public void UpdateLocation(int id)
         {
             _service.Locations.Update(GetLocation(id));
+            _service.SaveChanges();
         }
     }
 }
