@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudyroomBookingZealand.Models
 {
-    public class BookingDbContext: Microsoft.EntityFrameworkCore.DbContext
+    public class BookingDbContext: DbContext
     {
         public BookingDbContext() { }
         public BookingDbContext(DbContextOptions options) : base(options)
