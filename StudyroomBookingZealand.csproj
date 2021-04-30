@@ -6,6 +6,10 @@
     <UserSecretsId>0cc7af99-8806-4621-8e24-efaf99fb4f10</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="EfCore.SchemaCompare" Version="5.1.3">
       <PrivateAssets>all</PrivateAssets>
