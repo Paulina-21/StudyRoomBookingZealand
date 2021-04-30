@@ -7,6 +7,7 @@ using StudyroomBookingZealand.Models;
 
 namespace StudyroomBookingZealand.Models
 {
+    public enum Type { OneGroup, TwoGroups, ThreeGroups, FourGroups }
     public class Location
     {
         public int LocationId { set; get; }
