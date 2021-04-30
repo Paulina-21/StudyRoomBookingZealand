@@ -18,5 +18,14 @@ namespace StudyroomBookingZealand.Models
         public virtual DbSet<Student> Students { set; get; }
         public virtual DbSet<Location> Locations { set; get; }
         public virtual DbSet<Admin> Teachers { set; get; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocaldb;Initial Catalog=SchoolBooking;Integrated Security=True");
+            }
+        }
     }
 }
