@@ -10,5 +10,6 @@ namespace StudyroomBookingZealand.Models
         public int BookingID { set; get; }
         public int Student_GroupID { set; get; }
         public DateTime DateTime { set; get; }
+        public Location Location { set; get; }
     }
 }
