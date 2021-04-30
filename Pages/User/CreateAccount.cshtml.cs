@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace StudyroomBookingZealand.Pages.User
 {
-    public class CreateUserModel : PageModel
+    public class CreateAccountModel : PageModel
     {
         public IActionResult OnGet()
         {
