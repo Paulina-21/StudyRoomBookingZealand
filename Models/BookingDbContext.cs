@@ -12,7 +12,7 @@ namespace StudyroomBookingZealand.Models
         public BookingDbContext() { }
         public BookingDbContext(DbContextOptions options) : base(options)
         { }
-
+        public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Student> Students { set; get; }
