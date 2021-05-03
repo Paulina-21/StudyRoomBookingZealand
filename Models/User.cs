@@ -8,20 +8,12 @@ namespace StudyroomBookingZealand.Models
 {
     public class User
     {
-        [Required]
-        [StringLength(50)]
         public string Name { set; get; }
         public int Id { set; get; }
-        [Required]
-        [StringLength(50)]
         public string Address { set; get; }
-        [Required]
-        [StringLength(20)]
         public string Password { set; get; }
-        [Required]
-        [StringLength(10)]
         public string Username { set; get; }
-        public string? PhoneNr { set; get; }
+        public string PhoneNr { set; get; }
         public string Email { set; get; }
         public bool IsTeacher { set; get; }
     }
