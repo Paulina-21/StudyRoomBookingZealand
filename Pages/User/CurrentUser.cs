@@ -1,36 +1,49 @@
-﻿using System;
+﻿using StudyroomBookingZealand.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudyroomBookingZealand.Pages.User
 {
-    public static class CurrentUser
+    public class CurrentUser
     {
-        const string JsonLoggedInUser = @"Data\LoggedInUser.json";
+        public const string JsonLoggedInUser = @"Data\LoggedInUser.json";
         public static Models.User LoggedUser;
-
-        public static void CheckUser()
+        public IUsers UserService;
+        public CurrentUser(IUsers service)
         {
-            try
-            {
-                LoggedUser = Data.Helpers.JsonFileHelper<Models.User>.ReadJson(JsonLoggedInUser);
-            }
-            catch
-            {
-                LoggedUser.Id = 0;
-            }
+            UserService = service;
         }
-        public static void Login(Models.User user, bool rememberme)
+        
+        //public static void ChangeUser(string[] login, Models.User user)//user will be provided from the GetUSerByUsername() method
+        //{
+        //    if(user.Password == login[1])
+        //    {
+        //        LoggedUser = user;
+        //    }
+        //}
+        public static bool Exists
         {
-            if (rememberme)
+            get { return LoggedUser != null; }
+        }
+        public static bool Login(string[] login, bool rememberme, Models.User user)
+        {
+            if (login[1] == user.Password)
             {
-                Data.Helpers.JsonFileHelper<Models.User>.WriteToJson(user, JsonLoggedInUser);
+                if (rememberme)
+                {
+                    Data.Helpers.JsonFileHelper<string[]>.WriteToJson(login, JsonLoggedInUser);
+                }
+                LoggedUser = user;
+                return true;
             }
+            return false;
         }
         public static void Logout()
         {
-            Data.Helpers.JsonFileHelper<Models.User>.ClearJson(JsonLoggedInUser);
+            Data.Helpers.JsonFileHelper<string[]>.ClearJson(JsonLoggedInUser);
+            LoggedUser = null;
         }
     }
 }

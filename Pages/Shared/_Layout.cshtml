@@ -57,7 +57,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">SOMETHING</a>
                         </li>
+
                     </ul>
+                    @{if (Pages.User.CurrentUser.Exists)
+                        {
+                          <div class="text">
+                              <span class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</span>
+                          </div>
+                        }
+                     }
                 </div>
             </div>
         </nav>
