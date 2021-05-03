@@ -9,5 +9,6 @@ namespace StudyroomBookingZealand.Models
     {
         public  ICollection<Student> StudentList { set; get; }
         public int GroupId { set; get; }
+        public string GroupName { set; get; }
     }
 }
