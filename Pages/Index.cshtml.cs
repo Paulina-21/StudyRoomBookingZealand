@@ -26,7 +26,7 @@ namespace StudyroomBookingZealand.Pages
             string[] login = new string[2];
             login = CheckUser();
             if (string.IsNullOrEmpty(login[0]))
-            return Page();
+                return Page();
             else
             {
                 Models.User user = UsersService.GetUserByUsername(login[0]);
@@ -41,7 +41,7 @@ namespace StudyroomBookingZealand.Pages
             if (!string.IsNullOrEmpty(login[0]))
             {
                 return login;
-            }
+            } 
             return null;
 
         }
