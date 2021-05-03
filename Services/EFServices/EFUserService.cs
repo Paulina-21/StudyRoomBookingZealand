@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudyroomBookingZealand.Models;
 
 namespace StudyroomBookingZealand.Services.EFServices
 {
@@ -30,5 +31,29 @@ namespace StudyroomBookingZealand.Services.EFServices
             }
             return null;
         }
+        
+        public void AddUser(User u)
+        {
+            _service.Users.Add(u);
+            _service.SaveChanges();
+        }
+
+        public void DeleteUser(int id)
+        {
+            _service.Users.Remove(GetUserById(id));
+            _service.SaveChanges();
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return _service.Users.ToList();
+        }
+
+        public void UpdateUser(int id)
+        {
+            _service.Users.Update(GetUserById(id));
+            _service.SaveChanges();
+        }
+        
     }
 }
