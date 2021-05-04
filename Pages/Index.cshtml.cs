@@ -25,7 +25,7 @@ namespace StudyroomBookingZealand.Pages
         {
             string[] login = new string[2];
             login = CheckUser();
-            if (string.IsNullOrEmpty(login[0]))
+            if (login == null)
                 return Page();
             else
             {
@@ -34,15 +34,19 @@ namespace StudyroomBookingZealand.Pages
                 return Page();
             }
         }
-        public static string[] CheckUser() // will probably be moved to index page
+        public static string[] CheckUser() 
         {
             string[] login = new string[2];
-            login = Data.Helpers.JsonFileHelper<string[]>.ReadJson(CurrentUser.JsonLoggedInUser);
-            if (!string.IsNullOrEmpty(login[0]))
+            try
             {
-                return login;
-            } 
-            return null;
+                login = Data.Helpers.JsonFileHelper<string[]>.ReadJson(CurrentUser.JsonLoggedInUser);
+                if (login == null) throw new ArgumentException();
+                else return login;
+            }
+            catch(ArgumentException e)
+            {
+                return null;
+            }
 
         }
     }
