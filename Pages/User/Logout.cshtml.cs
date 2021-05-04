@@ -11,7 +11,8 @@ namespace StudyroomBookingZealand.Pages.User
     {
         public IActionResult OnGet()
         {
-            return Page();
+            CurrentUser.Logout();
+            return Redirect("/Index");
         }
     }
 }
