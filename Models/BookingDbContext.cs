@@ -1,6 +1,7 @@
 ﻿using System;
 using StudyroomBookingZealand;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -35,5 +36,4 @@ namespace StudyroomBookingZealand.Models
         public virtual DbSet<Location> Locations { set; get; }
         public virtual DbSet<Admin> Teachers { set; get; }
 
-    }
 }
