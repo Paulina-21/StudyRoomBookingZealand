@@ -364,12 +364,4 @@ FodyWeavers.xsd
 
 # Migrations DB Folder
 
-<<<<<<< HEAD:StudyRoomBookingZealand-master/.gitignore
-<<<<<<< HEAD:StudyRoomBookingZealand-master/.gitignore
 Migrations/
-=======
-Migrations/
->>>>>>> ea6375f0c9a73321fccac0a586cde9b8b5c906bb:.gitignore
-=======
-Migrations/
->>>>>>> ea6375f0c9a73321fccac0a586cde9b8b5c906bb:.gitignore
