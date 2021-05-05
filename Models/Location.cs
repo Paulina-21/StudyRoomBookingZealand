@@ -12,7 +12,8 @@ namespace StudyroomBookingZealand.Models
         public string Name { set; get; }
         public string Address { set; get; }
 
-        public enum Type
+        public TypeList Type { get; set; }
+        public enum TypeList
         {
             Group1,Group2,Group3,Group4
         }

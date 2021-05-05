@@ -1,0 +1,70 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Locations.ListLocationsModel
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Location Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Group
+            </th>
+            <th>
+                SmartBoard Booked ?
+            </th>
+            <th>
+                Booking Count
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Locations)
+        {
+            <tr>
+                <td>
+                    @item.LocationId
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    @item.Type
+                </td>
+                <td>
+                    @item.SmartBoardBooked
+                </td>
+                @{ if (item.Bookings == null)
+                    {
+                        <td>
+                            0
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @item.Bookings.Count
+                        </td>
+                    }
+                }
+                <td>
+                    @* Just some placeholders for future functionality *@
+                    <a asp-page="" asp-route-id="">ViewBookings</a>|
+                    <a asp-page="" asp-route-id="">Edit</a> |
+                    <a asp-page="" asp-route-id="">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
