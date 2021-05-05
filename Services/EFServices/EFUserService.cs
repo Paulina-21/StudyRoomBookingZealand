@@ -23,30 +23,31 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
 
             return _service.Users.Where(u => u.Username == username).FirstOrDefault();
-        }
-        
-        public void AddUser(User u)
-        {
-            _service.Users.Add(u);
-            _service.SaveChanges();
+            
         }
 
-        public void DeleteUser(int id)
-        {
-            _service.Users.Remove(GetUserById(id));
-            _service.SaveChanges();
-        }
+    public void AddUser(User u)
+    {
+        _service.Users.Add(u);
+        _service.SaveChanges();
+    }
 
-        public List<User> GetAllUsers()
-        {
-            return _service.Users.ToList();
-        }
+    public void DeleteUser(int id)
+    {
+        _service.Users.Remove(GetUserById(id));
+        _service.SaveChanges();
+    }
 
-        public void UpdateUser(int id)
-        {
-            _service.Users.Update(GetUserById(id));
-            _service.SaveChanges();
-        }
-        
+    public List<User> GetAllUsers()
+    {
+        return _service.Users.ToList();
+    }
+
+    public void UpdateUser(int id)
+    {
+        _service.Users.Update(GetUserById(id));
+        _service.SaveChanges();
+    }
+
     }
 }
