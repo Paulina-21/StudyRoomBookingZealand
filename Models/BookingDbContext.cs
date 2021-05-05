@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StudyroomBookingZealand.Models
 {
-    public class BookingDbContext: DbContext
+    public class BookingDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,9 +26,14 @@ namespace StudyroomBookingZealand.Models
         //    options.UseSqlServer(
         //        @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BookingDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         //}
-        public BookingDbContext() { }
+        public BookingDbContext()
+        {
+        }
+
         public BookingDbContext(DbContextOptions options) : base(options)
-        { }
+        {
+        }
+
         public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
@@ -36,4 +41,5 @@ namespace StudyroomBookingZealand.Models
         public virtual DbSet<Location> Locations { set; get; }
         public virtual DbSet<Admin> Teachers { set; get; }
 
+    }
 }
