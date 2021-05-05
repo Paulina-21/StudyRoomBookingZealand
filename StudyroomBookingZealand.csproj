@@ -6,6 +6,13 @@
     <UserSecretsId>08c11eb5-2f83-43be-a7db-461fcc27c253</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Pages\Teacher\**" />
+    <Content Remove="Pages\Teacher\**" />
+    <EmbeddedResource Remove="Pages\Teacher\**" />
+    <None Remove="Pages\Teacher\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
@@ -25,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Teacher\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

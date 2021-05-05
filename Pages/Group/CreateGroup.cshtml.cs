@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace StudyroomBookingZealand.Pages.User
+namespace StudyroomBookingZealand.Pages.Group
 {
-    public class CreateAccountModel : PageModel
+    public class CreateGroupModel : PageModel
     {
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            return Page();
         }
     }
 }
