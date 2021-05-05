@@ -23,6 +23,12 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
 
             return _service.Users.Where(u => u.Username == username).FirstOrDefault();
+                if (u.Username == username)
+                {
+                    return u;
+                }
+            }
+            return null;
         }
         
         public void AddUser(User u)
