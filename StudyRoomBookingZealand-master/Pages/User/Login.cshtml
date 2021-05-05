@@ -1,0 +1,49 @@
+﻿@page "Login"
+@model StudyroomBookingZealand.Pages.User.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    div.box {
+        /*  background: rgba(240, 248, 255,0.7);*/
+        /* background: rgba(255, 255, 255, 0.7)*/
+        /*background: linear-gradient(to right, rgba(255, 255, 255, 0.9),rgba(255, 231, 102, 0.9) )*/
+    }
+    </style>
+    <h1> Login </h1>
+    <div class="box">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div class="form-group">
+                        <label class="control-label"><b>Username</b></label>
+                        <input name="Username" class="form-control input-lg" asp-for="@Model.Username" required autofocus />
+                        @if (Model.InvalidUsername)
+                        {<span class="text-danger">This username is wrong</span>}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><b>Password</b> </label>
+                        <input name="Password" type="password" class="form-control input-lg" asp-for="@Model.Password" required />
+                        @if (Model.InvalidPassword)
+                        {<span class="text-danger">This password is wrong</span>}
+
+                    </div>
+                    <div class="form-group">
+                        <input id="LoginButton" type="submit" value="Login" class="btn btn-success">
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="RememberMe" type="checkbox" id="checkbox" class="custom-control-input" />
+                        <label for="checkbox" class="custom-control-label">Remember me</label>
+                    </div>
+                </form>
+                <div>
+                    <a asp-page="/PublicSection/RegisterPage">Sign Up</a>
+                </div>
+                <div>
+                    <a style="color: black" asp-page="/Index"><h6>Back to the homepage</h6></a>
+                </div>
+            </div>
+        </div>
+    </div>
