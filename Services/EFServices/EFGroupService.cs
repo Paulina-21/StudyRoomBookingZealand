@@ -39,6 +39,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         public void UpdateGroup(int id)
         {
             _service.Groups.Update(GetGroupById(id));
+            _service.SaveChanges();
         }
     }
 }

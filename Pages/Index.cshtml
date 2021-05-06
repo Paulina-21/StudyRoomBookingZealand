@@ -1,8 +1,19 @@
 ﻿@page
+@using StudyroomBookingZealand.Pages.User
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+<<<<<<< HEAD:Pages/Index.cshtml
     //Test comment.
+=======
+    //Test comment
+>>>>>>> cata:StudyRoomBookingZealand-master/Pages/Index.cshtml
+}
+@if (CurrentUser.Exists == true)
+{
+    <h1>
+        Hello, @CurrentUser.LoggedUser.Name!
+    </h1>
 }
 
 <div class="text-center">

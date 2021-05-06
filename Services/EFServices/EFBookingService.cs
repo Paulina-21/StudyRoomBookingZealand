@@ -1,15 +1,14 @@
-﻿using System;
+﻿using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using StudyroomBookingZealand.Models;
-using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Services.EFServices
 {
-    public class EFBookingService : IBookings
+    public class EFBookingService : IBooking
     {
         private BookingDbContext _service;
+
         public EFBookingService(BookingDbContext db)
         {
             _service = db;
@@ -37,10 +36,25 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Bookings.Find(id);
         }
 
-        public void UpdateGroup(int id)
+        public Group GetGroupForBooking(int id)
+        {
+            return _service.Groups.Where(g => g.GroupId == id).FirstOrDefault();
+        }
+
+        public Location LocationForBooking(int id)
+        {
+            return _service.Locations.Where(l => l.LocationId == id).FirstOrDefault();
+        }
+
+        public void UpdateBooking(int id)
         {
             _service.Bookings.Update(GetBookingById(id));
             _service.SaveChanges();
+        }
+
+        public List<Booking> BookingsForLocation(int id)
+        {
+            return _service.Bookings.Where(b => b.LocationId == id).ToList();
         }
     }
 }

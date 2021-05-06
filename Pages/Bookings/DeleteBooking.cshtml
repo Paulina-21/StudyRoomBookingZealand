@@ -1,0 +1,60 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Bookings.DeleteBookingModel
+@{
+}
+<div>
+    <h3>
+        Are you sure you want to delete this booking?
+    </h3>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            @Model.booking.BookingID
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Location
+        </th>
+        <td>
+            @Model.booking.LocationId
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Time
+        </th>
+        <td>
+            @Model.booking.DateTime
+        </td>
+    </tr>
+    <tr>
+        <th>
+            SmartBoardBooked?
+        </th>
+        <td>
+            @Model.booking.SmartBoardBooked
+        </td>
+    </tr>
+    <tr>
+        <th>
+            GroupId
+        </th>
+        <td>
+            @Model.booking.Student_GroupID
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<td>
+    <form method="post">
+        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.booking.BookingID" asp-page="/Booking/DeleteBooking" />
+    </form>
+</td>         

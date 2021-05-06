@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace StudyroomBookingZealand.Pages.Shared.Locations
+namespace StudyroomBookingZealand.Pages.Bookings
 {
-    public class LocationModel : PageModel
+    public class EditBookingModel : PageModel
     {
         public void OnGet()
         {
