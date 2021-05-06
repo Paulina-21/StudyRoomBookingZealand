@@ -6,6 +6,68 @@
 <h1> Profile </h1>
 <div class="box">
     <div class="row">
-        
+        Hello @CurrentUser.LoggedUser.Name!
     </div>
 </div>
+<br/>
+<div class="box" style="right: 0%">Personal Info:
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <td>
+            @CurrentUser.LoggedUser.Name
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            @CurrentUser.LoggedUser.Id
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Username
+        </th>
+        <td>
+            @CurrentUser.LoggedUser.Username
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Address
+        </th>
+        <td>
+            @CurrentUser.LoggedUser.Address
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Phone Number
+        </th>
+        <td>
+            @CurrentUser.LoggedUser.PhoneNr
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Email
+        </th>
+            
+        <td>
+            @CurrentUser.LoggedUser.Email
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<button class="collapse">
+    My bookings
+</button>
+   

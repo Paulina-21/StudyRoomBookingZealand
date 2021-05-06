@@ -41,7 +41,7 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Groups.Where(g => g.GroupId == id).FirstOrDefault();
         }
 
-        public Location GetLocationForBooking(int id)
+        public Location LocationForBooking(int id)
         {
             return _service.Locations.Where(l => l.LocationId == id).FirstOrDefault();
         }
@@ -50,6 +50,11 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             _service.Bookings.Update(GetBookingById(id));
             _service.SaveChanges();
+        }
+
+        public List<Booking> BookingsForLocation(int id)
+        {
+            return _service.Bookings.Where(b => b.LocationId == id).ToList();
         }
     }
 }

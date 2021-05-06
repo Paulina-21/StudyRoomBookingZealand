@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Bookings
@@ -13,7 +14,12 @@ namespace StudyroomBookingZealand.Pages.Bookings
     {
         private IBooking _bookingService;
         private ILocations _locationsService;
+        [BindProperty]
+        public Location location { set; get; }
         public List<Booking> Bookings { get; set; }
+        public Models.Group Group { get; set; }
+        [BindProperty]
+        public Models.User user { get; set; }
 
         public ListBookingsModel(IBooking service,ILocations loc)
         {
@@ -22,13 +28,16 @@ namespace StudyroomBookingZealand.Pages.Bookings
         }
         public IActionResult OnGet(int id)
         {
-            if (id==0)
+            Bookings = _bookingService.GetAllBookings();
+            //if (CurrentUser.LoggedUser != null)
+            //{
+            //    user = CurrentUser.LoggedUser;
+            //}
+                if(id>0)
             {
-                Bookings = _bookingService.GetAllBookings();
-            }
-            else
-            {
-                Bookings = _locationsService.GetBookingsForLocation(id);
+                location = _locationsService.GetLocation(id);
+                location = _bookingService.LocationForBooking(id);
+                Bookings = _locationsService.GetBookingsForLocation(location.LocationId);
             }
 
             return Page();

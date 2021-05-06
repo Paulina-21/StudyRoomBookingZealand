@@ -35,7 +35,7 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public List<Booking> GetBookingsForLocation(int id)
         {
-            return _service.Bookings.Where(l => l.Location.LocationId == id).ToList();
+            return _service.Bookings.Where(b => b.LocationId == id).ToList();
         }
 
         public Location GetLocation(int id)

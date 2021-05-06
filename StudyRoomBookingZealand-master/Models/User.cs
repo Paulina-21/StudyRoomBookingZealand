@@ -25,5 +25,6 @@ namespace StudyroomBookingZealand.Models
         public string? PhoneNr { set; get; }
         public string Email { set; get; }
         public bool IsTeacher { set; get; }
+        public int? GroupId { set; get; }
     }
 }
