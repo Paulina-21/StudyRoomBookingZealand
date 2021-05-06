@@ -19,7 +19,7 @@
                 Group
             </th>
             <th>
-                SmartBoard Booked ?
+                Has SmartBoard ?
             </th>
             <th>
                 Booking Count
@@ -43,7 +43,7 @@
                     @item.Type
                 </td>
                 <td>
-                    @item.SmartBoardBooked
+                    @(item.SmartBoard ? "Yes" : "No")
                 </td>
                 @{ if (item.Bookings == null)
                     {
