@@ -1,4 +1,5 @@
 ﻿@page
+@using StudyroomBookingZealand.Pages.User
 @model StudyroomBookingZealand.Pages.Bookings.ListBookingsModel
 @{
 }
@@ -37,27 +38,33 @@
                 @item.DateTime
             </td>
             <td>
-                @item.Location.Name
-            </td>
+                @item.LocationId
+                </td>
             <td>
                 @item.Student_GroupID
             </td>
             <td>
-                @item.Location.SmartBoard
+                @item.LocationId
             </td>
-            @{ if (item.Location.SmartBoard == true)
-               {
-                   <td>
-                       @item.Location.SmartBoardBooked
-                   </td>
-               }
-            }
             <td>
-                @* Just some placeholders for future functionality *@
-                <a asp-page="" asp-route-id="">ViewBookings</a>|
-                <a asp-page="" asp-route-id="">Edit</a> |
-                <a asp-page="" asp-route-id="">Delete</a>
+                @item.SmartBoardBooked
             </td>
+            @if (CurrentUser.LoggedUser!=null && CurrentUser.LoggedUser.IsTeacher )
+            {
+        <td>
+            @* Just some placeholders for future functionality *@
+            <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+        </td>
+            }
+            @if (CurrentUser.LoggedUser!=null && CurrentUser.LoggedUser.GroupId==item.Student_GroupID )
+            {
+                <td>
+                    @* Just some placeholders for future functionality *@
+                    <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+                    <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+                </td>
+            }
         </tr>
     }
     </tbody>
