@@ -1,0 +1,43 @@
+﻿@page "Invitations"
+@model StudyroomBookingZealand.Pages.User.Profile.InvitationsModel
+@{
+    ViewData["Title"] = "Invitations";
+}
+<h1>Your invitations:</h1>
+<div>
+    <table class="table-borderless">
+           <tr>
+               <td>Sender</td>
+               <td>Group Members</td>
+           </tr>
+        @foreach (Models.Invitation i in Model.InvitationsList)
+        {
+            int j = 0;
+            <tr>
+                <td>@Model.GetUser(i.Sender).Name</td>
+                <td>
+                    @foreach (Models.User u in Model.GetStudentsFromGroup(i.Sender))
+                    {
+                        j++;
+                        @if (j == Model.GetStudentsFromGroup(i.Sender).Count)
+                        {
+                            @u.Name
+                        }
+                        else
+                        {
+                            <span class="text">@u.Name, </span>
+                        }
+
+                    }
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="btn-success" value="Accept" asp-page-handler="Accept" asp-route-id="@i.Id"/>
+                        <input type="submit" class="btn-danger" value="Decline" asp-page-handler="Decline" asp-route-id="@i.Id"/>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

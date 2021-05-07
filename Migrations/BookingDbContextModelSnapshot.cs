@@ -49,12 +49,30 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("GroupName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("GroupId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("StudyroomBookingZealand.Models.Invitation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Receiver")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invitations");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>
@@ -99,7 +117,7 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsTeacher")
@@ -125,8 +143,6 @@ namespace StudyroomBookingZealand.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
                     b.ToTable("Users");
                 });
 
@@ -137,18 +153,6 @@ namespace StudyroomBookingZealand.Migrations
                         .HasForeignKey("LocationId");
 
                     b.Navigation("Location");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.User", b =>
-                {
-                    b.HasOne("StudyroomBookingZealand.Models.Group", null)
-                        .WithMany("StudentList")
-                        .HasForeignKey("GroupId");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Group", b =>
-                {
-                    b.Navigation("StudentList");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>

@@ -25,8 +25,14 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Users.Where(u => u.Username == username).FirstOrDefault();
             
         }
+        public User GetUserByName(string name)
+        {
 
-    public void AddUser(User u)
+            return _service.Users.Where(u => u.Name == name).FirstOrDefault();
+
+        }
+
+        public void AddUser(User u)
     {
         _service.Users.Add(u);
         _service.SaveChanges();

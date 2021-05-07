@@ -11,9 +11,11 @@ namespace StudyroomBookingZealand.Pages.User
         public const string JsonLoggedInUser = @"Data\LoggedInUser.json";
         public static Models.User LoggedUser;
         public IUsers UserService;
-        public CurrentUser(IUsers service)
+        public IInvitations InvitationService;
+        public CurrentUser(IUsers service, IInvitations invitationservice)
         {
             UserService = service;
+            InvitationService = invitationservice;
         }
         
         //public static void ChangeUser(string[] login, Models.User user)//user will be provided from the GetUSerByUsername() method
@@ -27,6 +29,7 @@ namespace StudyroomBookingZealand.Pages.User
         {
             get { return LoggedUser != null; }
         }
+        
         public static bool Login(string[] login, bool rememberme, Models.User user)
         {
             if (login[1] == user.Password)

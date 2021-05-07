@@ -11,6 +11,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
     {
         public User GetUserById(int id);
         public User GetUserByUsername(string username);
+        public User GetUserByName(string name);
 
         public void AddUser(User u);
 
