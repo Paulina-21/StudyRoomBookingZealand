@@ -17,5 +17,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public List<Group> GetAllGroups();
 
         public void UpdateGroup(int id);
+        public void AddStudentToGroup(int groupid, int studentid);
+        public List<User> GetStudentsFromGroup(int id);
     }
 }
