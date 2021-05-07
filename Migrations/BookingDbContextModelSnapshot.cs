@@ -29,8 +29,11 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LocationId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("SmartBoardBooked")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Student_GroupID")
                         .HasColumnType("int");
@@ -148,11 +151,11 @@ namespace StudyroomBookingZealand.Migrations
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
                 {
-                    b.HasOne("StudyroomBookingZealand.Models.Location", "Location")
+                    b.HasOne("StudyroomBookingZealand.Models.Location", null)
                         .WithMany("Bookings")
-                        .HasForeignKey("LocationId");
-
-                    b.Navigation("Location");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>
