@@ -21,14 +21,8 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         }
         public bool HasInvitations
         {
-            get { return InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id) != null; }
+            get { return InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id).Count > 0; }
         }
-        [BindProperty]
-        public string NewGroupMember
-        {
-            get;set;
-        }
-        public int InvalidName;
         public IActionResult OnGet()
         {
             if (CurrentUser.LoggedUser == null)
@@ -39,21 +33,16 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         }
         public IActionResult OnPost()
         {
-            Models.User newgroupmember = UserService.GetUserByName(NewGroupMember);
-            if (newgroupmember != null)
-            {
-                if (CurrentUser.LoggedUser.GroupId == 0)
-                {
-                    Models.Group newgroup = new Models.Group();
-                    GroupService.AddGroup(newgroup);
-                    GroupService.AddStudentToGroup(newgroup.GroupId, CurrentUser.LoggedUser.Id);
-                }
-                Models.Invitation newinvitation = new Models.Invitation(CurrentUser.LoggedUser.Id,newgroupmember.Id);
-                InvitationService.AddInvitation(newinvitation);
-                InvalidName = 2;
-            }
-            else InvalidName = 1;
+            Models.Group newgroup = new Models.Group();
+            GroupService.AddGroup(newgroup);
+            GroupService.AddStudentToGroup(newgroup.GroupId, CurrentUser.LoggedUser.Id);
+            CurrentUser.LoggedUser.GroupId = newgroup.GroupId;
+            GroupService.UpdateGroup(newgroup.GroupId);
             return Page();
+        }
+        public List<Models.User> GetStudentsFromGroup(int id)
+        {
+            return GroupService.GetStudentsFromGroup(UserService.GetUserById(id).GroupId);
         }
     }
 }
