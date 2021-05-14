@@ -13,6 +13,8 @@
         @foreach (Models.Invitation i in Model.InvitationsList)
         {
             int j = 0;
+            if (Model.GetUser(i.Sender).GroupId != CurrentUser.LoggedUser.GroupId)
+            {
             <tr>
                 <td>@Model.GetUser(i.Sender).Name</td>
                 <td>
@@ -37,6 +39,11 @@
                     </form>
                 </td>
             </tr>
+            }
+            else
+            {
+                Model.DeclineInvitation(i.Id);
+            }
         }
 
     </table>
