@@ -16,17 +16,19 @@
         Name: @CurrentUser.LoggedUser.Name
         Phone number: @CurrentUser.LoggedUser.PhoneNr
     </div>
-    <div>
-        @if (CurrentUser.LoggedUser.GroupId!=0) // we could show the group's name here too
-        {
-            <a asp-page="ManageGroup" class="btn-primary">Manage Group</a>
-        }
-        else
-        {
-            <span class="text">You don't have any groups</span>
+    <div class="row">
+        Group:
+        <div>
             <form method="post">
-                <input type="submit" class="btn-primary" value="Create Group"/>
+                <input class="text" asp-for="NewGroupMember" placeholder="Dude's name" />
+                @if (Model.InvalidName==1)
+                {<span class="text-danger">This user couldn't be found</span>}
+                else if(Model.InvalidName==2)
+                {
+                 <span class="text-success">Invitation sent</span>
+                }
+                <input class="btn-primary" type="submit" value="Add member" />
             </form>
-        }
+        </div>
     </div>
 </div>
