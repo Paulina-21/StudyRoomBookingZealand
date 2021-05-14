@@ -28,7 +28,8 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         {
             get; set;
         }
-        public int InvalidName; // 0= default, 1 = name not found, 2= success, 3=you invited yourself, 4= this guy is already in group
+        public int InvalidName;
+       // 1 = name not found, 2= success, 3=you invited yourself, 4= this guy is already in group, 5= already invited this person
         public IActionResult OnGet()
         {
             if (CurrentUser.LoggedUser.GroupId == 0)
@@ -49,6 +50,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
                 else if (GroupService.ContainsStudent(CurrentUser.LoggedUser.GroupId, newgroupmember.Id))
                 {
                     InvalidName = 4;
+                }
+                else if (InvitationService.FindInvitation(CurrentUser.LoggedUser.Id, newgroupmember.Id))
+                {
+                    InvalidName = 5;
                 }
                 else
                 {
