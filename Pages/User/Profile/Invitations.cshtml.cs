@@ -48,6 +48,8 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         {
             Models.Invitation i = InvitationService.GetInvitation(id);
             GroupService.AddStudentToGroup(UserService.GetUserById(i.Sender).GroupId, i.Receiver);
+            CurrentUser.LoggedUser.GroupId = UserService.GetUserById(i.Sender).GroupId;
+            GroupService.UpdateGroup(UserService.GetUserById(i.Sender).GroupId);
             InvitationService.DeleteInvitation(id);
         }
         public void DeclineInvitation(int id)

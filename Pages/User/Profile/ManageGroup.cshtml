@@ -1,0 +1,51 @@
+﻿@page "ManageGroup"
+@model StudyroomBookingZealand.Pages.User.Profile.ManageGroupModel
+@{
+    ViewData["Title"] = "Group Management";
+}
+<h1>Group's name</h1>
+<div>
+    <table class="table-borderless">
+        <tr>
+            <td></td>
+            <td>Name</td>
+            <td></td>
+        </tr>
+        @foreach (Models.User u in Model.StudentsList)
+        {
+            <tr>
+                <td>Image</td>
+                <td>
+                    @u.Name
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="submit" class="btn-danger" value="X" asp-page-handler="Kick" asp-route-id="@u.Id" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        <form method="post">
+            <input class="text" asp-for="NewGroupMember" placeholder="Dude's name" />
+            @switch (Model.InvalidName)
+            {
+                case 1:
+                    <span class="text-danger">User could not be found</span>;
+                    break;
+                case 2:
+                    <span class="text-success">Invitation sent succesfully</span>;
+                    break;
+                case 3:
+                    <span class="text-danger">You are already in this group</span>;
+                    break;
+                case 4:
+                    <span class="text-danger">This person is already in your group</span>;
+                    break;
+                default: break;
+                }
+            <input class="btn-primary" type="submit" value="Add member" asp-page-handler="Invite"/>
+        </form>
+    </div>
+</div>

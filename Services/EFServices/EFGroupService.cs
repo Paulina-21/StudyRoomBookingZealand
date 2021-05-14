@@ -46,9 +46,19 @@ namespace StudyroomBookingZealand.Services.EFServices
             _service.Users.Where(s => s.Id == studentid).FirstOrDefault().GroupId = groupid;
             _service.SaveChanges();
         }
+        public void RemoveStudentFromGroup(int studentid)
+        {
+            _service.Users.Where(s => s.Id == studentid).FirstOrDefault().GroupId = 0;
+            _service.SaveChanges();
+        }
         public List<User> GetStudentsFromGroup(int id)
         {
             return _service.Users.Where(s => s.GroupId == id).ToList();
+        }
+        public bool ContainsStudent(int groupid, int studentid)
+        {
+            if (_service.Users.Where(s => s.Id == studentid).FirstOrDefault().GroupId == groupid) return true;
+            else return false;
         }
     }
 }
