@@ -43,9 +43,12 @@
                 case 4:
                     <span class="text-danger">This person is already in your group</span>;
                     break;
+                case 5:
+                    <span class="text-danger">This person already has a pending invitation</span>;
+                    break;
                 default: break;
-                }
-            <input class="btn-primary" type="submit" value="Add member" asp-page-handler="Invite"/>
+            }
+            <input class="btn-primary" type="submit" value="Add member" asp-page-handler="Invite" />
         </form>
     </div>
 </div>
