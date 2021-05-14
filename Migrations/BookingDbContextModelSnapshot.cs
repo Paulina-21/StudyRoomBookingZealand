@@ -65,8 +65,8 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Owner")
+                        .HasColumnType("int");
 
                     b.HasKey("GroupId");
 

@@ -21,7 +21,20 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         }
         public bool HasInvitations
         {
-            get { return InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id).Count > 0; }
+            get
+            {
+                if (InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id).Count > 0)
+                {
+                    int j = 0;
+                    foreach(Models.Invitation i in InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id))
+                    {
+                        if (UserService.GetUserById(i.Sender).GroupId != CurrentUser.LoggedUser.GroupId) j++;
+                    }
+                    if (j > 0) return true;
+                    else return false;
+                }
+                else return false;
+            }
         }
         public IActionResult OnGet()
         {
