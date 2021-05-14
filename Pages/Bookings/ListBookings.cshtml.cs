@@ -35,11 +35,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
             //{
             //    user = CurrentUser.LoggedUser;
             //}
-                //if(id>0)
-                //{
-                //    Room = _bookingService.RoomForBooking(id);
-                //    Bookings = _roomService.GetBookingsForRoom(Room.RoomId);
-                //}
+            if (id > 0)
+            {
+                Room = _bookingService.RoomForBooking(id);
+                Bookings = _roomService.GetBookingsForRoom(Room.RoomId);
+            }
 
             return Page();
         }

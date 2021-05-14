@@ -31,47 +31,50 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Bookings)
+    @if (Model.Bookings != null)
     {
-        <tr>
-            <td>
-                @item.BookingID
-            </td>
-            <td>
-                @item.FromDateTime
-            </td>
-            <td>
-                @item.ToDateTime
-            </td>
-            <td>
-                @item.RoomId
-                </td>
-            <td>
-                @item.Student_GroupID
-            </td>
-            <td>
-                @item.SmartBoardBooked
-            </td>
-            <td>
-                @item.SmartBoardBooked
-            </td>
-            @if (CurrentUser.LoggedUser!=null && CurrentUser.LoggedUser.IsTeacher )
-            {
-        <td>
-            @* Just some placeholders for future functionality *@
-            <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
-            <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
-        </td>
-            }
-            @if (CurrentUser.LoggedUser!=null && CurrentUser.LoggedUser.GroupId==item.Student_GroupID )
-            {
+        @foreach (var item in Model.Bookings)
+        {
+            <tr>
                 <td>
-                    @* Just some placeholders for future functionality *@
-                    <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
-                    <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+                    @item.BookingID
                 </td>
-            }
-        </tr>
+                <td>
+                    @item.FromDateTime
+                </td>
+                <td>
+                    @item.ToDateTime
+                </td>
+                <td>
+                    @item.RoomId
+                </td>
+                <td>
+                    @item.Student_GroupID
+                </td>
+                <td>
+                    @item.SmartBoardBooked
+                </td>
+                <td>
+                    @item.SmartBoardBooked
+                </td>
+                @if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher)
+                {
+                    <td>
+                        @* Just some placeholders for future functionality *@
+                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+                        <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+                    </td>
+                }
+                @if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.GroupId == item.Student_GroupID)
+                {
+                    <td>
+                        @* Just some placeholders for future functionality *@
+                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+                        <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
     }
     </tbody>
 </table>
