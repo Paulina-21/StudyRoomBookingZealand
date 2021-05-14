@@ -30,8 +30,12 @@ namespace StudyroomBookingZealand.Pages
             else
             {
                 Models.User user = UsersService.GetUserByUsername(login[0]);
-                CurrentUser.Login(login, true, user);
-                return Page();
+                if (user != null)
+                {
+                    CurrentUser.Login(login, true, user);
+                    return Page();
+                }
+                else return Page();
             }
         }
         public static string[] CheckUser() 
