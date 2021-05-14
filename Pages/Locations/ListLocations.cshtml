@@ -25,6 +25,8 @@
         </tr>
     </thead>
     <tbody>
+    @if (Model.Locations != null)
+    {
         @foreach (var item in Model.Locations)
         {
             <tr>
@@ -40,7 +42,8 @@
                 <td>
                     @item.SmartBoardsNr
                 </td>
-                @{ if (item.Rooms == null)
+                @{
+                    if (item.Rooms == null)
                     {
                         <td>
                             0
@@ -53,18 +56,20 @@
                         </td>
                     }
                 }
-            <td>
-                @* Just some placeholders for future functionality *@
-                <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
-            </td>
+                <td>
+                    @* Just some placeholders for future functionality *@
+                    <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
+                </td>
                 @if (CurrentUser.LoggedUser != null)
                 {
                     <td>
                         |<a asp-page="" asp-route-id="">Edit</a>|
-                    <a asp-page="" asp-route-id="">Delete</a>
+                        <a asp-page="" asp-route-id="">Delete</a>
                     </td>
                 }
             </tr>
         }
+    }
+   
     </tbody>
 </table>

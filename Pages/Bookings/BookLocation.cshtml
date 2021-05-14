@@ -23,14 +23,17 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (Location l in Model.Locations)
+    @if (Model.Locations != null)
     {
-        <tr>
-        <td>@l.LocationId</td>
-        <td>@l.Name</td>
-        <td>@l.Address</td>
-        <td>@l.SmartBoardsNr</td>
-        </tr>
+        @foreach (Location l in Model.Locations)
+        {
+            <tr>
+                <td>@l.LocationId</td>
+                <td>@l.Name</td>
+                <td>@l.Address</td>
+                <td>@l.SmartBoardsNr</td>
+            </tr>
+        }
     }
 
     </tbody>
@@ -42,11 +45,11 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#corp" style="background-color: aliceblue">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Select Time</a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse">Select Time</a>
                     </button>
                 </h4>
             </div>
-            <div id="collapse1" class="panel-collapse collapse-in">
+            <div id="collapse" class="panel-collapse collapse-in">
                 <div class="panel-body">
                     <form method="get">
                         <div id="collapse" class="panel-collapse collapse in" href="#this">
