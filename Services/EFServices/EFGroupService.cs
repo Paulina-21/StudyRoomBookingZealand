@@ -60,5 +60,10 @@ namespace StudyroomBookingZealand.Services.EFServices
             if (_service.Users.Where(s => s.Id == studentid).FirstOrDefault().GroupId == groupid) return true;
             else return false;
         }
+        public void SetGroupOwner(int groupid, int studentid)
+        {
+            _service.Groups.Find(groupid).Owner = studentid;
+            _service.SaveChanges();
+        }
     }
 }

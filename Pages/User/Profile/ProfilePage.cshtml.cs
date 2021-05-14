@@ -47,6 +47,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         public IActionResult OnPost()
         {
             Models.Group newgroup = new Models.Group();
+            newgroup.Owner = CurrentUser.LoggedUser.Id;
             GroupService.AddGroup(newgroup);
             GroupService.AddStudentToGroup(newgroup.GroupId, CurrentUser.LoggedUser.Id);
             CurrentUser.LoggedUser.GroupId = newgroup.GroupId;
