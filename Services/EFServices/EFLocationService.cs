@@ -22,6 +22,12 @@ namespace StudyroomBookingZealand.Services.EFServices
             _service.SaveChanges();
         }
 
+        public void AddRoomToLocation(Room r)
+        {
+            _service.Rooms.Add(r);
+            _service.SaveChanges();
+        }
+
         public void DeleteLocation(int id)
         {
             _service.Locations.Remove(GetLocation(id));
@@ -35,7 +41,7 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public List<Booking> GetBookingsForLocation(int id)
         {
-            return _service.Bookings.Where(b => b.LocationId == id).ToList();
+            return _service.Bookings.Where(b => b.RoomId == id).ToList();
         }
 
         public Location GetLocation(int id)
@@ -43,9 +49,19 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Locations.Find(id);
         }
 
-        public List<Location> SmartBoardLocations()
+        public List<Room> GetRoomsForLocation(int id)
         {
-            return _service.Locations.Where(l => l.SmartBoard == true).ToList();
+            return _service.Rooms.Where(r => r.LocationId == id).ToList();
+        }
+
+        public void SmartBoardRooms(int id)
+        {
+            List<Room> empty=new List<Room>();
+            empty= _service.Rooms.Where(r => r.SmartBoard == true && r.LocationId==id).ToList();
+            if (empty != null)
+            {
+                _service.Locations.Where(l => l.LocationId == id).FirstOrDefault().SmartBoardsNr =empty.Count;
+            }
         }
 
         public void UpdateLocation(int id)

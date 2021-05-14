@@ -16,10 +16,7 @@
                 Address
             </th>
             <th>
-                Group
-            </th>
-            <th>
-                SmartBoard Booked ?
+                SmartBoards Number
             </th>
             <th>
                 Booking Count
@@ -40,10 +37,7 @@
                     @item.Address
                 </td>
                 <td>
-                    @item.Type
-                </td>
-                <td>
-                    @item.SmartBoardBooked
+                    @item.SmartBoardsNr
                 </td>
                 @{ if (item.Bookings == null)
                     {
@@ -58,12 +52,12 @@
                         </td>
                     }
                 }
-                <td>
-                    @* Just some placeholders for future functionality *@
-                    <a asp-page="" asp-route-id="">ViewBookings</a>|
-                    <a asp-page="" asp-route-id="">Edit</a> |
-                    <a asp-page="" asp-route-id="">Delete</a>
-                </td>
+            <td>
+                @* Just some placeholders for future functionality *@
+                <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>|
+                <a asp-page="" asp-route-id="">Edit</a> |
+                <a asp-page="" asp-route-id="">Delete</a>
+            </td>
             </tr>
         }
     </tbody>

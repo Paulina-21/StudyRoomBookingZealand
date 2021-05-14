@@ -23,7 +23,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         {
             get { return InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id) != null; }
         }
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string NewGroupMember
         {
             get;set;

@@ -69,15 +69,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Locations/ListLocations">Locations</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Locations/Rooms/ListRooms">Rooms</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/ListBookings">Bookings</a>
                         </li>
+                        @{
+                            if (Pages.User.CurrentUser.Exists)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/BookLocation">Book</a>
+                                </li>
+                            }
+                        }
 
                     </ul>
                     @{if (Pages.User.CurrentUser.Exists)
                         {
-                          <div class="text">
-                              <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</a>
-                          </div>
+                            <div class="text">
+                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</a>
+                            </div>
                         }
                      }
                 </div>

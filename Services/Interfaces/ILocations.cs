@@ -11,9 +11,11 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public List<Location> GetAllLocations();
         public Location GetLocation(int id);
         public List<Booking> GetBookingsForLocation(int id);
+        public List<Room> GetRoomsForLocation(int id);
         public void AddLocation(Location l);
         public void DeleteLocation(int id);
         public void UpdateLocation(int id);
-        public List<Location> SmartBoardLocations();
+        public void AddRoomToLocation(Room r);
+        public void SmartBoardRooms(int id);
     }
 }

@@ -33,6 +33,7 @@ namespace StudyroomBookingZealand
             services.AddTransient<IGroups, EFGroupService>();
             services.AddTransient<IInvitations, EFInvitationService>();
             services.AddTransient<IBooking, EFBookingService>();
+            services.AddTransient<IRoom, EFRoomService>();
             services.AddDbContext<BookingDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookingContext")));
         }

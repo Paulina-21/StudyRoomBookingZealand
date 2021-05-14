@@ -11,10 +11,13 @@
                 Id
             </th>
             <th>
-                Time
+                From Time
             </th>
             <th>
-                Location
+                Until 
+            </th>
+            <th>
+                Room
             </th>
             <th>
                 Group
@@ -35,16 +38,19 @@
                 @item.BookingID
             </td>
             <td>
-                @item.DateTime
+                @item.FromDateTime
             </td>
             <td>
-                @item.LocationId
+                @item.ToDateTime
+            </td>
+            <td>
+                @item.RoomId
                 </td>
             <td>
                 @item.Student_GroupID
             </td>
             <td>
-                @item.LocationId
+                @item.SmartBoardBooked
             </td>
             <td>
                 @item.SmartBoardBooked
