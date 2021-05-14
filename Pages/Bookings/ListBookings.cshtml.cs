@@ -14,17 +14,19 @@ namespace StudyroomBookingZealand.Pages.Bookings
     {
         private IBooking _bookingService;
         private ILocations _locationsService;
+        public IRoom _roomService;
         [BindProperty]
-        public Location location { set; get; }
+        public Room Room { set; get; }
         public List<Booking> Bookings { get; set; }
         public Models.Group Group { get; set; }
         [BindProperty]
         public Models.User user { get; set; }
 
-        public ListBookingsModel(IBooking service,ILocations loc)
+        public ListBookingsModel(IBooking service,ILocations loc,IRoom rom)
         {
             _bookingService = service;
             _locationsService = loc;
+            _roomService = rom;
         }
         public IActionResult OnGet(int id)
         {
@@ -33,11 +35,10 @@ namespace StudyroomBookingZealand.Pages.Bookings
             //{
             //    user = CurrentUser.LoggedUser;
             //}
-                if(id>0)
+            if (id > 0)
             {
-                location = _locationsService.GetLocation(id);
-                location = _bookingService.LocationForBooking(id);
-                Bookings = _locationsService.GetBookingsForLocation(location.LocationId);
+                Room = _bookingService.RoomForBooking(id);
+                Bookings = _roomService.GetBookingsForRoom(Room.RoomId);
             }
 
             return Page();
