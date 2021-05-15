@@ -1,8 +1,10 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
+@using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Locations.ListLocationsModel
 @{
 }
+@inject ILocations LocationsService;
 
 <table class="table">
     <thead>
@@ -25,51 +27,42 @@
         </tr>
     </thead>
     <tbody>
-    @if (Model.Locations != null)
-    {
-        @foreach (var item in Model.Locations)
+        @if (Model.Locations != null)
         {
-            <tr>
-                <td>
-                    @item.LocationId
-                </td>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.Address
-                </td>
-                <td>
-                    @item.SmartBoardsNr
-                </td>
-                @{
-                    if (item.Rooms == null)
-                    {
-                        <td>
-                            0
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            @item.Rooms.Count
-                        </td>
-                    }
-                }
-                <td>
-                    @* Just some placeholders for future functionality *@
-                    <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
-                </td>
-                @if (CurrentUser.LoggedUser != null)
-                {
+            @foreach (var item in Model.Locations)
+            {
+                <tr>
                     <td>
-                        |<a asp-page="" asp-route-id="">Edit</a>|
-                        <a asp-page="" asp-route-id="">Delete</a>
+                        @item.LocationId
                     </td>
-                }
-            </tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+                    <td>
+                        @item.SmartBoardsNr
+                    </td>
+
+                    <td>
+                        @LocationsService.GetRoomsForLocation(@item.LocationId).Count
+                    </td>
+
+                    <td>
+                        @* Just some placeholders for future functionality *@
+                        <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
+                    </td>
+                    @if (CurrentUser.LoggedUser != null)
+                    {
+                        <td>
+                            |<a asp-page="" asp-route-id="">Edit</a>|
+                            <a asp-page="" asp-route-id="">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
         }
-    }
-   
+
     </tbody>
 </table>
