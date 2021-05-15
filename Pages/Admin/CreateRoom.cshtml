@@ -8,7 +8,7 @@
 
 
 
-<!--<form method="post">
+@*<form method="post">
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="@Model.Room.LocationId"> Location Name </label>
@@ -18,11 +18,11 @@
             <label asp-for="@Model.Room"> Address </label>
             <input asp-for="@Model.Room" class="form-control" />
         </div>
-        <div class="form-group">-->
-            @*<select asp-for="@Model.Location.Type" asp-items="Html.GetEnumSelectList<Location.TypeList>()">
+        <div class="form-group">
+            <select asp-for="@Model.Location.Type" asp-items="Html.GetEnumSelectList<Location.TypeList>()">
                     <option value="">Choose a group</option>
-                </select>*@
-            <!--<label asp-for="@Model.Room"> Check if the room has a smartboard </label>
+                </select>
+            <label asp-for="@Model.Room"> Check if the room has a smartboard </label>
             @Html.EditorFor(model => model.Room.SmartBoard)
         </div>
         <div class="form-group">
@@ -32,4 +32,4 @@
 </form>
 <div>
     <a asp-page="/Index">Back</a>
-</div>-->
+</div>*@
