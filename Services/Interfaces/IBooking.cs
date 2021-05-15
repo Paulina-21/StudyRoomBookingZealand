@@ -9,6 +9,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public Booking GetBookingById(int id);
         public Group GetGroupForBooking(int id);
         public Location LocationForBooking(int id);
+        public Room RoomForBooking(int id);
         public void AddBooking(Booking b);
         public void DeleteBooking(int id);
         public void UpdateBooking(int id);

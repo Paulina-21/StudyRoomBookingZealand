@@ -7,7 +7,7 @@ namespace StudyroomBookingZealand.Models
 {
     public class Group
     {
-        
         public int GroupId { set; get; }
+        public int Owner { get; set; }
     }
 }

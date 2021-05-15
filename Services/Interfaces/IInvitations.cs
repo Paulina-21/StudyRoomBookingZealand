@@ -14,5 +14,6 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public Invitation GetInvitation(int id);
         public List<Invitation> GetInvitationsForUser(int userid);
         public List<Invitation> GetInvitationsFromUser(int userid);
+        public bool FindInvitation(int sender, int receiver);
     }
 }

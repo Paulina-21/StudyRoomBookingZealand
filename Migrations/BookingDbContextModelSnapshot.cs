@@ -26,10 +26,16 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<int?>("BookerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<bool>("SmartBoardBooked")
@@ -38,9 +44,16 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<int>("Student_GroupID")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ToDateTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("BookingID");
 
+                    b.HasIndex("BookerId");
+
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
                 });
@@ -51,6 +64,9 @@ namespace StudyroomBookingZealand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Owner")
+                        .HasColumnType("int");
 
                     b.HasKey("GroupId");
 
@@ -91,6 +107,27 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SmartBoardsNr")
+                        .HasColumnType("int");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("SmartBoard")
                         .HasColumnType("bit");
 
@@ -100,9 +137,11 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("LocationId");
+                    b.HasKey("RoomId");
 
-                    b.ToTable("Locations");
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.User", b =>
@@ -151,14 +190,40 @@ namespace StudyroomBookingZealand.Migrations
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
                 {
+                    b.HasOne("StudyroomBookingZealand.Models.User", "Booker")
+                        .WithMany()
+                        .HasForeignKey("BookerId");
+
                     b.HasOne("StudyroomBookingZealand.Models.Location", null)
                         .WithMany("Bookings")
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("StudyroomBookingZealand.Models.Room", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booker");
+                });
+
+            modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
+                {
+                    b.HasOne("StudyroomBookingZealand.Models.Location", null)
+                        .WithMany("Rooms")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
                 {
                     b.Navigation("Bookings");
                 });

@@ -40,5 +40,9 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Invitations.Where(i => i.Sender == userid).ToList();
         }
+        public bool FindInvitation(int sender, int receiver)
+        {
+            return _service.Invitations.Where(i => i.Sender == sender).Where(i => i.Receiver == receiver).ToList().Count > 0;
+        }
     }
 }

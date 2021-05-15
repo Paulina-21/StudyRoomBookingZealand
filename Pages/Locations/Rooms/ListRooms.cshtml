@@ -1,49 +1,52 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
-@model StudyroomBookingZealand.Pages.Locations.ListLocationsModel
+@model StudyroomBookingZealand.Pages.Locations.Rooms.ListRoomsModel
 @{
 }
-
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Location Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                SmartBoards Number
-            </th>
-            <th>
-                No of Rooms
-            </th>
-        </tr>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Room Name
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            SmartBoard?
+        </th>
+        <th>
+            Type
+        </th>
+        <th>Nr. of Bookings</th>
+    </tr>
     </thead>
     <tbody>
-    @if (Model.Locations != null)
+    @if (Model.Rooms != null)
     {
-        @foreach (var item in Model.Locations)
+        @foreach (var item in Model.Rooms)
         {
             <tr>
                 <td>
-                    @item.LocationId
+                    @item.RoomId
                 </td>
                 <td>
                     @item.Name
                 </td>
                 <td>
-                    @item.Address
+                    @item.LocationId
                 </td>
                 <td>
-                    @item.SmartBoardsNr
+                    @item.SmartBoard
+                </td>
+                <td>
+                    @item.Type
                 </td>
                 @{
-                    if (item.Rooms == null)
+                    if (item.Bookings == null)
                     {
                         <td>
                             0
@@ -52,13 +55,13 @@
                     else
                     {
                         <td>
-                            @item.Rooms.Count
+                            @item.Bookings.Count
                         </td>
                     }
                 }
                 <td>
                     @* Just some placeholders for future functionality *@
-                    <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
+                    <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">ViewBookings</a>
                 </td>
                 @if (CurrentUser.LoggedUser != null)
                 {
@@ -70,6 +73,5 @@
             </tr>
         }
     }
-   
     </tbody>
 </table>

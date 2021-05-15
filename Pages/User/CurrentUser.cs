@@ -32,7 +32,7 @@ namespace StudyroomBookingZealand.Pages.User
         
         public static bool Login(string[] login, bool rememberme, Models.User user)
         {
-            if (login[1] == user.Password)
+           if (login[1] == user.Password)
             {
                 if (rememberme)
                 {
