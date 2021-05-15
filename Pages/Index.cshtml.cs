@@ -23,20 +23,27 @@ namespace StudyroomBookingZealand.Pages
 
         public IActionResult OnGet()
         {
-            string[] login = new string[2];
-            login = CheckUser();
-            if (login == null)
-                return Page();
-            else
+            if (!CurrentUser.Exists)
             {
-                Models.User user = UsersService.GetUserByUsername(login[0]);
-                if (user != null)
-                {
-                    CurrentUser.Login(login, true, user);
+                string[] login = new string[2];
+                login = CheckUser();
+                if (login == null)
                     return Page();
+                else
+                {
+                    Models.User user = UsersService.GetUserByUsername(login[0]);
+                    if (user != null)
+                    {
+                        CurrentUser.Login(login, true, user);
+                        if (!user.IsTeacher)
+                            return Page();
+                        else return RedirectToPage("/Admin/Admin");
+                    }
+                    else return Page();
                 }
-                else return Page();
             }
+            else if(!CurrentUser.LoggedUser.IsTeacher) return Page();
+            else return RedirectToPage("/Admin/Admin"); ;
         }
         public static string[] CheckUser() 
         {

@@ -17,16 +17,23 @@
         Phone number: @CurrentUser.LoggedUser.PhoneNr
     </div>
     <div>
-        @if (CurrentUser.LoggedUser.GroupId!=0) // we could show the group's name here too
+        @if (!CurrentUser.LoggedUser.IsTeacher) 
         {
-            <a asp-page="ManageGroup" class="btn-primary">Manage Group</a>
+            if (CurrentUser.LoggedUser.GroupId != 0) // we could show the group's name here too
+            {
+                <a asp-page="ManageGroup" class="btn-primary">Manage Group</a>
+            }
+            else
+            {
+                <span class="text">You don't have any groups</span>
+                <form method="post">
+                    <input type="submit" class="btn-primary" value="Create Group"/>
+                </form>
+            }
         }
         else
         {
-            <span class="text">You don't have any groups</span>
-            <form method="post">
-                <input type="submit" class="btn-primary" value="Create Group"/>
-            </form>
+            <span class="text">You have administrative privilleges</span>
         }
     </div>
 </div>
