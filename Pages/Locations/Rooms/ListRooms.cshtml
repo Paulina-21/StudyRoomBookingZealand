@@ -49,7 +49,8 @@
                     <td>
                         @item.Type
                     </td>
-                    @BookingService.BookingByRoomId(@item.RoomId).Count
+                    <td>@BookingService.BookingByRoomId(@item.RoomId).Count</td>
+
                     <td>
                         @* Just some placeholders for future functionality *@
                         <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">ViewBookings</a>
