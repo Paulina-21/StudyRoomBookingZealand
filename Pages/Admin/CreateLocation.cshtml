@@ -14,13 +14,13 @@
             <label asp-for="@Model.Location.Address"> Address </label>
             <input asp-for="@Model.Location.Address" class="form-control" />
         </div>
-        @*<div class="form-group">
-            <select asp-for="@Model.Location.Type" asp-items="Html.GetEnumSelectList<Location.TypeList>()">
+        <div class="form-group">
+            @*<select asp-for="@Model.Location.Type" asp-items="Html.GetEnumSelectList<Location.TypeList>()">
             <option value="">Choose a group</option>
-        </select>
-            <label asp-for="@Model.Location.Rooms"> Check if the room has a smartboard </label>
-            @Html.EditorFor(model => model.Location)
-        </div>*@
+        </select>*@
+            @*<label asp-for="@Model.Location.Rooms"> Check if the room has a smartboard </label>
+            @Html.EditorFor(model => model.Location)*@
+        </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary btn-outline-primary" value="Create" />
         </div>
