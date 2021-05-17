@@ -11,7 +11,5 @@ namespace StudyroomBookingZealand.Models
         public int LocationId { set; get; }
         public string Name { set; get; }
         public string Address { set; get; }
-        public ICollection<Booking> Bookings { set; get; }
-        public ICollection<Room> Rooms { get; set; }
     }
 }

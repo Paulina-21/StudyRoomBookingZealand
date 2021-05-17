@@ -54,15 +54,6 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Rooms.Where(r => r.LocationId == id).ToList();
         }
 
-        public void SmartBoardRooms(int id)
-        {
-            List<Room> empty=new List<Room>();
-            empty= _service.Rooms.Where(r => r.SmartBoard == true && r.LocationId==id).ToList();
-            if (empty != null)
-            {
-                _service.Locations.Where(l => l.LocationId == id).FirstOrDefault().SmartBoardsNr =empty.Count;
-            }
-        }
 
         public void UpdateLocation(int id)
         {
