@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.EFServices;
 using StudyroomBookingZealand.Services.Interfaces;
 
@@ -21,9 +23,15 @@ namespace StudyroomBookingZealand.Pages.Bookings
             _bookingService = _bokSer;
         }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             booking = _bookingService.GetBookingById(id);
+            if(CurrentUser.LoggedUser==null || (!(CurrentUser.LoggedUser.IsTeacher == true || CurrentUser.LoggedUser.GroupId == booking.Student_GroupID)))
+            {
+                return Redirect("/Unauthorized");
+            }
+
+            return Page();
         }
 
         public IActionResult OnPost(int id)

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Admin
@@ -13,21 +15,34 @@ namespace StudyroomBookingZealand.Pages.Admin
     {
         [BindProperty]
         public Room Room { set; get; }
-        private IRoom _roomService;
+        [BindProperty]
+        public int LocationId { get; set; }
+        public SelectList Options { get; set; }
 
-        public CreateRoomModel(IRoom room)
+        private IRoom _roomService;
+        private ILocations _locationsService;
+
+        public CreateRoomModel(IRoom room, ILocations locations)
         {
             _roomService = room;
+            _locationsService = locations;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
+            {
+                return Redirect("/Unauthorized");
+            }
+            Options = new SelectList(_locationsService.GetAllLocations(), nameof(Location.LocationId), nameof(Location.Name));
+            return Page();
         }
 
         public IActionResult OnPost()
         {
+            Room.LocationId = LocationId;
             _roomService.AddRoom(Room);
-            return Page();
+            return Redirect("/Locations/Rooms/ListRooms");
         }
     }
 }

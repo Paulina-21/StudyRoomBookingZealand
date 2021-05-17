@@ -1,77 +1,86 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
+@using StudyroomBookingZealand.Services.EFServices
+@using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Locations.Rooms.ListRoomsModel
+@inject ILocations LocationService;
+@inject IBooking BookingService;
 @{
 }
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Room Name
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            SmartBoard?
-        </th>
-        <th>
-            Type
-        </th>
-        <th>Nr. of Bookings</th>
-    </tr>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Room Name
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                SmartBoard?
+            </th>
+            <th>
+                Type
+            </th>
+            <th>Nr. of Bookings</th>
+        </tr>
     </thead>
     <tbody>
-    @if (Model.Rooms != null)
-    {
-        @foreach (var item in Model.Rooms)
+        @if (Model.Rooms != null)
         {
-            <tr>
-                <td>
-                    @item.RoomId
-                </td>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.LocationId
-                </td>
-                <td>
-                    @item.SmartBoard
-                </td>
-                <td>
-                    @item.Type
-                </td>
-                @{
-                    if (item.Bookings == null)
-                    {
-                        <td>
-                            0
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            @item.Bookings.Count
-                        </td>
-                    }
-                }
-                <td>
-                    @* Just some placeholders for future functionality *@
-                    <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">ViewBookings</a>
-                </td>
-                @if (CurrentUser.LoggedUser != null)
+            @foreach (var item in Model.Rooms)
+            {
+        <tr>
+            <td>
+                @item.RoomId
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @*Returns a location based of the RoomID*@
+                @LocationService.GetLocation(item.LocationId).Name
+            </td>
+            <td>
+                @item.SmartBoard
+            </td>
+            <td>
+                @item.Type
+            </td>
+            @{
+                if (item.Bookings == null)
                 {
                     <td>
-                        |<a asp-page="" asp-route-id="">Edit</a>|
-                        <a asp-page="" asp-route-id="">Delete</a>
+                        0
                     </td>
                 }
-            </tr>
+                else
+                {
+                    <td>
+                        @BookingService.BookingByRoomId(@item.RoomId).Count
+                    </td>
+                }
+            }
+            @{if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher == true)
+                {
+                    <td>
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">View Bookings</a>|
+                        <a asp-page="" asp-route-id="">Edit</a>|
+                        <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
+                    </td>
+                }
+            }
+        </tr>
+            }
         }
-    }
     </tbody>
 </table>

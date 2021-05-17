@@ -8,23 +8,23 @@ using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
-namespace StudyroomBookingZealand.Pages.Bookings
+namespace StudyroomBookingZealand.Pages.Locations
 {
-    public class EditBookingModel : PageModel
+    public class DeleteLocationModel : PageModel
     {
-        private IBooking _bookingService;
+        private ILocations _locationService;
         [BindProperty(SupportsGet = true)]
-        public Booking booking { set; get; }
+        public Location Location { set; get; }
 
-        public EditBookingModel(IBooking _bokSer)
+        public DeleteLocationModel(ILocations _bokSer)
         {
-            _bookingService = _bokSer;
+            _locationService = _bokSer;
         }
 
         public IActionResult OnGet(int id)
         {
-            booking = _bookingService.GetBookingById(id);
-            if (CurrentUser.LoggedUser == null || (!(CurrentUser.LoggedUser.IsTeacher == true || CurrentUser.LoggedUser.GroupId == booking.Student_GroupID)))
+            Location = _locationService.GetLocation(id);
+            if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
             {
                 return Redirect("/Unauthorized");
             }
@@ -34,8 +34,9 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
         public IActionResult OnPost(int id)
         {
-            _bookingService.UpdateBooking(id);
-            return Redirect("/Bookings/ListBookings");
+            _locationService.DeleteLocation(id);
+            return Redirect("/Locations/ListLocations");
         }
+       
     }
 }
