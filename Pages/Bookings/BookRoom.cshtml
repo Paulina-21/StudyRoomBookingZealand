@@ -1,40 +1,59 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
 @using StudyroomBookingZealand.Models
-@model StudyroomBookingZealand.Pages.Bookings.BookLocationModel
+@using StudyroomBookingZealand.Services.Interfaces;
+@model StudyroomBookingZealand.Pages.Bookings.BookRoomModel
 @{
 }
+@inject ILocations LocationsService
 <div>Choose a location</div>
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Address
-        </th>
-    </tr>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Address
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @if (Model.Locations != null)
-    {
-        @foreach (Location l in Model.Locations)
-        {
-            <tr>
-                <td>@l.LocationId</td>
-                <td>@l.Name</td>
-                <td>@l.Address</td>
-            </tr>
-        }
-    }
 
+        @if (Model.Rooms != null)
+        {
+            @foreach (Room r in Model.Rooms)
+            {
+                <tr>
+                    <td>Image</td>
+                    <td>@r.Name</td>
+                    <td>@r.Type</td>
+                    <td>@r.Adress @LocationsService.GetLocation(r.LocationId).Name</td>
+                    <td>
+                        @if (r.RoomId == Model.SelectedRoom)
+                        {
+                            <form method="post">
+                                <input type="submit" value="Selected" class="btn btn-outline-primary" asp-page-handler="UnSelect" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post">
+                                <input type="submit" value="Select" class="btn btn-primary" asp-page-handler="Select" asp-route-id="@r.RoomId" />
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
-
 <div class="container">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">

@@ -6,12 +6,13 @@ namespace StudyroomBookingZealand.Models
     {
         public int RoomId { get; set; }
         public int LocationId { set; get; }
+        public string Adress { get; set; }
         public string Name { set; get; }
 
         public TypeList Type { get; set; }
         public enum TypeList
         {
-            Group1, Group2, Group3, Group4
+            Classroom, Room, Lounge, Office
         }
         public ICollection<Booking> Bookings { set; get; }
         public bool SmartBoard { set; get; }
