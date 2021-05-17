@@ -55,6 +55,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
                 {
                     InvalidName = 5;
                 }
+                else if (newgroupmember.IsTeacher)
+                {
+                    InvalidName = 1;
+                }
                 else
                 {
                     Models.Invitation newinvitation = new Models.Invitation(CurrentUser.LoggedUser.Id, newgroupmember.Id);

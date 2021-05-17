@@ -1,10 +1,11 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
+@using Microsoft.CodeAnalysis.CSharp.Syntax
 @using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Locations.ListLocationsModel
 @{
 }
-@inject ILocations LocationsService;
+@inject ILocations LocationsService
 
 <table class="table">
     <thead>
@@ -44,21 +45,35 @@
                     <td>
                         @item.SmartBoardsNr
                     </td>
+                    @{
+                        if (item.Rooms == null)
+                        {
+                            <td>
+                                0
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @LocationsService.GetRoomsForLocation(item.LocationId).Count
+                            </td>
+                        }
+                    }
 
-                    <td>
-                        @LocationsService.GetRoomsForLocation(@item.LocationId).Count
-                    </td>
-
-                    <td>
-                        @* Just some placeholders for future functionality *@
-                        <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
-                    </td>
-                    @if (CurrentUser.LoggedUser != null)
-                    {
-                        <td>
-                            |<a asp-page="" asp-route-id="">Edit</a>|
-                            <a asp-page="" asp-route-id="">Delete</a>
-                        </td>
+                    @{if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher == true)
+                        {
+                            <td>
+                                <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>|
+                                <a asp-page="" asp-route-id="">Edit</a>|
+                                <a asp-page="/Locations/DeleteLocation" asp-route-id="@item.LocationId">Delete</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-page="/Locations/Rooms/ListRooms" asp-route-id="@item.LocationId">Rooms</a>
+                            </td>
+                        }
                     }
                 </tr>
             }

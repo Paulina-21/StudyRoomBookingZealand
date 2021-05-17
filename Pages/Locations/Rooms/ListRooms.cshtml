@@ -1,5 +1,6 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
+@using StudyroomBookingZealand.Services.EFServices
 @using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Locations.Rooms.ListRoomsModel
 @inject ILocations LocationService;
@@ -32,37 +33,53 @@
         {
             @foreach (var item in Model.Rooms)
             {
-                <tr>
+        <tr>
+            <td>
+                @item.RoomId
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @*Returns a location based of the RoomID*@
+                @LocationService.GetLocation(item.LocationId).Name
+            </td>
+            <td>
+                @item.SmartBoard
+            </td>
+            <td>
+                @item.Type
+            </td>
+            @{
+                if (item.Bookings == null)
+                {
                     <td>
-                        @item.RoomId
+                        0
                     </td>
+                }
+                else
+                {
                     <td>
-                        @item.Name
+                        @BookingService.BookingByRoomId(@item.RoomId).Count
                     </td>
+                }
+            }
+            @{if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher == true)
+                {
                     <td>
-                        @*Returns a location based of the RoomID*@
-                        @LocationService.GetLocation(item.LocationId).Name
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">View Bookings</a>|
+                        <a asp-page="" asp-route-id="">Edit</a>|
+                        <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
                     </td>
+                }
+                else
+                {
                     <td>
-                        @item.SmartBoard
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
                     </td>
-                    <td>
-                        @item.Type
-                    </td>
-                    <td>@BookingService.BookingByRoomId(@item.RoomId).Count</td>
-
-                    <td>
-                        @* Just some placeholders for future functionality *@
-                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.RoomId">ViewBookings</a>
-                    </td>
-                    @if (CurrentUser.LoggedUser != null)
-                    {
-                        <td>
-                            |<a asp-page="" asp-route-id="">Edit</a>|
-                            <a asp-page="" asp-route-id="">Delete</a>
-                        </td>
-                    }
-                </tr>
+                }
+            }
+        </tr>
             }
         }
     </tbody>
