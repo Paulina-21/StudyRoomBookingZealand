@@ -61,6 +61,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Rooms.Where(r => r.RoomId == id).FirstOrDefault();
         }
+
         public List<Booking> BookingByRoomId(int id)
         {
             return _service.Bookings.Where(b => b.RoomId == id).ToList();

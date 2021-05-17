@@ -18,7 +18,7 @@ namespace StudyroomBookingZealand.Pages.Admin
         [BindProperty]
         public int LocationId { get; set; }
         public SelectList Options { get; set; }
-
+       
         private IRoom _roomService;
         private ILocations _locationsService;
 
