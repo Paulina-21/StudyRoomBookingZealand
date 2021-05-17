@@ -1,0 +1,67 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Locations.DeleteLocationModel
+@{
+}
+<div>
+    <h3>
+        Are you sure you want to delete this Location?
+    </h3>
+</div>
+<br/>
+<br/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <td>
+                @Model.Location.LocationId
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Name
+            </th>
+            <td>
+                @Model.Location.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Address
+            </th>
+            <td>
+                @Model.Location.Address
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Rooms
+            </th>
+            @{
+                if (Model.Location.Rooms != null)
+                {
+                    <td>
+                        @Model.Location.Rooms.Count
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        0
+                    </td>
+                }
+            }
+            
+        </tr>
+
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<td>
+    <form method="post">
+        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.Location.LocationId" asp-page="/Locations/DeleteLocation" />
+    </form>
+</td>         

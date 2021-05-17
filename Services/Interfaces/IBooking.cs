@@ -13,5 +13,6 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void AddBooking(Booking b);
         public void DeleteBooking(int id);
         public void UpdateBooking(int id);
+        public List<Booking> BookingByRoomId(int id);
     }
 }

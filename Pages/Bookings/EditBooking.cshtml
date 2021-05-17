@@ -7,3 +7,62 @@
         Are you sure you want to edit this booking?
     </h3>
 </div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            @Model.booking.BookingID
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Location
+        </th>
+        <td>
+            @Model.booking.RoomId
+        </td>
+    </tr>
+    <tr>
+        <th>
+            From Time
+        </th>
+        <td>
+            @Model.booking.FromDateTime
+        </td>
+    </tr>
+    <tr>
+        <th>
+            To Time
+        </th>
+        <td>
+            @Model.booking.ToDateTime
+        </td>
+    </tr>
+    <tr>
+        <th>
+            SmartBoardBooked?
+        </th>
+        <td>
+            @Model.booking.SmartBoardBooked
+        </td>
+    </tr>
+    <tr>
+        <th>
+            GroupId
+        </th>
+        <td>
+            @Model.booking.Student_GroupID
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<td>
+    <form method="post">
+        <input align="right" type="submit" class="btn btn-danger" value="Update" style="background-color: red; color: white" asp-route-id="@Model.booking.BookingID" asp-page="/Booking/EditBooking" />
+    </form>
+</td>         

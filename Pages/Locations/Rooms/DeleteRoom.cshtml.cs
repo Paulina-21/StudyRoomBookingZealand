@@ -8,31 +8,34 @@ using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
-namespace StudyroomBookingZealand.Pages.Admin
+namespace StudyroomBookingZealand.Pages.Locations.Rooms
 {
-    public class CreateLocationModel : PageModel
+    public class DeleteRoomModel : PageModel
     {
-        [BindProperty]
-        public Location Location { get; set; }
-        private ILocations _locationsService;
+        private IRoom _roomService;
+        [BindProperty(SupportsGet = true)]
+        public Room Room { set; get; }
 
-        public CreateLocationModel(ILocations service)
+        public DeleteRoomModel(IRoom _bokSer)
         {
-            _locationsService = service;
+            _roomService = _bokSer;
         }
-        public IActionResult OnGet()
+
+        public IActionResult OnGet(int id)
         {
+            Room = _roomService.GetRoomById(id);
             if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
             {
                 return Redirect("/Unauthorized");
             }
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int id)
         {
-            _locationsService.AddLocation(Location);
-            return Page();
+            _roomService.DeleteRoom(id);
+            return Redirect("/Rooms/ListRooms");
         }
     }
 }
