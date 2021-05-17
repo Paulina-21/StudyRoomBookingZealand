@@ -26,14 +26,8 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FromDateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -47,11 +41,10 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<DateTime>("ToDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("BookingID");
-
-                    b.HasIndex("BookerId");
-
-                    b.HasIndex("LocationId");
 
                     b.HasIndex("RoomId");
 
@@ -107,9 +100,6 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SmartBoardsNr")
-                        .HasColumnType("int");
-
                     b.HasKey("LocationId");
 
                     b.ToTable("Locations");
@@ -139,8 +129,6 @@ namespace StudyroomBookingZealand.Migrations
 
                     b.HasKey("RoomId");
 
-                    b.HasIndex("LocationId");
-
                     b.ToTable("Rooms");
                 });
 
@@ -159,13 +147,18 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsTeacher")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -190,37 +183,11 @@ namespace StudyroomBookingZealand.Migrations
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
                 {
-                    b.HasOne("StudyroomBookingZealand.Models.User", "Booker")
-                        .WithMany()
-                        .HasForeignKey("BookerId");
-
-                    b.HasOne("StudyroomBookingZealand.Models.Location", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("LocationId");
-
                     b.HasOne("StudyroomBookingZealand.Models.Room", null)
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Booker");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
-                {
-                    b.HasOne("StudyroomBookingZealand.Models.Location", null)
-                        .WithMany("Rooms")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Location", b =>
-                {
-                    b.Navigation("Bookings");
-
-                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
