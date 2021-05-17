@@ -1,0 +1,61 @@
+﻿@page
+@using Microsoft.EntityFrameworkCore.Infrastructure
+@model StudyroomBookingZealand.Pages.Locations.Rooms.DeleteRoomModel
+@{
+}
+<div>
+    <h3>
+        Are you sure you want to delete this Room?
+    </h3>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <td>
+            @Model.Room.RoomId
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Location
+        </th>
+        <td>
+            @Model.Room.LocationId
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Name
+        </th>
+        <td>
+            @Model.Room.Name
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Type
+        </th>
+        <td>
+            @Model.Room.Type
+        </td>
+    </tr>
+    <tr>
+        <th>
+            SmartBoard
+        </th>
+        <td>
+            @Model.Room.SmartBoard
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<td>
+    <form method="post">
+        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.Room.RoomId" asp-page="/Locations/Rooms/DeleteRoom" />
+    </form>
+</td>         

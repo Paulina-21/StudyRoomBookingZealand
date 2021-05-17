@@ -11,7 +11,7 @@ namespace StudyroomBookingZealand.Pages.Locations.Rooms
 {
     public class ListRoomsModel : PageModel
     {
-        private Location location { get; set; }
+        private Location Location { get; set; }
         private IRoom _roomService;
         private ILocations _locService;
         public List<Room> Rooms { get; set; }
@@ -26,8 +26,8 @@ namespace StudyroomBookingZealand.Pages.Locations.Rooms
             Rooms = _roomService.GetAllRooms();
             if (id > 0)
             {
-                location = _locService.GetLocation(id);
-                Rooms = _locService.GetRoomsForLocation(location.LocationId);
+                Location = _locService.GetLocation(id);
+                Rooms = _locService.GetRoomsForLocation(Location.LocationId);
             }
             return Page();
         }
