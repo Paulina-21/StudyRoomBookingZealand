@@ -16,18 +16,18 @@
             if (Model.GetUser(i.Sender).GroupId != CurrentUser.LoggedUser.GroupId)
             {
             <tr>
-                <td>@Model.GetUser(i.Sender).Name</td>
+                <td>@Model.GetUser(i.Sender).FullName</td>
                 <td>
                     @foreach (Models.User u in Model.GetStudentsFromGroup(i.Sender))
                     {
                         j++;
                         @if (j == Model.GetStudentsFromGroup(i.Sender).Count)
                         {
-                            @u.Name
+                            @u.FullName
                         }
                         else
                         {
-                            <span class="text">@u.Name, </span>
+                            <span class="text">@u.FullName, </span>
                         }
 
                     }

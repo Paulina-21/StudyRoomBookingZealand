@@ -87,7 +87,7 @@
                     @{if (Pages.User.CurrentUser.Exists)
                         {
                             <div class="text">
-                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</a>
+                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
                             </div>
                         }
                      }

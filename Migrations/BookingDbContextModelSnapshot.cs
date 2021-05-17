@@ -26,9 +26,6 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FromDateTime")
                         .HasColumnType("datetime2");
 
@@ -47,9 +44,10 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<DateTime>("ToDateTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("BookingID");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("BookerId");
+                    b.HasKey("BookingID");
 
                     b.HasIndex("LocationId");
 
@@ -159,16 +157,16 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsTeacher")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -190,10 +188,6 @@ namespace StudyroomBookingZealand.Migrations
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
                 {
-                    b.HasOne("StudyroomBookingZealand.Models.User", "Booker")
-                        .WithMany()
-                        .HasForeignKey("BookerId");
-
                     b.HasOne("StudyroomBookingZealand.Models.Location", null)
                         .WithMany("Bookings")
                         .HasForeignKey("LocationId");
@@ -203,8 +197,6 @@ namespace StudyroomBookingZealand.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Booker");
                 });
 
             modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
