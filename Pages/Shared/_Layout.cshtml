@@ -77,17 +77,20 @@
                         @{
                             if (Pages.User.CurrentUser.Exists)
                             {
+                                if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
+                                {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/BookLocation">Book</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
                                 </li>
+                                }
                             }
-                        }
+                          }
 
                     </ul>
                     @{if (Pages.User.CurrentUser.Exists)
                         {
                             <div class="text">
-                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</a>
+                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
                             </div>
                         }
                      }

@@ -12,39 +12,42 @@ using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Bookings
 {
-    public class BookLocationModel : PageModel
+    public class BookRoomModel : PageModel
     {
-        private IBooking _BookService;
-        private ILocations _LocService;
-        public List<Location> Locations { get; set; }
+        private IBooking BookService;
+        private IRoom RoomService;
         public DateTime FromTime { get; set; }
         public DateTime ToTime { get; set; }
+        public int SelectedRoom { get; set; }
+        public static int Location;
 
-        public BookLocationModel(IBooking book, ILocations loc)
+        public BookRoomModel(IBooking book, IRoom room)
         {
-            _BookService = book;
-            _LocService = loc;
+            BookService = book;
+            RoomService = room;
         }
+        public List<Room> Rooms;
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
+            Location = id;
             if (CurrentUser.LoggedUser == null)
             {
                 return RedirectToPage("/Unauthorized");
             }
-            else
-            {
-                if (CurrentUser.LoggedUser.IsTeacher || CurrentUser.LoggedUser.GroupId != 0)
-                {
-                    Locations = _LocService.GetAllLocations();
-                }
-            }
-                return Page();
+            Rooms = RoomService.GetAllRoomsForLocation(id);
+            return Page();
         }
 
-        public IActionResult OnPost()
+        public void OnPostSelect(int id)
         {
-            return Page();
+            SelectedRoom = id;
+            OnGet(Location);
+        }
+        public void OnPostUnSelect()
+        {
+            SelectedRoom = 0;
+            OnGet(Location);
         }
     }
 }

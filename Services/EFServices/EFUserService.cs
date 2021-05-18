@@ -28,7 +28,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         public User GetUserByName(string name)
         {
 
-            return _service.Users.Where(u => u.Name == name).FirstOrDefault();
+            return _service.Users.Where(u => u.FirstName+" "+u.LastName == name).FirstOrDefault();
 
         }
 

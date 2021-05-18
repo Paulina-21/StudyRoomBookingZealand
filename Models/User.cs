@@ -11,7 +11,10 @@ namespace StudyroomBookingZealand.Models
     {
         [Required]
         [StringLength(50)]
-        public string Name { set; get; }
+        public string FirstName { set; get; }
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
         public int Id { set; get; }
         [Required]
         [StringLength(50)]
@@ -26,5 +29,9 @@ namespace StudyroomBookingZealand.Models
         public string Email { get; set; }
         public bool IsTeacher { get; set; }
         public int GroupId { get; set; }
+        public string FullName
+        {
+            get { return FirstName +" "+ LastName; }
+        }
     }
 }

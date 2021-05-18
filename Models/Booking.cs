@@ -13,8 +13,15 @@ namespace StudyroomBookingZealand.Models
         public int Student_GroupID { set; get; }
         public DateTime FromDateTime { set; get; }
         public DateTime ToDateTime { get; set; }
+        public TimeSpan Duration
+        { 
+            get { return ToDateTime.Subtract(FromDateTime); } 
+        }
         public int RoomId { set; get; }
-        public bool SmartBoardBooked { get; set; }
-        public User Booker { get; set; }
+        public bool SmartBoardBooked
+        {
+            get;set;
+        }
+        public int UserId { get; set; }
     }
 }

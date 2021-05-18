@@ -1,0 +1,25 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Bookings.StartBookingModel
+@using Microsoft.CodeAnalysis.CSharp.Syntax
+@using StudyroomBookingZealand.Services.Interfaces
+@using StudyroomBookingZealand.Models
+@inject ILocations LocationService
+@{
+}
+
+<div class="card-deck">
+    @foreach (Location l in LocationService.GetAllLocations())
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@l.Name</h5>
+                <p class="card-text">
+                    Description?
+                </p>
+            </div>
+            <div class="card-footer">
+                <a asp-page="BookRoom" class="btn btn-light" asp-route-id="@l.LocationId">View rooms</a>
+            </div>
+        </div>
+    }
+</div>

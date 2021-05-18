@@ -1,0 +1,63 @@
+﻿@page
+@using StudyroomBookingZealand.Pages.User
+@using StudyroomBookingZealand.Models
+@using StudyroomBookingZealand.Services.Interfaces;
+@model StudyroomBookingZealand.Pages.Bookings.BookRoomModel
+@{
+}
+@inject ILocations LocationsService
+<div>Choose a room from @LocationsService.GetLocation(BookRoomModel.Location).Name</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Address
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Rooms != null)
+        {
+            @foreach (Room r in Model.Rooms)
+            {
+                <tr>
+                    <td>Image</td>
+                    <td>@r.Name</td>
+                    <td>@r.Type</td>
+                    <td>@r.Adress</td>
+                    <td>
+                        @if (r.RoomId == Model.SelectedRoom)
+                        {
+                            <form method="post">
+                                <input type="submit" value="Selected" class="btn btn-outline-primary" asp-page-handler="UnSelect" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post">
+                                <input type="submit" value="Select" class="btn btn-primary" asp-page-handler="Select" asp-route-id="@r.RoomId" />
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-page="SelectTime" class="btn btn-light" asp-route-id="@Model.SelectedRoom">View available bookings</a>
+</div>
+
+
+
+

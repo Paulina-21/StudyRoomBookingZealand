@@ -33,7 +33,10 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Rooms.ToList();
         }
-
+        public List<Room> GetAllRoomsForLocation(int locationid)
+        {
+            return _service.Rooms.Where(r => r.LocationId == locationid).ToList();
+        }
         public List<Booking> GetBookingsForRoom(int id)
         {
             return _service.Bookings.Where(b => b.RoomId == id).ToList();
