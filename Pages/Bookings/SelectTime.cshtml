@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-6">
-            @if(Model.Stage==0)
+            @if(Model.Stage==0)// calendar and day picker
             {
             <form method="post">
                 <div>
@@ -34,7 +34,7 @@
                 <input type ="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day"/>
             </form>
             }
-            else
+            else //time of day picker
             {
                 <table class="table-borderless">
                     @{ 
