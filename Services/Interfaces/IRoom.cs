@@ -10,6 +10,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
     {
         public Room GetRoomById(int id);
         public List<Room> GetAllRooms();
+        public List<Room> GetAllRoomsForLocation(int locationid);
         public List<Booking> GetBookingsForRoom(int id);
         public void AddRoom(Room r);
         public void DeleteRoom(int id);
