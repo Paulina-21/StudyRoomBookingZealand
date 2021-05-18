@@ -3,4 +3,70 @@
 @{
     ViewData["Title"] = "Homepage";
 }
-<h1>Super duper top secret admim page</h1>
+<div class="text-center">
+    <h1>Welcome to the Admin Page</h1>
+
+</div>
+@*<div class="alert alert-primary" role="alert">
+    There are currently @CustomerCatalog.GetAllCustomers().Count users registered in our system !
+</div>
+<div class="alert alert-primary" role="alert">
+    There are currently @StoreCatalog.GetAllStores().Count stores in our system!
+</div>
+<div class="alert alert-primary" role="alert">
+    There are currently @OrderCatalog.GetAllOrders().Count registered orders in our system !
+</div>*@
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Users</h5>
+            <p class="card-text">
+                Manage everything related to Users
+            </p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageUsers" />
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Rooms</h5>
+            <p class="card-text">
+                Manage everything related to Rooms
+            </p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageRooms" />
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Locations</h5>
+            <p class="card-text">
+                Manage everything related to Locations
+            </p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageLocations" />
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Bookings</h5>
+            <p class="card-text">
+                Manage everything related to Bookings
+            </p>
+        </div>
+        <div class="card-footer">
+            <form method="post">
+                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageBookings" />
+            </form>
+        </div>
+    </div>
+</div>

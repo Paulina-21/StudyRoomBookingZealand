@@ -35,7 +35,13 @@ namespace StudyroomBookingZealand.Pages.Locations.Rooms
         public IActionResult OnPost(int id)
         {
             _roomService.DeleteRoom(id);
-            return Redirect("/Rooms/ListRooms");
+            if (CurrentUser.LoggedUser.IsTeacher)
+            {
+                return Redirect("/Admin/ListRooms");
+            }
+
+            return Redirect("Locations/Rooms/ListRooms");
+
         }
     }
 }

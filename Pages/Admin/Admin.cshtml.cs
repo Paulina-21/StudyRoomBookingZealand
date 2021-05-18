@@ -16,7 +16,28 @@ namespace StudyroomBookingZealand.Pages.Admin
             {
                 return Redirect("/Unauthorized");
             }
+
             return Page();
+        }
+
+        public IActionResult OnPostManageUsers()
+        {
+            return null;
+        }
+
+        public IActionResult OnPostManageRooms()
+        {
+            return Redirect("/Admin/ListRooms");
+        }
+
+        public IActionResult OnPostManageLocations()
+        {
+            return Redirect("/Admin/ListLocations");;
+        }
+
+        public IActionResult OnPostManageBookings()
+        {
+            return Redirect("/Admin/ListBookings");
         }
     }
 }
