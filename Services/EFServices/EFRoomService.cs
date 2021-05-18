@@ -2,6 +2,8 @@
 using StudyroomBookingZealand.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using StudyroomBookingZealand.Pages.Shared;
 
 namespace StudyroomBookingZealand.Services.EFServices
 {
@@ -47,10 +49,21 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Rooms.Where(r=>r.SmartBoard==true).ToList();
         }
 
-        public void UpdateRoom(int id)
+        public void UpdateRoom(Room r)
         {
-            _service.Rooms.Update(GetRoomById(id));
+            _service.Rooms.Update(r);
             _service.SaveChanges();
+        }
+
+        public List<Room> SearchbyName(string searchCriteria)
+        {
+
+                return _service.Rooms.Where(r => r.Name.StartsWith(searchCriteria)).ToList();
+        }
+
+        public List<Room> SearchByNameAndLocId(string searchCriteria, int id)
+        {
+            return _service.Rooms.Where(r => r.LocationId == id && r.Name.StartsWith(searchCriteria)).ToList();
         }
     }
 }
