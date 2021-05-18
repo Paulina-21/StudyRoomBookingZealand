@@ -1,7 +1,10 @@
 ﻿using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using StudyroomBookingZealand.Pages.Shared;
 
 namespace StudyroomBookingZealand.Services.EFServices
 {
@@ -31,7 +34,10 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Rooms.ToList();
         }
-
+        public List<Room> GetAllRoomsForLocation(int locationid)
+        {
+            return _service.Rooms.Where(r => r.LocationId == locationid).ToList();
+        }
         public List<Booking> GetBookingsForRoom(int id)
         {
             return _service.Bookings.Where(b => b.RoomId == id).ToList();
@@ -47,10 +53,25 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Rooms.Where(r=>r.SmartBoard==true).ToList();
         }
 
-        public void UpdateRoom(int id)
+        public void UpdateRoom(Room r)
         {
-            _service.Rooms.Update(GetRoomById(id));
+            _service.Rooms.Update(r);
             _service.SaveChanges();
+        }
+
+        public List<Room> SearchbyName(string searchCriteria)
+        {
+
+                return _service.Rooms.Where(r => r.Name.StartsWith(searchCriteria)).ToList();
+        }
+
+        public List<Room> SearchByNameAndLocId(string searchCriteria, int id)
+        {
+            return _service.Rooms.Where(r => r.LocationId == id && r.Name.StartsWith(searchCriteria)).ToList();
+        }
+        public bool CheckAvailability(int roomid, DateTime date)
+        {
+           return _service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count > 0;
         }
     }
 }

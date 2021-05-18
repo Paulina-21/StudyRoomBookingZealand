@@ -1,8 +1,10 @@
 ﻿@page
 @using Microsoft.EntityFrameworkCore.Infrastructure
+@using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Locations.Rooms.DeleteRoomModel
 @{
 }
+@inject ILocations LocationService;
 <div>
     <h3>
         Are you sure you want to delete this Room?
@@ -20,10 +22,19 @@
     </tr>
     <tr>
         <th>
-            Location
+            LocationID
         </th>
         <td>
             @Model.Room.LocationId
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Location Name
+        </th>
+        <td>
+            @*Returns a location based of the RoomID*@
+            @LocationService.GetLocation(Model.Room.LocationId).Name
         </td>
     </tr>
     <tr>

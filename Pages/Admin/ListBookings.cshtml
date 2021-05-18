@@ -1,0 +1,67 @@
+﻿@page
+@using StudyroomBookingZealand.Pages.User
+@model StudyroomBookingZealand.Pages.Admin.ListBookingsModel
+@{
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                From Time
+            </th>
+            <th>
+                Until
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Group
+            </th>
+            <th>
+                SmartBoard?
+            </th>
+            <th>
+                SmartBoard Booked ?
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Bookings != null)
+        {
+            @foreach (var item in Model.Bookings)
+            {
+                <tr>
+                    <td>
+                        @item.BookingID
+                    </td>
+                    <td>
+                        @item.FromDateTime
+                    </td>
+                    <td>
+                        @item.ToDateTime
+                    </td>
+                    <td>
+                        @item.RoomId
+                    </td>
+                    <td>
+                        @item.Student_GroupID
+                    </td>
+                    <td>
+                        @item.SmartBoardBooked
+                    </td>
+                    <td>
+                        @item.SmartBoardBooked
+                    </td>
+                    <td>
+                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+                        <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

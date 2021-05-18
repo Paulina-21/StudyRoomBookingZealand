@@ -29,6 +29,11 @@ namespace StudyroomBookingZealand.Pages.User
         {
             get { return LoggedUser != null; }
         }
+
+        public static bool IsAdmin //Right now its checking the user is a teacher, it will also be considered as admin
+        {
+            get { return LoggedUser.IsTeacher; }
+        }
         
         public static bool Login(string[] login, bool rememberme, Models.User user)
         {

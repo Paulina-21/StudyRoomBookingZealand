@@ -19,6 +19,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public DateTime FromTime { get; set; }
         public DateTime ToTime { get; set; }
         public int SelectedRoom { get; set; }
+        public static int Location;
 
         public BookRoomModel(IBooking book, IRoom room)
         {
@@ -27,25 +28,26 @@ namespace StudyroomBookingZealand.Pages.Bookings
         }
         public List<Room> Rooms;
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
+            Location = id;
             if (CurrentUser.LoggedUser == null)
             {
                 return RedirectToPage("/Unauthorized");
             }
-            Rooms = RoomService.GetAllRooms();
+            Rooms = RoomService.GetAllRoomsForLocation(id);
             return Page();
         }
 
         public void OnPostSelect(int id)
         {
             SelectedRoom = id;
-            OnGet();
+            OnGet(Location);
         }
         public void OnPostUnSelect()
         {
             SelectedRoom = 0;
-            OnGet();
+            OnGet(Location);
         }
     }
 }
