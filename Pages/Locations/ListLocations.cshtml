@@ -19,9 +19,7 @@
             <th>
                 Address
             </th>
-            <th>
-                SmartBoards Number
-            </th>
+            
             <th>
                 No of Rooms
             </th>
@@ -42,22 +40,10 @@
                     <td>
                         @item.Address
                     </td>
-                    <td>
-                        @item.SmartBoardsNr
-                    </td>
                     @{
-                        if (item.Rooms == null)
-                        {
-                            <td>
-                                0
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                @LocationsService.GetRoomsForLocation(item.LocationId).Count
-                            </td>
-                        }
+                     <td>
+                         @LocationsService.GetRoomsForLocation(item.LocationId).Count
+                     </td>
                     }
 
                     @{if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher == true)

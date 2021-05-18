@@ -1,47 +1,59 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
 @using StudyroomBookingZealand.Models
-@model StudyroomBookingZealand.Pages.Bookings.BookLocationModel
+@using StudyroomBookingZealand.Services.Interfaces;
+@model StudyroomBookingZealand.Pages.Bookings.BookRoomModel
 @{
 }
-@* Fount the REAL stuff for Zealand logo
-    https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png*@
+@inject ILocations LocationsService
 <div>Choose a location</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Id
+                Image
             </th>
             <th>
                 Name
             </th>
             <th>
-                Address
+                Type
             </th>
             <th>
-                SmartBoards Nr.
+                Address
             </th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.Locations != null)
+
+        @if (Model.Rooms != null)
         {
-            @foreach (Location l in Model.Locations)
+            @foreach (Room r in Model.Rooms)
             {
                 <tr>
-                    <td>@l.LocationId</td>
-                    <td>@l.Name</td>
-                    <td>@l.Address</td>
-                    <td>@l.SmartBoardsNr</td>
-                    <td><button type="submit">NOT WORKING</button></td>
+                    <td>Image</td>
+                    <td>@r.Name</td>
+                    <td>@r.Type</td>
+                    <td>@r.Adress @LocationsService.GetLocation(r.LocationId).Name</td>
+                    <td>
+                        @if (r.RoomId == Model.SelectedRoom)
+                        {
+                            <form method="post">
+                                <input type="submit" value="Selected" class="btn btn-outline-primary" asp-page-handler="UnSelect" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post">
+                                <input type="submit" value="Select" class="btn btn-primary" asp-page-handler="Select" asp-route-id="@r.RoomId" />
+                            </form>
+                        }
+                    </td>
                 </tr>
             }
         }
-
     </tbody>
 </table>
-
 <div class="container">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">

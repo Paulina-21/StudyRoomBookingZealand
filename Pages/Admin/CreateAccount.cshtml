@@ -3,7 +3,49 @@
 @using StudyroomBookingZealand.Models
 @model StudyroomBookingZealand.Pages.Admin.CreateAccountModel
 @{
-//ViewData["Title"] = "CreateAccount";
+    //ViewData["Title"] = "CreateAccount";
 }
+<h1>Create Account</h1>
 
-<h1>THIS IS NOT IMPLEMENTED YET</h1>
+<form method="post">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="@Model.User.FirstName"> Name </label>
+            <input asp-for="@Model.User.FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.LastName"> Name </label>
+            <input asp-for="@Model.User.LastName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.Address"> Address </label>
+            <input asp-for="@Model.User.Address" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.Username"> Username </label>
+            <input asp-for="@Model.User.Username" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.Password"> Password </label>
+            <input asp-for="@Model.User.Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.Email"> Email </label>
+            <input asp-for="@Model.User.Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.PhoneNr"> Phone Number </label>
+            <input asp-for="@Model.User.PhoneNr" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.User.IsTeacher"> Is this user a Teacher ? </label>
+            @Html.EditorFor(model => model.User.IsTeacher)
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-outline-primary" value="Create" />
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-page="/Index">Back</a>
+</div>

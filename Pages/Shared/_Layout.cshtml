@@ -2,10 +2,14 @@
 @using Microsoft.AspNetCore.Http
 @using Microsoft.VisualBasic
 
+@* Fount the REAL stuff for Zealand logo
+    https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png*@
+
 <style>
     .header {
         background-color: #ffe766
     }
+
     .card {
         border-color: transparent;
         background-color: #FFE766;
@@ -15,7 +19,8 @@
         height: 100px;
         width: 200px;
     }
-    .footer:hover{
+
+    .footer:hover {
         background-color: #FFE766;
     }
 
@@ -28,11 +33,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - StudyroomBookingZealand</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
@@ -77,9 +82,12 @@
                         @{
                             if (Pages.User.CurrentUser.Exists)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/BookLocation">Book</a>
-                                </li>
+                                if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/BookRoom">Book</a>
+                                    </li>
+                                }
                             }
                         }
 
@@ -87,10 +95,10 @@
                     @{if (Pages.User.CurrentUser.Exists)
                         {
                             <div class="text">
-                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.Name</a>
+                                <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
                             </div>
                         }
-                     }
+                    }
                 </div>
             </div>
         </nav>
@@ -102,15 +110,15 @@
     </div>
 
 
-<footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
-            
-                <div class="card-image" style="background-color: transparent">
-                    <a href="https://zealand.com/">
-                        <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
-                    </a>
-                </div>
+
+            <div class="card-image" style="background-color: transparent">
+                <a href="https://zealand.com/">
+                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
+                </a>
+            </div>
         </div>
     </footer>
 
