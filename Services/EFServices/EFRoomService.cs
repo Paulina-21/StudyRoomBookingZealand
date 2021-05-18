@@ -1,5 +1,6 @@
 ﻿using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,6 +55,10 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             _service.Rooms.Update(GetRoomById(id));
             _service.SaveChanges();
+        }
+        public bool CheckAvailability(int roomid, DateTime date)
+        {
+           return _service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count > 0;
         }
     }
 }
