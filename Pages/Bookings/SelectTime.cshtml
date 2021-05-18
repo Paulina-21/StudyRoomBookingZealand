@@ -24,37 +24,49 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="container">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#corp" style="background-color: aliceblue">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse">Select Time</a>
-                                </button>
-                            </h4>
-                        </div>
-                        <div id="collapse" class="panel-collapse collapse-in">
-                            <div class="panel-body">
-                                <form method="get">
-                                    <div id="collapse" class="panel-collapse collapse in" href="#this">
-                                        <div class="form-group">
-                                            From Date: <input class="form-control" asp-for="FromTime" />
-                                        </div>
-                                        <div class="form-group">
-                                            To Date: <input class="form-control" asp-for="ToTime" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input id="this" type="submit" value="Still Implementing" class="btn btn-primary" />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+            @if(Model.Stage==0)
+            {
+            <form method="post">
+                <div>
+                    Pick the day you want to reserve
                 </div>
-            </div>
-
+                <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="FromDate">
+                <input type ="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day"/>
+            </form>
+            }
+            else
+            {
+                <table class="table-borderless">
+                    @{ 
+                        int time = 8;
+                        int time2 = 10;
+                        while (time < 16)
+                        {
+                            var datetime = new DateTime(Model.FromDate.Year, Model.FromDate.Month, Model.FromDate.Day);
+                            datetime = datetime.AddHours(time);
+                            <tr>
+                                <td>
+                                @time - @time2
+                                </td>
+                                <td>
+                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) )
+                                    {
+                                        <span class="btn btn-outline-primary">Unavailable</span>
+                                    }
+                                    else
+                                    {
+                                        <form method="post">
+                                            <input type="submit" value="Reserve" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime"/>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                            time = time + 2;
+                            time2 = time2 + 2;
+                        }
+                    }
+                </table>
+            }
         </div>
     </div>
 </div>

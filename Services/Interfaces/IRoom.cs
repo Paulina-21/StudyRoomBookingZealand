@@ -16,6 +16,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void DeleteRoom(int id);
         public void UpdateRoom(int id);
         public List<Room> SmartBoardRooms();
+        public bool CheckAvailability(int roomid, DateTime date);
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Bookings
@@ -17,15 +18,32 @@ namespace StudyroomBookingZealand.Pages.Bookings
             BookService = bservice;
             RoomService = rservice;
         }
+        public int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
         [BindProperty]
-        public DateTime FromTime { get; set; }
+        public DateTime FromDate { get; set; }
         [BindProperty]
-        public DateTime ToTime { get; set; }
+        public DateTime Duration { get; set; }
         public IActionResult OnGet(int id)
         {
             SelectedRoom = id;
             return Page();
+        }
+        public IActionResult OnPostDay()
+        {
+            Stage = 1;
+            return Page();
+        }
+        public IActionResult OnPostBook(int id, DateTime datetime)
+        {
+            Models.Booking booking = new Models.Booking();
+            booking.RoomId = id;
+            booking.UserId = CurrentUser.LoggedUser.Id;
+            booking.FromDateTime = datetime;
+            booking.ToDateTime = datetime.AddHours(2);
+            booking.Student_GroupID = CurrentUser.LoggedUser.GroupId;
+            BookService.AddBooking(booking);
+            return RedirectToPage("/Index");
         }
     }
 }
