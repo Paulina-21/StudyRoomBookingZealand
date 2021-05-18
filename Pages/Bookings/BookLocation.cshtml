@@ -4,37 +4,40 @@
 @model StudyroomBookingZealand.Pages.Bookings.BookLocationModel
 @{
 }
+@* Fount the REAL stuff for Zealand logo
+    https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png*@
 <div>Choose a location</div>
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            SmartBoards Nr.
-        </th>
-    </tr>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                SmartBoards Nr.
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @if (Model.Locations != null)
-    {
-        @foreach (Location l in Model.Locations)
+        @if (Model.Locations != null)
         {
-            <tr>
-                <td>@l.LocationId</td>
-                <td>@l.Name</td>
-                <td>@l.Address</td>
-                <td>@l.SmartBoardsNr</td>
-            </tr>
+            @foreach (Location l in Model.Locations)
+            {
+                <tr>
+                    <td>@l.LocationId</td>
+                    <td>@l.Name</td>
+                    <td>@l.Address</td>
+                    <td>@l.SmartBoardsNr</td>
+                    <td><button type="submit">NOT WORKING</button></td>
+                </tr>
+            }
         }
-    }
 
     </tbody>
 </table>

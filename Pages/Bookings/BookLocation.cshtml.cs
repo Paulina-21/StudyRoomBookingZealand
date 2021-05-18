@@ -14,6 +14,8 @@ namespace StudyroomBookingZealand.Pages.Bookings
 {
     public class BookLocationModel : PageModel
     {
+        [BindProperty]
+        public int LocationId { get; set; }
         private IBooking _BookService;
         private ILocations _LocService;
         public List<Location> Locations { get; set; }

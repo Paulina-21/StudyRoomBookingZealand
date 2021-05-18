@@ -14,11 +14,7 @@ namespace StudyroomBookingZealand.Models
         public DateTime FromDateTime { set; get; }
         public DateTime ToDateTime { get; set; }
         public int RoomId { set; get; }
-        public bool SmartBoardBooked
-        {
-            get {return false;}
-            set{}
-        }
-        public User Booker { get; set; }
+        public bool SmartBoardBooked { get; set; }
+        public int UserId { get; set; }
     }
 }
