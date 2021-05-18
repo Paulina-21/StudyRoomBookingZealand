@@ -31,7 +31,7 @@ namespace StudyroomBookingZealand.Pages.Admin
             }
             else
             {
-                Bookings = _bookingService.SearchByName(SearchCriteria);
+              //  Bookings = _bookingService.SearchByName(SearchCriteria);
             }
 
             return Page();

@@ -16,7 +16,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void DeleteLocation(int id);
         public void UpdateLocation(Location l);
         public void AddRoomToLocation(Room r);
-        public void SmartBoardRooms(int id);
+       // public void SmartBoardRooms(int id);
         public List<Location> SearchByName(string searchCriteria);
     }
 }

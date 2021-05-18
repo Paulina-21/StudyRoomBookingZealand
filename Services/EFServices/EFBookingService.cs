@@ -67,9 +67,10 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Bookings.Where(b => b.RoomId == id).ToList();
         }
 
-        public List<Booking> SearchByName(string searchCriteria)
-        {
-            return _service.Bookings.Where(b => b.Booker.Name.StartsWith(searchCriteria)).ToList();
-        }
+        //public List<Booking> SearchByName(string searchCriteria)
+        //{
+        //    //Doesnt work need to redo
+        // //   return _service.Bookings.Where(b => b.Booker.Name.StartsWith(searchCriteria)).ToList();
+        //}
     }
 }
