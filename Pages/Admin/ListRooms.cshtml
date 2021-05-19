@@ -1,12 +1,21 @@
 ﻿@page
-@using StudyroomBookingZealand.Pages.User
-@using StudyroomBookingZealand.Services.EFServices
 @using StudyroomBookingZealand.Services.Interfaces
-@model StudyroomBookingZealand.Pages.Locations.Rooms.ListRoomsModel
-@inject ILocations LocationService;
-@inject IBooking BookingService;
+@using StudyroomBookingZealand.Pages.User
+@model StudyroomBookingZealand.Pages.Admin.ListRoomsModel
 @{
 }
+@inject ILocations LocationService;
+@inject IBooking BookingService;
+
+<div class="col-sm">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" placeholder="Room Name" class="form-control " asp-for="@Model.SearchCriteria">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+</div>
+
 
 
 <table class="table">
@@ -52,26 +61,13 @@
                     <td>
                         @item.Type
                     </td>
-                    
-                        <td>
-                            @BookingService.BookingByRoomId(@item.RoomId).Count
-                        </td>
-
-                    @{if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher == true)
-                        {
-                            <td>
-
-                                <a asp-page="" asp-route-id="">Edit</a>|
-                                <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
-                            </td>
-                        }
-                    }
+                    <td>
+                        @BookingService.BookingByRoomId(@item.RoomId).Count
+                    </td>
+                    <td>
+                        <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a> |
+                        <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
+                    </td>
                 </tr>
             }
         }

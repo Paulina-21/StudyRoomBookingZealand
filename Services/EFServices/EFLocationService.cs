@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.Admin;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Services.EFServices
@@ -55,10 +56,15 @@ namespace StudyroomBookingZealand.Services.EFServices
         }
 
 
-        public void UpdateLocation(int id)
+        public void UpdateLocation(Location l)
         {
-            _service.Locations.Update(GetLocation(id));
+            _service.Locations.Update(l);
             _service.SaveChanges();
+        }
+
+        public List<Location> SearchByName(string searchCriteria)
+        {
+            return _service.Locations.Where(l => l.Name.StartsWith(searchCriteria)).ToList();
         }
     }
 }
