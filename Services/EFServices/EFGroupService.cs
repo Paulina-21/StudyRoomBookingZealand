@@ -65,5 +65,6 @@ namespace StudyroomBookingZealand.Services.EFServices
             _service.Groups.Find(groupid).Owner = studentid;
             _service.SaveChanges();
         }
+
     }
 }

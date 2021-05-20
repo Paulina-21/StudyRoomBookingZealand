@@ -22,5 +22,6 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public List<User> GetStudentsFromGroup(int id);
         public bool ContainsStudent(int groupid, int studentid);
         public void SetGroupOwner(int groupid, int studentid);
+        
     }
 }

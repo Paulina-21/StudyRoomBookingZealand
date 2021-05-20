@@ -5,13 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Pages.User;
+using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Admin
 {
-    public class AdminModel : PageModel
+    public class DeleteUserModel : PageModel
     {
-        public IActionResult OnGet()
+        private IUsers _userService;
+        public Models.User User { get; set; }
+
+        public DeleteUserModel(IUsers user)
         {
+            _userService = user;
+        }
+        public IActionResult OnGet(int id)
+        {
+            User = _userService.GetUserById(id);
             if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
             {
                 return Redirect("/Unauthorized");
@@ -20,24 +29,10 @@ namespace StudyroomBookingZealand.Pages.Admin
             return Page();
         }
 
-        public IActionResult OnPostManageUsers()
+        public IActionResult OnPost(int id)
         {
+            _userService.DeleteUser(id);
             return Redirect("/Admin/ListUsers");
-        }
-
-        public IActionResult OnPostManageRooms()
-        {
-            return Redirect("/Admin/ListRooms");
-        }
-
-        public IActionResult OnPostManageLocations()
-        {
-            return Redirect("/Admin/ListLocations");;
-        }
-
-        public IActionResult OnPostManageBookings()
-        {
-            return Redirect("/Admin/ListBookings");
         }
     }
 }
