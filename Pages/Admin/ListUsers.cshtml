@@ -1,0 +1,72 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Admin.ListUsersModel
+@{
+}
+
+<div class="col-sm">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" placeholder="Name" class="form-control " asp-for="@Model.SearchCriteria">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+</div>
+
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Phone Number
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Is Teacher ? 
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Users != null)
+    {
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                   @item.Email
+                </td>
+                <td>
+                    @item.PhoneNr
+                </td>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @(item.IsTeacher ? "Yes" : "No")
+                </td>
+                <td>
+                    <a asp-page="/Admin/EditUser" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="/Admin/DeleteUser" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

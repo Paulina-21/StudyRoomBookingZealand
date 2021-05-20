@@ -1,0 +1,74 @@
+﻿@page
+@model StudyroomBookingZealand.Pages.Admin.DeleteUserModel
+@{
+}
+<div>
+    <h3>
+        Are you sure you want to delete this User?
+    </h3>
+</div>
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <td>
+                @Model.User.Id
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Name
+            </th>
+            <td>
+                @Model.User.FullName
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Address
+            </th>
+            <td>
+                @Model.User.Address
+            </td>
+        </tr>
+    <tr>
+        <th>
+            Username
+        </th>
+
+        <td>
+            @Model.User.Username
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Is Teacher ?
+        </th>
+
+        <td>
+            @(Model.User.IsTeacher ? "Yes" : "No")
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Email
+        </th>
+
+        <td>
+            @Model.User.Email
+        </td>
+    </tr>
+
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<td>
+    <form method="post">
+        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.User.Id" asp-page="/Admin/DeleteUser" />
+    </form>
+</td>        

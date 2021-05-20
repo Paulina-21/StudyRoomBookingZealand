@@ -49,10 +49,15 @@ namespace StudyroomBookingZealand.Services.EFServices
         return _service.Users.ToList();
     }
 
-    public void UpdateUser(int id)
+    public void UpdateUser(User u)
     {
-        _service.Users.Update(GetUserById(id));
+        _service.Users.Update(u);
         _service.SaveChanges();
+    }
+
+    public List<User> SearchByName(string searchCriteria)
+    {
+        return _service.Users.Where(u => u.FirstName.StartsWith(searchCriteria)).ToList();
     }
 
     }
