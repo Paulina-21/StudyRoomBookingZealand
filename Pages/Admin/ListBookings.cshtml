@@ -1,8 +1,12 @@
 ﻿@page
 @using StudyroomBookingZealand.Pages.User
+@using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Admin.ListBookingsModel
 @{
 }
+@inject IGroups GroupService;
+
+
 <table class="table">
     <thead>
         <tr>
@@ -19,10 +23,10 @@
                 Room
             </th>
             <th>
-                Group
+                Group Leader name (cant make it work) 
             </th>
             <th>
-                SmartBoard?
+                SmartBoard Booked ?
             </th>
             <th>
                 SmartBoard Booked ?

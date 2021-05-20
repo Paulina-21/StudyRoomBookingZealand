@@ -22,7 +22,7 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPostManageUsers()
         {
-            return null;
+            return Redirect("/Admin/ListUsers");
         }
 
         public IActionResult OnPostManageRooms()

@@ -4,38 +4,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Admin
 {
-    public class EditLocationsModel : PageModel
+    public class DeleteUserModel : PageModel
     {
-        [BindProperty]
-        public Location Location { get; set; }
-        private ILocations _locationsService;
-        
-        public EditLocationsModel(ILocations location)
+        private IUsers _userService;
+        public Models.User User { get; set; }
+
+        public DeleteUserModel(IUsers user)
         {
-            _locationsService = location;
+            _userService = user;
         }
         public IActionResult OnGet(int id)
         {
+            User = _userService.GetUserById(id);
             if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
             {
                 return Redirect("/Unauthorized");
             }
-            Location = _locationsService.GetLocation(id);
+
             return Page();
-            
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int id)
         {
-            
-            _locationsService.UpdateLocation(Location);
-            return Redirect("/Admin/ListLocations");
+            _userService.DeleteUser(id);
+            return Redirect("/Admin/ListUsers");
         }
     }
 }
