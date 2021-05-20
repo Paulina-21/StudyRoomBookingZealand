@@ -53,5 +53,12 @@ namespace StudyroomBookingZealand.Pages.User
             Data.Helpers.JsonFileHelper<string[]>.ClearJson(JsonLoggedInUser);
             LoggedUser = null;
         }
+        public static void Update(Models.User user, Models.User updateduser)
+        {
+            user.FirstName = updateduser.FirstName;
+            user.LastName = updateduser.LastName;
+            user.PhoneNr = updateduser.PhoneNr;
+            user.Address = updateduser.Address;
+        }
     }
 }
