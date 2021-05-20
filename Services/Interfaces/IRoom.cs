@@ -18,7 +18,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         //public List<Room> SmartBoardRooms();
         public List<Room> SearchbyName(string searchCriteria);
         public List<Room> SearchByNameAndLocId(string searchCriteria, int id);
-        public bool CheckAvailability(int roomid, DateTime date);
+        public int CheckAvailability(int roomid, DateTime date);
 
     }
 }

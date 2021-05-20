@@ -18,7 +18,6 @@ namespace StudyroomBookingZealand.Pages.Bookings
         private IRoom RoomService;
         public DateTime FromTime { get; set; }
         public DateTime ToTime { get; set; }
-        public int SelectedRoom { get; set; }
         public static int Location;
 
         public BookRoomModel(IBooking book, IRoom room)
@@ -37,17 +36,6 @@ namespace StudyroomBookingZealand.Pages.Bookings
             }
             Rooms = RoomService.GetAllRoomsForLocation(id);
             return Page();
-        }
-
-        public void OnPostSelect(int id)
-        {
-            SelectedRoom = id;
-            OnGet(Location);
-        }
-        public void OnPostUnSelect()
-        {
-            SelectedRoom = 0;
-            OnGet(Location);
         }
     }
 }
