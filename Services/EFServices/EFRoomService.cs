@@ -69,9 +69,27 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Rooms.Where(r => r.LocationId == id && r.Name.StartsWith(searchCriteria)).ToList();
         }
-        public bool CheckAvailability(int roomid, DateTime date)
+        public int CheckAvailability(int roomid, DateTime date) //returns 2 if all seats are available, 1 if only one seat is left, 0 if none
         {
-           return _service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count > 0;
+            if (_service.Rooms.Find(roomid).Type == Models.Room.TypeList.Classroom)
+            {
+                switch (_service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count)
+                {
+                    case 0:
+                        return 2;
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 0;
+                    default:
+                        return 0;
+                }
+            }
+            else if (_service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count == 0)
+            {
+                return 2;
+            }
+            else return 0;
         }
     }
 }

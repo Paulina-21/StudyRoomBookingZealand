@@ -49,14 +49,20 @@
                                 @time - @time2
                                 </td>
                                 <td>
-                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) )
+                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) == 0)
                                     {
                                         <span class="btn btn-outline-primary">Unavailable</span>
+                                    }
+                                    else if (RoomService.CheckAvailability(room.RoomId, datetime) == 1)
+                                    {
+                                        <form method="post">
+                                            <input type="submit" value="Shared seat is available" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
+                                        </form>
                                     }
                                     else
                                     {
                                         <form method="post">
-                                            <input type="submit" value="Reserve" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime"/>
+                                            <input type="submit" value="Reserve" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
                                         </form>
                                     }
                                 </td>
