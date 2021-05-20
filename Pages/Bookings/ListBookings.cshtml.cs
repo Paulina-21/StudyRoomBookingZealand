@@ -30,13 +30,13 @@ namespace StudyroomBookingZealand.Pages.Bookings
         }
         public IActionResult OnGet(int id)
         {
-            Bookings = _bookingService.GetAllBookings();
-            if (CurrentUser.LoggedUser != null)
+            if (CurrentUser.LoggedUser == null)
             {
-                return Redirect("Unauthorized");
+                return Redirect("/Unauthorized");
             }
             else
             {
+                Bookings = _bookingService.GetAllBookings();
                 if (id > 0)
                 {
                     Room = _bookingService.RoomForBooking(id);

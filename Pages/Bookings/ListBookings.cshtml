@@ -57,15 +57,7 @@
                 <td>
                     @item.SmartBoardBooked
                 </td>
-                @if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher)
-                {
-                    <td>
-                        @* Just some placeholders for future functionality *@
-                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
-                        <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
-                    </td>
-                }
-                @if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.GroupId == item.Student_GroupID)
+                @if ((CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher)|| (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.GroupId == item.Student_GroupID))
                 {
                     <td>
                         @* Just some placeholders for future functionality *@
