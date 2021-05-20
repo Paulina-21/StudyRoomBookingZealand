@@ -31,17 +31,21 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public IActionResult OnGet(int id)
         {
             Bookings = _bookingService.GetAllBookings();
-            //if (CurrentUser.LoggedUser != null)
-            //{
-            //    user = CurrentUser.LoggedUser;
-            //}
-            if (id > 0)
+            if (CurrentUser.LoggedUser != null)
             {
-                Room = _bookingService.RoomForBooking(id);
-                Bookings = _roomService.GetBookingsForRoom(Room.RoomId);
+                return Redirect("Unauthorized");
             }
+            else
+            {
+                if (id > 0)
+                {
+                    Room = _bookingService.RoomForBooking(id);
+                    Bookings = _roomService.GetBookingsForRoom(Room.RoomId);
+                }
 
-            return Page();
+                return Page();
+            }
+            
         }
     }
 }
