@@ -65,12 +65,6 @@
                                 <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
                             </td>
                         }
-                        else
-                        {
-                            <td>
-                                <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
-                            </td>
-                        }
                     }
                 </tr>
             }
