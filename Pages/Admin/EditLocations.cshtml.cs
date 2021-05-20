@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Admin
@@ -21,7 +22,10 @@ namespace StudyroomBookingZealand.Pages.Admin
         }
         public IActionResult OnGet(int id)
         {
-            
+            if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
+            {
+                return Redirect("/Unauthorized");
+            }
             Location = _locationsService.GetLocation(id);
             return Page();
             

@@ -23,8 +23,21 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         {
             get { return InvitationService.GetInvitationsForUser(CurrentUser.LoggedUser.Id); }
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (CurrentUser.LoggedUser == null )
+            {
+                 return Redirect("/User/Login");
+            }
+            else
+            {
+                if (CurrentUser.LoggedUser.IsTeacher == true)
+                {
+                    return Redirect("/Unauthorized");
+                }
+            }
+
+            return Page();
         }
         public IActionResult OnPostAccept(int id)
         {

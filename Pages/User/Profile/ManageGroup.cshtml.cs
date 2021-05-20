@@ -32,6 +32,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
        // 1 = name not found, 2= success, 3=you invited yourself, 4= this guy is already in group, 5= already invited this person
         public IActionResult OnGet()
         {
+            if (CurrentUser.LoggedUser == null)
+            {
+                return Redirect("/User/Login");
+            }
             if (CurrentUser.LoggedUser.GroupId == 0)
             {
                 return RedirectToPage("/Index");

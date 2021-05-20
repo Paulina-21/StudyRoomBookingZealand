@@ -26,8 +26,23 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public DateTime Duration { get; set; }
         public IActionResult OnGet(int id)
         {
-            SelectedRoom = id;
-            return Page();
+            if (CurrentUser.LoggedUser == null)
+            {
+                return RedirectToPage("/User/Login");
+            }
+            else
+            {
+                if (CurrentUser.LoggedUser.IsTeacher == true)
+                {
+                    return RedirectToPage("Unauthorized");
+                }
+                else
+                {
+                    SelectedRoom = id;
+                    return Page();
+                }
+            }
+            
         }
         public IActionResult OnPostDay()
         {
