@@ -22,6 +22,10 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public void DeleteGroup(int id)
         {
+            foreach(Models.User user in _service.Users.Where(u => u.GroupId == id).ToList())
+            {
+                user.GroupId = 0;
+            }
             _service.Groups.Remove(GetGroupById(id));
             _service.SaveChanges();
         }

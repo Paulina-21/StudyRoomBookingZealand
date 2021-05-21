@@ -93,5 +93,19 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             }
             else return Page();
         }
+        public IActionResult OnPostLeave()
+        {
+            if (GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner == CurrentUser.LoggedUser.Id)
+            {
+                GroupService.DeleteGroup(CurrentUser.LoggedUser.GroupId);
+                CurrentUser.LoggedUser.GroupId = 0;
+            }
+            else
+            {
+                GroupService.RemoveStudentFromGroup(CurrentUser.LoggedUser.Id);
+                CurrentUser.LoggedUser.GroupId = 0;
+            }
+            return RedirectToPage("ProfilePage");
+        }
     }
 }
