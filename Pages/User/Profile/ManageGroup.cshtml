@@ -1,5 +1,7 @@
 ﻿@page "ManageGroup"
 @model StudyroomBookingZealand.Pages.User.Profile.ManageGroupModel
+@using StudyroomBookingZealand.Services.Interfaces;
+@inject IGroups GroupService
 @{
     ViewData["Title"] = "Group Management";
 }
@@ -19,10 +21,16 @@
                     @u.FullName
                 </td>
                 <td>
+                    <a asp-page="" asp-route-id="@u.Id">View profile</a>
+                </td>
+                @if (CurrentUser.LoggedUser.Id == GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner && u.Id != CurrentUser.LoggedUser.Id)
+                {
+                <td>
                     <form method="post">
                         <input type="submit" class="btn-danger" value="X" asp-page-handler="Kick" asp-route-id="@u.Id" />
                     </form>
                 </td>
+                }
             </tr>
         }
     </table>
@@ -49,6 +57,11 @@
                 default: break;
             }
             <input class="btn-primary" type="submit" value="Add member" asp-page-handler="Invite" />
+        </form>
+    </div>
+    <div>
+        <form method="post">
+            <input type="submit" value="Leave group" class="btn btn-danger" asp-page-handler="Leave"/>
         </form>
     </div>
 </div>
