@@ -37,7 +37,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public async Task<IActionResult> OnPost(int id)
         {
             var builder = new ConfigurationBuilder()  // I guess it loads the SMTP email variables from the appsettings
                 .AddJsonFile("appsettings.json");
@@ -66,8 +66,8 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
 
             //Async programming piece of code. It creates a new task that will be executed in 72 hours. In this case it will delete a booking in 3 days.
-            // Its broken, keeps throwing exceptions whenever it executes
-            //Task.Delay(new TimeSpan(0, 0, 1)).ContinueWith(o => { _bookingService.DeleteBooking(id); });
+            // Fixed by changing method to async
+            await Task.Delay(new TimeSpan(0, 0, 1)).ContinueWith(o => { _bookingService.DeleteBooking(id); });
             
             return Redirect("/Bookings/ListBookings");
         }
