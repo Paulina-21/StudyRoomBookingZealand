@@ -21,7 +21,14 @@
                     @u.FullName
                 </td>
                 <td>
-                    <a asp-page="" asp-route-id="@u.Id">View profile</a>
+                    @if (CurrentUser.LoggedUser.Id == u.Id)
+                    {
+                        <a asp-page="ProfilePage">View profile</a>
+                    }
+                    else
+                    {
+                        <a asp-page="ViewProfile" asp-route-id="@u.Id">View profile</a>
+                    }
                 </td>
                 @if (CurrentUser.LoggedUser.Id == GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner && u.Id != CurrentUser.LoggedUser.Id)
                 {
