@@ -39,6 +39,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
         public async Task<IActionResult> OnPost(int id)
         {
+            
             var builder = new ConfigurationBuilder()  // I guess it loads the SMTP email variables from the appsettings
                 .AddJsonFile("appsettings.json");
             var config = builder.Build();
@@ -57,6 +58,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 Body = "<h1>Amogus</h1>",
                 IsBodyHtml = true,
             };
+
     
             mailMessage.To.Add("pedro_mrmr@hotmail.com"); // You can add addresses like a list mailMessage.To.Add("pedro_mrmr@hotmail.com"); mailMessage.To.Add("radu@hotmail.com"); etc etc.....
              
@@ -67,8 +69,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
             //Async programming piece of code. It creates a new task that will be executed in 72 hours. In this case it will delete a booking in 3 days.
             // Fixed by changing method to async
-            await Task.Delay(new TimeSpan(0, 0, 1)).ContinueWith(o => { _bookingService.DeleteBooking(id); });
-            
+            await Task.Delay(new TimeSpan(72, 0, 0)).ContinueWith(o => { _bookingService.DeleteBooking(id); });
             return Redirect("/Bookings/ListBookings");
         }
     }
