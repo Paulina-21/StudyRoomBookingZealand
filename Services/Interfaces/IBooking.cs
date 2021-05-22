@@ -14,6 +14,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void DeleteBooking(int id);
         public void UpdateBooking(Booking b);
         public List<Booking> BookingByRoomId(int id);
+        public List<User> BookingOwners(int id);
        // public List<Booking> SearchByName(string searchCriteria);
     }
 }
