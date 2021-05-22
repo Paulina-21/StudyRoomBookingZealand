@@ -20,6 +20,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         }
         public int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
+        public static bool LimitReached;
         [BindProperty]
         public DateTime FromDate { get; set; }
         [BindProperty]
@@ -39,6 +40,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 else
                 {
                     SelectedRoom = id;
+                    LimitReached = BookService.CheckBookingLimit(CurrentUser.LoggedUser.Id);
                     return Page();
                 }
             }
