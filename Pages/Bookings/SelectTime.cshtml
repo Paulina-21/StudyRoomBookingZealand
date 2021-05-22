@@ -24,20 +24,20 @@
             </div>
         </div>
         <div class="col-6">
-            @if(Model.Stage==0)// calendar and day picker
+            @if (Model.Stage == 0)// calendar and day picker
             {
-            <form method="post">
-                <div>
-                    Pick the day you want to reserve
-                </div>
-                <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="FromDate">
-                <input type ="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day"/>
-            </form>
+                <form method="post">
+                    <div>
+                        Pick the day you want to reserve
+                    </div>
+                    <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="FromDate">
+                    <input type="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day" />
+                </form>
             }
             else //time of day picker
             {
                 <table class="table-borderless">
-                    @{ 
+                    @{
                         int time = 8;
                         int time2 = 10;
                         while (time < 16)
@@ -46,10 +46,10 @@
                             datetime = datetime.AddHours(time);
                             <tr>
                                 <td>
-                                @time - @time2
+                                    @time - @time2
                                 </td>
                                 <td>
-                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) == 0)
+                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) == 0 || !Model.ValidTime(datetime))
                                     {
                                         <span class="btn btn-outline-primary">Unavailable</span>
                                     }
@@ -72,7 +72,15 @@
                         }
                     }
                 </table>
+                <div>
+                    <form method="post">
+                        <input class="btn btn-outline-primary" type="submit" value="Back to day selector" asp-page-handler="Back" />
+                    </form>
+                </div>
             }
         </div>
+    </div>
+    <div>
+        <a asp-page="BookRoom" class="btn btn-outline-primary" asp-route-id="@RoomService.GetRoomById(SelectTimeModel.SelectedRoom).LocationId">Back to rooms</a>
     </div>
 </div>

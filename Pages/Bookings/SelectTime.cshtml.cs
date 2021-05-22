@@ -49,6 +49,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
             Stage = 1;
             return Page();
         }
+        public IActionResult OnPostBack()
+        {
+            Stage = 0;
+            return Page();
+        }
         public IActionResult OnPostBook(int id, DateTime datetime)
         {
             Models.Booking booking = new Models.Booking();
@@ -59,6 +64,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
             booking.Student_GroupID = CurrentUser.LoggedUser.GroupId;
             BookService.AddBooking(booking);
             return RedirectToPage("/Index");
+        }
+        public bool ValidTime(DateTime dateTime)
+        {
+            if (dateTime.CompareTo(DateTime.Now) > 0) return true;
+            else return false;
         }
     }
 }
