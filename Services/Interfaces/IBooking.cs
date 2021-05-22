@@ -15,6 +15,7 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void UpdateBooking(Booking b);
         public List<Booking> BookingByRoomId(int id);
         public List<User> BookingOwners(int id);
+        public bool CheckBookingLimit(int userid);
        // public List<Booking> SearchByName(string searchCriteria);
     }
 }
