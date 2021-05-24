@@ -63,6 +63,6 @@
 </table>
 <td>
     <form method="post">
-        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.booking.BookingID" asp-page="/Booking/DeleteBooking" />
+        <input align="right" type="submit" class="btn btn-danger" onclick="return alert('This booking will be deleted in 3 days now. A warning has been sent to all members. You can now leave this page')" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.booking.BookingID" asp-page="/Booking/DeleteBooking" />
     </form>
 </td>         
