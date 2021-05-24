@@ -39,7 +39,8 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
         public async Task<IActionResult> OnPost(int id)
         {
-            
+            if(CurrentUser.IsAdmin) //It will only send an email if the user is admin
+            {
             List<string> receivers = Data.Helpers.EmailHelper.GatherEmails(_bookingService.BookingOwners(id));
             string subject = "Warning - Your booked room will be deleted in 3 days";
             string content = $"<h1>Your booking on the {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days </h1>" +
@@ -61,6 +62,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 _bookingService.DeleteBooking(id);
             });
             return Redirect("/Admin/ListBookings");
+            }
+            
+                _bookingService.DeleteBooking(id);
+                return Redirect("/Index");
+            
         }
     }
 }
