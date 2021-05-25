@@ -36,18 +36,7 @@
                     <td>@r.Type</td>
                     <td>@r.Adress</td>
                     <td>
-                        @if (r.RoomId == Model.SelectedRoom)
-                        {
-                            <form method="post">
-                                <input type="submit" value="Selected" class="btn btn-outline-primary" asp-page-handler="UnSelect" />
-                            </form>
-                        }
-                        else
-                        {
-                            <form method="post">
-                                <input type="submit" value="Select" class="btn btn-primary" asp-page-handler="Select" asp-route-id="@r.RoomId" />
-                            </form>
-                        }
+                        <a asp-page="SelectTime" class="btn btn-primary" asp-route-id="@r.RoomId">Select</a>
                     </td>
                 </tr>
             }
@@ -55,8 +44,9 @@
     </tbody>
 </table>
 <div>
-    <a asp-page="SelectTime" class="btn btn-light" asp-route-id="@Model.SelectedRoom">View available bookings</a>
+    <a asp-page="StartBooking" class="btn btn-outline-primary">Back to Location selector</a>
 </div>
+
 
 
 

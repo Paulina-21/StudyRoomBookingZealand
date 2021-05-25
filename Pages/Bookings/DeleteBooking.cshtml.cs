@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.EFServices;
@@ -34,10 +37,36 @@ namespace StudyroomBookingZealand.Pages.Bookings
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public async Task<IActionResult> OnPost(int id)
         {
-            _bookingService.DeleteBooking(id);
-            return Redirect("/Bookings/ListBookings");
+            if(CurrentUser.IsAdmin) //It will only send an email if the user is admin
+            {
+            List<string> receivers = Data.Helpers.EmailHelper.GatherEmails(_bookingService.BookingOwners(id));
+            string subject = "Warning - Your booked room will be deleted in 3 days";
+            string content = $"<h1>Your booking on the {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days </h1>" +
+                             $"<a> Due to an unforeseen circumstance, your booking will be removed in 3 days by an Administrator, we are sorry for the inconvenience </a>";
+
+            List<Models.User> bookingMembers = _bookingService.BookingOwners(id);
+
+            foreach (var user in bookingMembers)
+            {
+                //booking warning TO-DO, set bool property on user so you can display a warning on his profile page.
+            }
+
+            Data.Helpers.EmailHelper.SendEmail(receivers, subject, content);
+
+            //Async programming piece of code. It creates a new task that will be executed in 72 hours. In this case it will delete a booking in 3 days.
+            // Fixed by changing method to async
+            await Task.Delay(new TimeSpan(72, 0, 0)).ContinueWith(o =>
+            {
+                _bookingService.DeleteBooking(id);
+            });
+            return Redirect("/Admin/ListBookings");
+            }
+            
+                _bookingService.DeleteBooking(id);
+                return Redirect("/Index");
+            
         }
     }
 }

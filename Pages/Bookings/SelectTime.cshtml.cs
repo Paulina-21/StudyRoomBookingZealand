@@ -20,6 +20,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         }
         public int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
+        public static bool LimitReached;
         [BindProperty]
         public DateTime FromDate { get; set; }
         [BindProperty]
@@ -39,6 +40,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 else
                 {
                     SelectedRoom = id;
+                    LimitReached = BookService.CheckBookingLimit(CurrentUser.LoggedUser.Id);
                     return Page();
                 }
             }
@@ -47,6 +49,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public IActionResult OnPostDay()
         {
             Stage = 1;
+            return Page();
+        }
+        public IActionResult OnPostBack()
+        {
+            Stage = 0;
             return Page();
         }
         public IActionResult OnPostBook(int id, DateTime datetime)
@@ -59,6 +66,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
             booking.Student_GroupID = CurrentUser.LoggedUser.GroupId;
             BookService.AddBooking(booking);
             return RedirectToPage("/Index");
+        }
+        public bool ValidTime(DateTime dateTime)
+        {
+            if (dateTime.CompareTo(DateTime.Now) > 0) return true;
+            else return false;
         }
     }
 }

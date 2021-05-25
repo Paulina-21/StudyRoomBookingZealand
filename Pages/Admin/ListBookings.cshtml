@@ -5,6 +5,7 @@
 @{
 }
 @inject IGroups GroupService;
+@inject IUsers UserService;
 
 
 <table class="table">
@@ -23,7 +24,7 @@
                 Room
             </th>
             <th>
-                Group Leader name (cant make it work) 
+                Group Leader name
             </th>
             <th>
                 SmartBoard Booked ?
@@ -52,7 +53,14 @@
                         @item.RoomId
                     </td>
                     <td>
-                        @item.Student_GroupID
+                        @if (item.Student_GroupID != 0)
+                        {
+                        <span>@UserService.GetUserById(GroupService.GetGroupById(item.Student_GroupID).Owner).FullName</span>
+                        }
+                        else
+                        {
+                        <span>@UserService.GetUserById(item.UserId).FullName</span>
+                        }
                     </td>
                     <td>
                         @item.SmartBoardBooked
@@ -61,7 +69,7 @@
                         @item.SmartBoardBooked
                     </td>
                     <td>
-                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> |
+                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> 
                         <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Delete</a>
                     </td>
                 </tr>
