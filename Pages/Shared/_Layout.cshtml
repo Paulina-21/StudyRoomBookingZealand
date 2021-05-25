@@ -6,9 +6,9 @@
     https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png*@
 
 <style>
-    .header {
+   /* .header {
         background-color: #ffe766
-    }
+    }*/
 
     .card {
         border-color: transparent;
@@ -35,86 +35,89 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StudyroomBookingZealand</title>
+    <title>@ViewData["Title"] - Book4Room</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
        
-           <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: rgba(255, 231, 102, 0.9)">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">StudyroomBookingZealand</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                            </li>
-                            @{
-                                if (!Pages.User.CurrentUser.Exists)
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/User/Login">Login</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/User/Logout">Logout</a>
-                                    </li>
-                                }
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Locations/ListLocations">Locations</a>
-                            </li>
-                            @{
-                                if (Pages.User.CurrentUser.Exists)
-                                {
-                                    if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
-                                        </li>
-                                    }
-                                }
-                            }
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" @*style="background-color: rgba(255, 231, 102, 0.9)"*@>
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Book4Room</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        @* flex-grow-1 *@
+                        <a class="nav-item nav-link" asp-area="" asp-page="/Index">Home</a>
 
-                        </ul>
-                        @{if (Pages.User.CurrentUser.Exists)
+                        <a class="nav-item nav-link" asp-area="" asp-page="/Locations/ListLocations">Locations</a>
+                        @{
+                            if (Pages.User.CurrentUser.Exists)
                             {
-                                <div class="text">
-                                    <a asp-page="/User/Profile/ProfilePage" class="text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
-                                </div>
+                                if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
+                                {
+                                    <a class="nav-item nav-link" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
+                                }
                             }
                         }
+
                     </div>
                 </div>
-            </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
-
-            <div class="card-image" style="background-color: transparent">
-                <a href="https://zealand.com/">
-                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
-                </a>
+                <ul class="navbar-nav">
+                    @{
+                        if (Pages.User.CurrentUser.Exists)
+                        {
+                            <a class="nav-item nav-link" asp-area="" asp-page="/User/Logout">Logout</a>
+                        }
+                    }
+                </ul>
             </div>
+           
+            <ul class="navbar-nav">
+                @{if (Pages.User.CurrentUser.Exists)
+                  {
+                      <li class="nav-item">
+                          <a asp-page="/User/Profile/ProfilePage" class="nav-link text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
+                      </li>
+                  }
+                  else
+                  {
+                      <li class="nav-item">
+                          <a class="nav-link" asp-page="/User/Login">Login</a>
+                      </li>
+                  }
+                }
+            </ul>
+        </nav>
+        
+    </header>
+<div class="container">
+    <div id="page-container">
+        <div id="content-wrap">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2021 - Book4Room - <a asp-area="" asp-page="/Privacy">Privacy</a>
+
+        <div class="card-image" @*style="background-color: transparent"*@>
+            <a href="https://zealand.com/">
+                <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
