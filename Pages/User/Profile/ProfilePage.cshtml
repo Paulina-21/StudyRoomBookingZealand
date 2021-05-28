@@ -8,43 +8,32 @@
     @if (Model.HasInvitations) 
     {
         <span class="text">You have been invited to new groups</span>
-        <a class="btn-primary" asp-page="Invitations">Check invitations</a>
+        <a class="btn btn-primary" asp-page="Invitations">Check invitations</a>
     }
 </div>
-<div>
-    <div class="text float-left">
-         Name: @CurrentUser.LoggedUser.FullName<br/>
+<div class="box">
+    <div class="row">
+        Name: @CurrentUser.LoggedUser.FullName
         Phone number: @CurrentUser.LoggedUser.PhoneNr
-    </div> 
-    <br/>
+    </div>
     <div>
         @if (!CurrentUser.LoggedUser.IsTeacher) 
         {
             if (CurrentUser.LoggedUser.GroupId != 0) // we could show the group's name here too
             {
-                <br/>
-                <br/>
-                <div></div>
-                <a asp-page="ManageGroup" class="btn-primary float-left">Manage Group</a>
+                <a asp-page="ManageGroup" class="btn-primary">Manage Group</a>
             }
             else
             {
-                <br/>
-                <br/>
-                <div></div>
-                <div class="text">You don't have any groups</div>
-                <br/>
+                <span class="text">You don't have any groups</span>
                 <form method="post">
-                    <input type="submit" class="btn-primary" value="Create Group"/>
+                    <input type="submit" class="btn btn-primary" value="Create Group"/>
                 </form>
             }
         }
         else
         {
-            <br/>
-            <br/>
-            <div></div>
-            <a class="btn-info" align="center" asp-page="/Admin/Admin">\\\  You have administrative privileges  ///</a>
+            <span class="text">You have administrative privilleges</span>
         }
     </div>
     <div>
