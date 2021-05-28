@@ -34,7 +34,7 @@
                 {
                 <td>
                     <form method="post">
-                        <input type="submit" class="btn-danger" value="X" asp-page-handler="Kick" asp-route-id="@u.Id" />
+                        <input type="submit" class="btn btn-danger" value="X" asp-page-handler="Kick" asp-route-id="@u.Id" />
                     </form>
                 </td>
                 }
@@ -43,7 +43,7 @@
     </table>
     <div>
         <form method="post">
-            <input class="text" asp-for="NewGroupMember" placeholder="Dude's name" />
+            <input class="text" asp-for="NewGroupMember" placeholder="Member's full name" />
             @switch (Model.InvalidName)
             {
                 case 1:
@@ -63,7 +63,7 @@
                     break;
                 default: break;
             }
-            <input class="btn-primary" type="submit" value="Add member" asp-page-handler="Invite" />
+            <input class="btn btn-primary" type="submit" value="Add member" asp-page-handler="Invite" />
         </form>
     </div>
     <div>

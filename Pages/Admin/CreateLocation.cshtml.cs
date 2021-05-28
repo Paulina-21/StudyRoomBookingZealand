@@ -32,7 +32,7 @@ namespace StudyroomBookingZealand.Pages.Admin
         public IActionResult OnPost()
         {
             _locationsService.AddLocation(Location);
-            return Page();
+            return RedirectToPage("/Admin/ListLocations");
         }
     }
 }
