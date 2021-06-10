@@ -30,7 +30,7 @@ namespace StudyroomBookingZealand.Pages.Admin
         public IActionResult OnPost()
         {
             _usersService.AddUser(User);
-            return Redirect("/Index");
+            return RedirectToPage("/Admin/ListUsers");
         }
     }
 }

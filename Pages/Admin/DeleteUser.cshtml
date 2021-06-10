@@ -64,11 +64,15 @@
     </tr>
 
     </thead>
-    <tbody>
+    <tbody> 
     </tbody>
 </table>
 <td>
     <form method="post">
-        <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.User.Id" asp-page="/Admin/DeleteUser" />
+        <input align="right" type="submit" class="btn float-right btn-danger " value="Remove" style="background-color: red; color: white" asp-route-id="@Model.User.Id" asp-page="/Admin/DeleteUser"/>
     </form>
+    <div class="badge-pill">
+        <br/>
+        <a class="float-left" asp-page="/Admin/ListUsers"> Click here to go Back</a>
+    </div>
 </td>        

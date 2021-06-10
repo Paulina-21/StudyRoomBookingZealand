@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @using StudyroomBookingZealand.Services.Interfaces
 @using StudyroomBookingZealand.Pages.User
 @model StudyroomBookingZealand.Pages.Admin.ListRoomsModel
@@ -68,6 +68,10 @@
                     <td>
                         <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a> |
                         <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
+                    </td>
+                    <td>
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
+                        }
                     </td>
                 </tr>
             }

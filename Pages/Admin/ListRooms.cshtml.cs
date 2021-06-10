@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Models;
+using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.Admin
@@ -25,17 +26,23 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnGet()
         {
-            
-            if (String.IsNullOrEmpty(SearchCriteria))
+            if (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher)
             {
-                Rooms = _roomService.GetAllRooms();
+                if (String.IsNullOrEmpty(SearchCriteria))
+                {
+                    Rooms = _roomService.GetAllRooms();
+                }
+                else
+                {
+                    Rooms = _roomService.SearchbyName(SearchCriteria);
+                }
+
+                return Page();
             }
             else
             {
-                Rooms = _roomService.SearchbyName(SearchCriteria);
+                return Redirect("Unauthorized");
             }
-
-            return Page();
         }
     }
 }

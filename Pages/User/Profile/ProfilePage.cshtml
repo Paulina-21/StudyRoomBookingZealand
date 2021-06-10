@@ -8,7 +8,7 @@
     @if (Model.HasInvitations) 
     {
         <span class="text">You have been invited to new groups</span>
-        <a class="btn-primary" asp-page="Invitations">Check invitations</a>
+        <a class="btn btn-primary" asp-page="Invitations">Check invitations</a>
     }
 </div>
 <div class="box">
@@ -21,13 +21,13 @@
         {
             if (CurrentUser.LoggedUser.GroupId != 0) // we could show the group's name here too
             {
-                <a asp-page="ManageGroup" class="btn-primary">Manage Group</a>
+                <a asp-page="ManageGroup" class="btn btn-primary">Manage Group</a>
             }
             else
             {
                 <span class="text">You don't have any groups</span>
                 <form method="post">
-                    <input type="submit" class="btn-primary" value="Create Group"/>
+                    <input type="submit" class="btn btn-primary" value="Create Group"/>
                 </form>
             }
         }

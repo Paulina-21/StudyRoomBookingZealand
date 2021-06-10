@@ -7,10 +7,35 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.navbar .navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
 }
+
+
+.navbar {
+    background: rgba(255, 231, 102, 0.9);
+    padding: 1rem 8rem;
+    z-index: 1000;
+}
+
+body > header > nav > div > div > ul.navbar-nav.mx-auto.mb-2.mb-lg-0 > a {
+    color: black;
+    font-size: 8rem;
+    padding: 0 4rem;
+}
+
+body > header > nav > div > div > ul.navbar-nav.mx-auto.mb-2.mb-lg-0 > a:hover {
+    color: red;
+}
+
+
+/* Provide sufficient contrast against white background */
+/*a {
+  color: #0366d6;
+}*/
+
+
 
 .btn-primary {
   color: #fff;
@@ -22,6 +47,11 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.container {
+    text-align: center;
+    position: center;
 }
 
 /* Sticky footer styles
@@ -56,16 +86,28 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
-}
+} 
 
 body {
-  /* Margin bottom by footer height */
+   /*Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+#page-container {
+    position: relative;
+  /*  min-height: 100vh;*/
+}
+
+#content-wrap {
+    padding-bottom: 124px; /* Footer height */
+}
+
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: -20px;
+    width: 100%;
+    /*white-space: nowrap;*/
+    height: 124px;
+    /*line-height: 60px;*/ /* Vertically center the text there */
 }
