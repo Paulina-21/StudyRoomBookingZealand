@@ -50,7 +50,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
                 foreach (var user in bookingMembers)
                 {
-                    //booking warning TO-DO, set bool property on user so you can display a warning on his profile page.
+                    user.Warning = true;
                 }
 
                 Data.Helpers.EmailHelper.SendEmail(receivers, subject, content);
