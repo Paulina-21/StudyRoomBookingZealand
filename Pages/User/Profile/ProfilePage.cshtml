@@ -3,40 +3,61 @@
 @{
     ViewData["Title"] = "ProfilePage";
 }
-<h1> Profile </h1>
-<div>
-    @if (Model.HasInvitations) 
-    {
-        <span class="text">You have been invited to new groups</span>
-        <a class="btn btn-primary" asp-page="Invitations">Check invitations</a>
-    }
-</div>
-<div class="box">
+<head>
+    <link rel="stylesheet" href="~/css/profilepage.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<div class="container bootstrap snippets ">
     <div class="row">
-        Name: @CurrentUser.LoggedUser.FullName
-        Phone number: @CurrentUser.LoggedUser.PhoneNr
-    </div>
-    <div>
-        @if (!CurrentUser.LoggedUser.IsTeacher) 
-        {
-            if (CurrentUser.LoggedUser.GroupId != 0) // we could show the group's name here too
-            {
-                <a asp-page="ManageGroup" class="btn btn-primary">Manage Group</a>
-            }
-            else
-            {
-                <span class="text">You don't have any groups</span>
-                <form method="post">
-                    <input type="submit" class="btn btn-primary" value="Create Group"/>
-                </form>
-            }
-        }
-        else
-        {
-            <span class="text">You have administrative privilleges</span>
-        }
-    </div>
-    <div>
-        <a class="btn btn-primary" asp-page="EditProfile">Edit Profile</a>
+        <div class="profile-nav col-md-3">
+            <div class="panel">
+                <div class="user-heading round">
+                    <a href="#">
+                        <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg" alt="">
+                    </a>
+                    <h1>@CurrentUser.LoggedUser.FullName</h1>
+                    @if(CurrentUser.IsAdmin){<p><b>ADMIN</b></p>}else{<p><b>Student</b></p>}
+                    
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a asp-page="EditProfile"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="profile-info col-md-9">
+            <div class="panel">
+                <div class="panel-body bio-graph-info">
+                    <h1>Your Information</h1>
+                    <div class="row">
+                        <div class="bio-row">
+                            <p><span>First Name </span>: @CurrentUser.LoggedUser.FirstName</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Last Name </span>: @CurrentUser.LoggedUser.LastName</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Address </span>: @CurrentUser.LoggedUser.Address</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Email</span>: @CurrentUser.LoggedUser.Email</p>
+                        </div>
+                        <div class="bio-row">
+                             <p><span>Phone </span>: @CurrentUser.LoggedUser.PhoneNr</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Username </span>: @CurrentUser.LoggedUser.Username</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
     </div>
 </div>
