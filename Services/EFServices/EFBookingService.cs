@@ -87,6 +87,11 @@ namespace StudyroomBookingZealand.Services.EFServices
             }
             else return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(userid).GroupId).ToList().Count > 3;
         }
+
+        public List<Booking> GetBookingsByUserId(int id)
+        {
+            return _service.Bookings.Where(b => b.UserId == id).ToList();
+        }
         //public List<Booking> SearchByName(string searchCriteria)
         //{
         //    //Doesnt work need to redo
