@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StudyroomBookingZealand.Models;
 using StudyroomBookingZealand.Services.Interfaces;
 
 namespace StudyroomBookingZealand.Pages.User.Profile
@@ -13,11 +14,15 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         IGroups GroupService;
         IUsers UserService;
         IInvitations InvitationService;
-        public ProfilePageModel(IGroups groupservice, IUsers userservice, IInvitations invitationservice)
+        IBooking BookingService;
+        public List<Booking> UserBookings { get; set; }
+        public ProfilePageModel(IGroups groupservice, IUsers userservice, IInvitations invitationservice, IBooking bookingService)
         {
             GroupService = groupservice;
             UserService = userservice;
             InvitationService = invitationservice;
+            BookingService = bookingService;
+
         }
         public bool HasInvitations
         {
@@ -42,7 +47,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             {
                 return RedirectToPage("/User/Login");
             }
-            else return Page();
+
+            UserBookings = BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id);
+            
+            return Page();
         }
         public IActionResult OnPost()
         {

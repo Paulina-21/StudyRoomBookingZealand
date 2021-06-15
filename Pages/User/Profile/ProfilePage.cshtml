@@ -1,4 +1,5 @@
 ﻿@page "ProfilePage"
+@using StudyroomBookingZealand.Models
 @model StudyroomBookingZealand.Pages.User.Profile.ProfilePageModel
 @{
     ViewData["Title"] = "ProfilePage";
@@ -29,14 +30,25 @@
                         <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg" alt="">
                     </a>
                     <h1 class="text-black-50 font-weight-bolder">@CurrentUser.LoggedUser.FullName</h1>
-                    @if(CurrentUser.IsAdmin){<p class="text-black-50"><b>ADMIN</b></p>}else{<p class="text-black-50"><b>Student</b></p>}
-                    
+                    @if (CurrentUser.IsAdmin)
+                    {<p class="text-black-50"><b>ADMIN</b></p>}
+                    else
+                    {<p class="text-black-50"><b>Student</b></p>}
+
                 </div>
 
                 <ul class="nav nav-pills nav-stacked">
 
                     <li><a asp-page="EditProfile"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                    <li><a asp-page="EditProfile"> <i class="fa fa-edit"></i> ManageGroups</a></li>
+                    @if (CurrentUser.LoggedUser.GroupId != 0)
+                    {
+                        <li><a asp-page="ManageGroup"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
+                    }
+                    else
+                    {
+                        <li><a onclick="return alert('You do not have any groups to manage')"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
+                    }
+
                 </ul>
             </div>
         </div>
@@ -58,7 +70,7 @@
                             <p><span>Email</span>: @CurrentUser.LoggedUser.Email</p>
                         </div>
                         <div class="bio-row">
-                             <p><span>Phone </span>: @CurrentUser.LoggedUser.PhoneNr</p>
+                            <p><span>Phone </span>: @CurrentUser.LoggedUser.PhoneNr</p>
                         </div>
                         <div class="bio-row">
                             <p><span>Username </span>: @CurrentUser.LoggedUser.Username</p>
@@ -66,7 +78,27 @@
                     </div>
                 </div>
             </div>
+            @if(Model.UserBookings.Count == 0){<h2>You currently have no Bookings</h2>} else {<h2>Your bookings</h2>}
             <div>
+                <div class="row">
+                    @foreach(Booking booking in Model.UserBookings ){
+                    <div class="col-md-6">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="bio-chart">
+                                    <div style="display: inline; width: 100px; height: 100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                                </div>
+                                <div class="bio-desk">
+                                    <h4 class="red">@booking.BookingID</h4>
+                                    <p>@booking.FromDateTime</p>
+                                    <p>@booking.ToDateTime</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                </div>
             </div>
         </div>
     </div>
