@@ -4,11 +4,16 @@
     ViewData["Title"] = "ProfilePage";
 }
 <head>
-    <link rel="stylesheet" href="~/css/profilepage.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudyroomBookingZealand</title>
+    <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/profilepage.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
 
@@ -20,8 +25,8 @@
                     <a href="#">
                         <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg" alt="">
                     </a>
-                    <h1>@CurrentUser.LoggedUser.FullName</h1>
-                    @if(CurrentUser.IsAdmin){<p><b>ADMIN</b></p>}else{<p><b>Student</b></p>}
+                    <h1 class="text-black-50 font-weight-bolder">@CurrentUser.LoggedUser.FullName</h1>
+                    @if(CurrentUser.IsAdmin){<p class="text-black-50"><b>ADMIN</b></p>}else{<p class="text-black-50"><b>Student</b></p>}
                     
                 </div>
 
