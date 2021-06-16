@@ -33,6 +33,5 @@ namespace StudyroomBookingZealand.Models
         {
             get { return FirstName +" "+ LastName; }
         }
-        public bool? Warning { get; set; }
     }
 }

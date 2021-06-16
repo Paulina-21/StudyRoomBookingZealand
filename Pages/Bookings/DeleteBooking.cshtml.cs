@@ -18,11 +18,13 @@ namespace StudyroomBookingZealand.Pages.Bookings
     public class DeleteBookingModel : PageModel
     {
         private IBooking _bookingService;
+        private IWarning _warningService;
         [BindProperty(SupportsGet = true)]
         public Booking booking { set; get; }
 
-        public DeleteBookingModel(IBooking _bokSer)
+        public DeleteBookingModel(IBooking _bokSer, IWarning _warnSer)
         {
+            _warningService = _warnSer;
             _bookingService = _bokSer;
         }
 
@@ -43,14 +45,18 @@ namespace StudyroomBookingZealand.Pages.Bookings
             {
                 List<string> receivers = Data.Helpers.EmailHelper.GatherEmails(_bookingService.BookingOwners(id));
                 string subject = "Warning - Your booked room will be deleted in 3 days";
-                string content = $"<h1>Your booking on the {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days </h1>" +
+                string content = $"<h1>Your booking on {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days </h1>" +
                                  $"<a> Due to an unforeseen circumstance, your booking will be removed in 3 days by an Administrator, we are sorry for the inconvenience </a>";
 
                 List<Models.User> bookingMembers = _bookingService.BookingOwners(id);
 
                 foreach (var user in bookingMembers)
                 {
-                    user.Warning = true;
+                    Models.Warning warning = new Models.Warning();
+                    warning.Content = $"Your booking on {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days";
+                    warning.UserID = user.Id;
+                    warning.Type = Warning.TypeList.DeletedBooking;
+                    _warningService.AddWarning(warning);
                 }
 
                 Data.Helpers.EmailHelper.SendEmail(receivers, subject, content);

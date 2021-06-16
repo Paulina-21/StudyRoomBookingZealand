@@ -83,9 +83,9 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             if (_service.Users.Find(userid).GroupId == 0)
             {
-               return _service.Bookings.Where(b => b.UserId == userid).ToList().Count > 3;
+               return _service.Bookings.Where(b => b.UserId == userid).ToList().Count >= Booking.BookingLimit;
             }
-            else return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(userid).GroupId).ToList().Count > 3;
+            else return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(userid).GroupId).ToList().Count >= Booking.BookingLimit;
         }
 
         public List<Booking> GetBookingsByUserId(int id)
