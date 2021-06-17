@@ -73,7 +73,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             if (_service.Rooms.Find(roomid).Type == Models.Room.TypeList.Classroom)
             {
-                switch (_service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count)
+                switch (_service.Bookings.Where(b => b.RoomId == roomid && b.Active==true).Where(b => b.FromDateTime == date).ToList().Count)
                 {
                     case 0:
                         return 2;
@@ -85,7 +85,7 @@ namespace StudyroomBookingZealand.Services.EFServices
                         return 0;
                 }
             }
-            else if (_service.Bookings.Where(b => b.RoomId == roomid).Where(b => b.FromDateTime == date).ToList().Count == 0)
+            else if (_service.Bookings.Where(b => b.RoomId == roomid && b.Active==true).Where(b => b.FromDateTime == date).ToList().Count == 0)
             {
                 return 2;
             }

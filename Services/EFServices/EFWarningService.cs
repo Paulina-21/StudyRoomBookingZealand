@@ -32,5 +32,13 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Warnings.Where(w => w.UserID == id).ToList();
         }
+        public void ClearWarningsForUser(int id)
+        {
+            foreach(Models.Warning warning in _service.Warnings.Where(w => w.UserID == id))
+            {
+                _service.Warnings.Remove(warning);
+            }
+            _service.SaveChanges();
+        }
     }
 }

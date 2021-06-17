@@ -9,6 +9,10 @@ namespace StudyroomBookingZealand.Models
 {
     public class Booking
     {
+        public Booking()
+        {
+            Active = true;
+        }
         public int BookingID { set; get; }
         public int Student_GroupID { set; get; }
         public DateTime FromDateTime { set; get; }
@@ -21,5 +25,6 @@ namespace StudyroomBookingZealand.Models
         public bool SmartBoardBooked { get; set; }
         public int UserId { get; set; }
         public const int BookingLimit = 4;
+        public bool Active { get; set; }
     }
 }

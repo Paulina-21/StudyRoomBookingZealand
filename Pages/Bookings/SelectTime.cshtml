@@ -51,11 +51,11 @@
                                 <td>
                                     @if (RoomService.CheckAvailability(room.RoomId, datetime) == 0 || !Model.ValidTime(datetime))
                                     {
-                                        <span class="btn btn-outline-danger">Unavailable</span>
+                                        <button class="btn btn-outline-danger">Unavailable</button>
                                     }
                                     else if (RoomService.CheckAvailability(room.RoomId, datetime) == 1)
                                     {
-                                        if (!SelectTimeModel.LimitReached)
+                                        if (!SelectTimeModel.LimitReached && Pages.User.CurrentUser.LoggedUser.GroupId != 0)
                                         {
                                             <form method="post">
                                                 <input type="submit" value="Reserve shared room" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
@@ -63,14 +63,14 @@
                                         }
                                         else
                                         {
-                                            <form method="post">
-                                                <input value="Reserve shared room" class="btn btn-secondary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
-                                            </form>
+                                             <div>
+                                                 <button class="btn btn-secondary">Reserve shared room</button>
+                                             </div>
                                         }
                                     }
                                     else
                                     {
-                                        if (!SelectTimeModel.LimitReached)
+                                        if (!SelectTimeModel.LimitReached && Pages.User.CurrentUser.LoggedUser.GroupId != 0)
                                         {
                                             <form method="post">
                                                 <input type="submit" value="Reserve" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
@@ -78,9 +78,9 @@
                                         }
                                         else
                                         {
-                                            <form method="post">
-                                                <input value="Reserve" class="btn btn-secondary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
-                                            </form>
+                                            <div>
+                                                 <button class="btn btn-secondary">Reserve</button>
+                                            </div>
                                         }
                                     }
                                 </td>
@@ -90,11 +90,17 @@
                         }
                     }
                 </table>
-                @if (SelectTimeModel.LimitReached) 
+                @if (SelectTimeModel.LimitReached)
                 {
-                <div>
-                    <span class="text-danger">You have reached the maximum bookings limit</span>
-                </div>
+                    <div>
+                        <span class="text-danger">You have reached the maximum bookings limit</span>
+                    </div>
+                }
+                @if (Pages.User.CurrentUser.LoggedUser.GroupId==0)
+                {
+                    <div>
+                        <span class="text-danger">You need to have a group to be able to book rooms</span>
+                    </div>
                 }
                 <div>
                     <form method="post">

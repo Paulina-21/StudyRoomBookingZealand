@@ -138,10 +138,11 @@
                             {
                                 <tr>
                                     <td>@warning.Content</td>
-                                        <td><a class="btn btn-primary" asp-route-id="@warning.Id" asp-page="/User/Profile/ProfilePage">Go to</a></td>
+                                        <td><a class="btn btn-primary" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></td>
                                 </tr>
                             }
                         </table>
+                        <a class="btn btn-danger" asp-page="/Shared/WarningsHelper" asp-page-handler="Delete">Clear all</a>
                     }
                     else
                     {

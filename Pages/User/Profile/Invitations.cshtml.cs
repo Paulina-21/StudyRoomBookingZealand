@@ -13,11 +13,13 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         IInvitations InvitationService;
         IUsers UserService;
         IGroups GroupService;
-        public InvitationsModel(IInvitations invitationservice, IUsers userservice, IGroups groupservice)
+        IWarning WarningService;
+        public InvitationsModel(IInvitations invitationservice, IUsers userservice, IGroups groupservice, IWarning warnserv)
         {
             InvitationService = invitationservice;
             UserService = userservice;
             GroupService = groupservice;
+            WarningService = warnserv;
         }
         public List<Models.Invitation> InvitationsList
         {
@@ -60,6 +62,11 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         public void AcceptInvitation(int id)
         {
             Models.Invitation i = InvitationService.GetInvitation(id);
+            string content = $"{UserService.GetUserById(CurrentUser.LoggedUser.Id).FullName} has joined your group";
+            foreach(Models.User user in GroupService.GetStudentsFromGroup(UserService.GetUserById(i.Sender).GroupId))
+            {
+                WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.GroupAction));
+            }
             GroupService.AddStudentToGroup(UserService.GetUserById(i.Sender).GroupId, i.Receiver);
             CurrentUser.LoggedUser.GroupId = UserService.GetUserById(i.Sender).GroupId;
             GroupService.UpdateGroup(UserService.GetUserById(i.Sender).GroupId);
