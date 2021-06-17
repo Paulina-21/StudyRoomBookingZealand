@@ -20,10 +20,10 @@ namespace StudyroomBookingZealand.Pages.Admin
         
         public IActionResult OnGet()
         {
-            if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
-            {
-                return Redirect("/Unauthorized");
-            }
+            //if (CurrentUser.LoggedUser == null || CurrentUser.LoggedUser.IsTeacher == false)
+            //{
+            //    return Redirect("/Unauthorized");
+            //}
             return Page();
         }
 
