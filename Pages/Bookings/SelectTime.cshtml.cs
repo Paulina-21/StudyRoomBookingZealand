@@ -13,10 +13,14 @@ namespace StudyroomBookingZealand.Pages.Bookings
     {
         private IBooking BookService;
         private IRoom RoomService;
-        public SelectTimeModel(IBooking bservice, IRoom rservice)
+        private IWarning WarningService;
+        private IGroups GroupService;
+        public SelectTimeModel(IBooking bservice, IRoom rservice, IWarning warnserv, IGroups groupservice)
         {
             BookService = bservice;
             RoomService = rservice;
+            WarningService = warnserv;
+            GroupService = groupservice;
         }
         public int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
@@ -65,6 +69,15 @@ namespace StudyroomBookingZealand.Pages.Bookings
             booking.ToDateTime = datetime.AddHours(2);
             booking.Student_GroupID = CurrentUser.LoggedUser.GroupId;
             BookService.AddBooking(booking);
+            if (CurrentUser.LoggedUser.GroupId != 0)
+            {
+                string content = $"{CurrentUser.LoggedUser.FullName} has made a new booking";
+                foreach (Models.User user in GroupService.GetStudentsFromGroup(CurrentUser.LoggedUser.GroupId))
+                {
+                    if(user.Id!=CurrentUser.LoggedUser.Id)
+                    WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.DeletedBooking));
+                }
+            }
             return RedirectToPage("/Index");
         }
         public bool ValidTime(DateTime dateTime)

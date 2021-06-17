@@ -50,7 +50,6 @@ namespace StudyroomBookingZealand.Pages.User.Profile
                 return RedirectToPage("/User/Login");
             }
 
-            UserBookings = BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id);
             
             return Page();
         }
@@ -62,6 +61,13 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             GroupService.AddStudentToGroup(newgroup.GroupId, CurrentUser.LoggedUser.Id);
             CurrentUser.LoggedUser.GroupId = newgroup.GroupId;
             GroupService.UpdateGroup(newgroup.GroupId);
+            return Page();
+        }
+        public IActionResult OnPostCancel(int id)
+        {
+            Booking b = BookingService.GetBookingById(id);
+            b.Active = false;
+            BookingService.UpdateBooking(b);
             return Page();
         }
         public List<Models.User> GetStudentsFromGroup(int id)

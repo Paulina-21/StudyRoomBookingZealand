@@ -28,11 +28,13 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public List<Booking> GetAllBookings()
         {
+            MarkExpiredBookings();
             return _service.Bookings.ToList();
         }
 
         public Booking GetBookingById(int id)
         {
+            MarkExpiredBookings();
             return _service.Bookings.Find(id);
         }
 
@@ -83,14 +85,23 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             if (_service.Users.Find(userid).GroupId == 0)
             {
-               return _service.Bookings.Where(b => b.UserId == userid).ToList().Count >= Booking.BookingLimit;
+               return _service.Bookings.Where(b => b.UserId == userid && b.Active==true).ToList().Count >= Booking.BookingLimit;
             }
-            else return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(userid).GroupId).ToList().Count >= Booking.BookingLimit;
+            else return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(userid).GroupId && b.Active == true).ToList().Count >= Booking.BookingLimit;
         }
 
         public List<Booking> GetBookingsByUserId(int id)
         {
-            return _service.Bookings.Where(b => b.UserId == id).ToList();
+            MarkExpiredBookings();
+            return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(id).GroupId).ToList();
+        }
+        public void MarkExpiredBookings()
+        {
+            foreach(Models.Booking b in _service.Bookings.Where(b => b.ToDateTime < System.DateTime.Now))
+            {
+                b.Active = false;
+            }
+            _service.SaveChanges();
         }
         //public List<Booking> SearchByName(string searchCriteria)
         //{
