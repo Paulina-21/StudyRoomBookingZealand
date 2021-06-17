@@ -15,13 +15,15 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         IUsers UserService;
         IInvitations InvitationService;
         IBooking BookingService;
+        ILocations LocationService;
         public List<Booking> UserBookings { get; set; }
-        public ProfilePageModel(IGroups groupservice, IUsers userservice, IInvitations invitationservice, IBooking bookingService)
+        public ProfilePageModel(IGroups groupservice, IUsers userservice, IInvitations invitationservice, IBooking bookingService, ILocations locationService)
         {
             GroupService = groupservice;
             UserService = userservice;
             InvitationService = invitationservice;
             BookingService = bookingService;
+            LocationService = locationService;
 
         }
         public bool HasInvitations
