@@ -63,9 +63,9 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             GroupService.UpdateGroup(newgroup.GroupId);
             return Page();
         }
-        public IActionResult OnPostCancel(int id)
+        public IActionResult OnPostCancel(int bid)
         {
-            Booking b = BookingService.GetBookingById(id);
+            Booking b = BookingService.GetBookingById(bid);
             b.Active = false;
             BookingService.UpdateBooking(b);
             return Page();
