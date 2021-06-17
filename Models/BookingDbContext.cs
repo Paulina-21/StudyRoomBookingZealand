@@ -40,7 +40,7 @@ namespace StudyroomBookingZealand.Models
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Invitation> Invitations { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
-
+        public virtual DbSet<Warning> Warnings { get; set; }
 
     }
 }
