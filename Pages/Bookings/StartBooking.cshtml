@@ -14,11 +14,14 @@
     @foreach (Location l in LocationService.GetAllLocations())
     {
         <div class="col-md-4">
+            
             <div class="profile-card-2">
+                <a asp-page="BookRoom" asp-route-id="@l.LocationId">
                 <img src="~/images/locations/@l.ImageName" class="img img-responsive">
                 <div class="profile-name">@l.Name</div>
                 <div class="profile-username">@l.Address</div>
                 <div class="profile-icons"><a href="#"></a></div>
+                </a>
             </div>
         </div>
     }
