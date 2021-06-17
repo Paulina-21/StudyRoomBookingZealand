@@ -12,5 +12,6 @@ namespace StudyroomBookingZealand.Services.Interfaces
         public void DeleteWarning(int id);
         public Warning GetWarning(int id);
         public List<Warning> GetWarningsForUser(int id);
+        public void ClearWarningsForUser(int id);
     }
 }

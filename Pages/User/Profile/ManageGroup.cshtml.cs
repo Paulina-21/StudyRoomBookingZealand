@@ -13,11 +13,13 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         IUsers UserService;
         IGroups GroupService;
         IInvitations InvitationService;
-        public ManageGroupModel(IUsers userservice, IGroups groupservice, IInvitations invitationservice)
+        IWarning WarningService;
+        public ManageGroupModel(IUsers userservice, IGroups groupservice, IInvitations invitationservice, IWarning warningservice)
         {
             UserService = userservice;
             GroupService = groupservice;
             InvitationService = invitationservice;
+            WarningService = warningservice;
         }
         public List<Models.User> StudentsList
         {
@@ -68,6 +70,8 @@ namespace StudyroomBookingZealand.Pages.User.Profile
                     Models.Invitation newinvitation = new Models.Invitation(CurrentUser.LoggedUser.Id, newgroupmember.Id);
                     InvitationService.AddInvitation(newinvitation);
                     InvalidName = 2;
+                    string content = $"{UserService.GetUserById(CurrentUser.LoggedUser.Id).FullName} has invited you to a group";
+                    WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, newgroupmember.Id, Models.Warning.TypeList.Invitation));
                 }
             }
             else InvalidName = 1;
@@ -76,7 +80,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         public IActionResult OnPostKick(int id)
         {
             Models.Group group = GroupService.GetGroupById(UserService.GetUserById(id).GroupId);
-            if (GroupService.GetStudentsFromGroup(group.GroupId).Count == 1)
+            if (GroupService.GetStudentsFromGroup(group.GroupId).Count == 1) //this if is probably never used
             {
                 GroupService.RemoveStudentFromGroup(id);
                 GroupService.DeleteGroup(group.GroupId);
@@ -86,6 +90,15 @@ namespace StudyroomBookingZealand.Pages.User.Profile
                 GroupService.RemoveStudentFromGroup(id);
                 GroupService.UpdateGroup(group.GroupId);
             }
+            //warning for all group members
+            string content = $"{UserService.GetUserById(id).FullName} has been kicked from your group";
+            foreach (Models.User user in GroupService.GetStudentsFromGroup(group.GroupId))
+            {
+                WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.GroupAction));
+            }
+            //warning for the kicked member
+            string contentforkicked = $"You have been kicked from your group";
+            WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(contentforkicked, id, Models.Warning.TypeList.GroupKick));
             if (CurrentUser.LoggedUser.Id == id)
             {
                 CurrentUser.LoggedUser.GroupId = 0;
@@ -95,6 +108,12 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         }
         public IActionResult OnPostLeave()
         {
+            string content = $"{CurrentUser.LoggedUser.FullName} has left your group";
+            foreach (Models.User user in GroupService.GetStudentsFromGroup(CurrentUser.LoggedUser.GroupId))
+            {
+                if(user.Id!=CurrentUser.LoggedUser.Id)
+                WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.GroupAction));
+            }
             if (GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner == CurrentUser.LoggedUser.Id)
             {
                 GroupService.DeleteGroup(CurrentUser.LoggedUser.GroupId);
