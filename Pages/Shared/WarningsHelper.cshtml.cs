@@ -30,5 +30,13 @@ namespace StudyroomBookingZealand.Pages.Shared
             }
             else return RedirectToPage("/User/Profile/Invitations");
         }
+        public static Models.Warning CreateWarning(string content, int user, Models.Warning.TypeList type)
+        {
+            Models.Warning warning = new Models.Warning();
+            warning.Content = content;
+            warning.UserID = user;
+            warning.Type = type;
+            return warning;
+        }
     }
 }
