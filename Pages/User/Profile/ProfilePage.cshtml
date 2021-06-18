@@ -6,6 +6,7 @@
 @inject IRoom RoomService
 @{
     ViewData["Title"] = "ProfilePage";
+    Model.BookingsForUser();
 }
 <head>
     <meta charset="utf-8" />
@@ -26,7 +27,7 @@
 
 <div class="container bootstrap snippets ">
     <div class="row">
-        <div class="profile-nav col-md-3">
+        <div class="profile-nav col-3">
             <div class="panel">
                 <div class="user-heading round">
                     <a href="#">
@@ -55,76 +56,77 @@
                 </ul>
             </div>
         </div>
-        <div class="profile-info col-md-9">
+        <div class="profile-info col-3">
             <div class="panel">
-                <div class="panel-body bio-graph-info">
+                <div class="panel-body bio-graph-info d-flex flex-column justify-content-start">
                     <h1>Your Information</h1>
-                    <div class="row">
-                        <div class="bio-row">
-                            <p><span>First Name </span>: @CurrentUser.LoggedUser.FirstName</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Last Name </span>: @CurrentUser.LoggedUser.LastName</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Address </span>: @CurrentUser.LoggedUser.Address</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Email</span>: @CurrentUser.LoggedUser.Email</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Phone </span>: @CurrentUser.LoggedUser.PhoneNr</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Username </span>: @CurrentUser.LoggedUser.Username</p>
-                        </div>
-                    </div>
+                    <p class="text-left" >First Name: @CurrentUser.LoggedUser.FirstName</p>
+                    <p class="text-left">Last Name: @CurrentUser.LoggedUser.LastName</p>
+                    <p class="text-left">Address: @CurrentUser.LoggedUser.Address</p>
+                    <p class="text-left">Emai: @CurrentUser.LoggedUser.Email</p>
+                    <p class="text-left">Phone: @CurrentUser.LoggedUser.PhoneNr</p>
+                    <p class="text-left">Username: @CurrentUser.LoggedUser.Username</p>
                 </div>
             </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
             @if (BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id).Count == 0)
             {<h2>You currently have no Bookings</h2>}
             else
             {<h2>Your bookings</h2>}
             <div>
-                <div class="row">
-                    @foreach (Booking booking in BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id))
+                <div class="container-md container-fluid h-auto">
+                    @foreach (Booking booking in Model.RenderBookings(ProfilePageModel.BookingsPage))
                     {
-                    <div class="col-md-6">
+                    <div class="row" style=" padding-bottom: 10px;">
                         @if (booking.Active == true)
                         {
-                            <div class="card text-dark" style="background: #FFE975">
-                                <div class="card-header">@RoomService.GetRoomById(booking.RoomId).Name</div>
-                                <div class="card-body row">
-                                    <div class="col-4">
-                                         IMG
+                            <div class="card text-dark col-12" style="background: #FFE975; padding-right:0px; margin-right:0px;">
+                                <div class="card-body row" style="margin: 0; padding-top: 0; padding-right: 0;">
+                                    <div class="col-4" >
+                                         <img style="max-height:135px; max-width:165px;" />
                                     </div>
                                     <div class="col-8">
-                                            <p>From: @booking.FromDateTime</p>
-                                            <p>Until: @booking.ToDateTime</p>
+                                        <div class="row card-header" style="padding-bottom:0px; padding-top:0px;">
+                                            <p class="col-9" style="font-size:16px;">@RoomService.GetRoomById(booking.RoomId).Name</p>
+                                            <div class="col-1"></div>
+                                            <form method="post" class="col-1" style="margin:0; padding:0px; left:5px">
+                                                <button type="submit" class="close" asp-page-handler="Cancel" asp-route-bid="@booking.BookingID" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div style="padding-top:10px">
+                                            <p style="font-size:11px;"class="text-left">From: @booking.FromDateTime</p>
+                                            <p style="font-size:11px;" class="text-left">Until: @booking.ToDateTime</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <form method="post" style="margin:0; padding:0">
-                                        <input type="submit" value="Cancel" class="btn btn-danger" asp-page-handler="Cancel" asp-route-bid="@booking.BookingID" />
-                                    </form>
                                 </div>
                             </div>
                         }
                         else
                         {
-                            <div class="card text-white" style="background: #999999">
-                                <div class="card-header">@RoomService.GetRoomById(booking.RoomId).Name</div>
-                                <div class="card-body row">
+                            <div class="card text-white col-12" style="background: #999999;padding-right:0px; margin-right:0px;">
+                                <div class="card-body row" style="margin: 0; padding-top: 0; padding-right: 0;">
                                     <div class="col-4">
-                                        IMG
+                                        <img style="max-height: 135px; max-width: 165px;" />
                                     </div>
                                     <div class="col-8">
-                                        <p>From: @booking.FromDateTime</p>
-                                        <p>Until: @booking.ToDateTime</p>
+                                        <div class="row card-header" style="padding-bottom:0px; padding-top:0px;">
+                                            <p class="col-9" style="font-size:16px;">@RoomService.GetRoomById(booking.RoomId).Name</p>
+                                            <div class="col-1"></div>
+                                            <form method="post" class="col-1" style="margin:0; padding:0px; left:5px">
+                                                <button type="submit" class="close" asp-page-handler="Cancel" asp-route-bid="@booking.BookingID" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div style="padding-top:10px">
+                                            <p style="font-size:11px;" class="text-left">From: @booking.FromDateTime</p>
+                                            <p style="font-size:11px;" class="text-left">Until: @booking.ToDateTime</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn btn-secondary">Unavailable</button>
                                 </div>
                             </div>
                         }
@@ -132,6 +134,21 @@
                     }
 
                 </div>
+                @if (ProfilePageModel.LastBookingsPage > 1)
+                {
+                <div>
+                    <form method="post">
+                        @if (ProfilePageModel.BookingsPage > 1)
+                        {
+                        <button class="btn btn-outline-dark" type="submit" asp-page-handler="Previous">Previous</button>
+                        }
+                        @if (ProfilePageModel.BookingsPage < ProfilePageModel.LastBookingsPage)
+                        {
+                        <button class="btn btn-outline-dark" type="submit" asp-page-handler="Next">Next</button>
+                        }
+                    </form>
+                </div>
+                }
             </div>
         </div>
     </div>
@@ -140,7 +157,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="WarningModalLabel">You do not have any groups, want to create a new one?</h5>
+                <h4 class="modal-title" style="background:#FFE975" id="WarningModalLabel">You do not belong to any groups, do you want to create a new one?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -148,11 +165,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-                        <a class="btn btn-primary" asp-page="Invitations">View invitations</a>
+                        <a class="btn btn-dark" asp-page="Invitations">View invitations</a>
                     </div>
                     <div class="col-6">
                         <form method="post">
-                            <input type="submit" class="btn btn-primary" value="Create a new group" />
+                            <input type="submit" class="btn btn-dark" value="Create a new group" />
                         </form>
                     </div>
                 </div>
