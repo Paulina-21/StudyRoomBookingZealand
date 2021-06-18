@@ -52,11 +52,10 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
                 foreach (var user in bookingMembers)
                 {
-                    Models.Warning warning = new Models.Warning();
-                    warning.Content = $"Your booking on {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days";
-                    warning.UserID = user.Id;
-                    warning.Type = Warning.TypeList.DeletedBooking;
-                    _warningService.AddWarning(warning);
+                    string Content = $"Your booking on {_bookingService.GetBookingById(id).FromDateTime} will be deleted in 3 days";
+                    _bookingService.GetBookingById(id).Active = false;
+                    _bookingService.UpdateBooking(_bookingService.GetBookingById(id));
+                    _warningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(Content, user.Id, Warning.TypeList.DeletedBooking));
                 }
 
                 Data.Helpers.EmailHelper.SendEmail(receivers, subject, content);

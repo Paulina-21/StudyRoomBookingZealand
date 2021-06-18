@@ -1,6 +1,9 @@
 ﻿@page "ProfilePage"
 @using StudyroomBookingZealand.Models
 @model StudyroomBookingZealand.Pages.User.Profile.ProfilePageModel
+@using StudyroomBookingZealand.Services.Interfaces;
+@inject IBooking BookingService
+@inject IRoom RoomService
 @{
     ViewData["Title"] = "ProfilePage";
 }
@@ -46,7 +49,7 @@
                     }
                     else
                     {
-                        <li><a onclick="return alert('You do not have any groups to manage')"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
+                        <li><a data-toggle="modal" data-target="#GroupModal"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
                     }
 
                 </ul>
@@ -78,26 +81,80 @@
                     </div>
                 </div>
             </div>
-            @if(Model.UserBookings.Count == 0){<h2>You currently have no Bookings</h2>} else {<h2>Your bookings</h2>}
+            @if (BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id).Count == 0)
+            {<h2>You currently have no Bookings</h2>}
+            else
+            {<h2>Your bookings</h2>}
             <div>
                 <div class="row">
-                    @foreach(Booking booking in Model.UserBookings ){
+                    @foreach (Booking booking in BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id))
+                    {
                     <div class="col-md-6">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <div class="bio-chart">
-                                    <div style="display: inline; width: 100px; height: 100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                        @if (booking.Active == true)
+                        {
+                            <div class="card text-dark" style="background: #FFE975">
+                                <div class="card-header">@RoomService.GetRoomById(booking.RoomId).Name</div>
+                                <div class="card-body row">
+                                    <div class="col-4">
+                                         IMG
+                                    </div>
+                                    <div class="col-8">
+                                            <p>From: @booking.FromDateTime</p>
+                                            <p>Until: @booking.ToDateTime</p>
+                                    </div>
                                 </div>
-                                <div class="bio-desk">
-                                    <h4 class="red">@booking.BookingID</h4>
-                                    <p>From @booking.FromDateTime</p>
-                                    <p>Until @booking.ToDateTime</p>
+                                <div class="card-footer">
+                                    <form method="post" style="margin:0; padding:0">
+                                        <input type="submit" value="Cancel" class="btn btn-danger" asp-page-handler="Cancel" asp-route-bid="@booking.BookingID" />
+                                    </form>
                                 </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="card text-white" style="background: #999999">
+                                <div class="card-header">@RoomService.GetRoomById(booking.RoomId).Name</div>
+                                <div class="card-body row">
+                                    <div class="col-4">
+                                        IMG
+                                    </div>
+                                    <div class="col-8">
+                                        <p>From: @booking.FromDateTime</p>
+                                        <p>Until: @booking.ToDateTime</p>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-secondary">Unavailable</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                     }
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="GroupModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="WarningModalLabel">You do not have any groups, want to create a new one?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-primary" asp-page="Invitations">View invitations</a>
+                    </div>
+                    <div class="col-6">
+                        <form method="post">
+                            <input type="submit" class="btn btn-primary" value="Create a new group" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

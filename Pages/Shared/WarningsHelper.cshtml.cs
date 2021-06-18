@@ -20,15 +20,37 @@ namespace StudyroomBookingZealand.Pages.Shared
         public IActionResult OnGet(int id)
         {
             Models.Warning warning = WarningService.GetWarning(id);
-            if (warning.Type == Models.Warning.TypeList.DeletedBooking || warning.Type == Models.Warning.TypeList.GroupKick)
+            WarningService.DeleteWarning(id);
+            switch (warning.Type)
             {
-                return RedirectToPage("/User/Profile/ProfilePage");
+                case Models.Warning.TypeList.DeletedBooking:
+                    return RedirectToPage("/User/Profile/ProfilePage");
+                    
+                case Models.Warning.TypeList.GroupAction:
+                    return RedirectToPage("/User/Profile/ManageGroup");
+                    
+                case Models.Warning.TypeList.GroupKick:
+                    return RedirectToPage("/User/Profile/ProfilePage");
+                    
+                case Models.Warning.TypeList.Invitation:
+                    return RedirectToPage("/User/Profile/Invitations");
+                    
+                default:
+                    return RedirectToPage("/User/Profile/ProfilePage");
             }
-            else if (warning.Type == Models.Warning.TypeList.DeletedBooking)
-            {
-                return RedirectToPage("/User/Profile/ManageGroup");
-            }
-            else return RedirectToPage("/User/Profile/Invitations");
+        }
+        public IActionResult OnGetDelete()
+        {
+            WarningService.ClearWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id);
+            return RedirectToPage("/Index");
+        }
+        public static Models.Warning CreateWarning(string content, int user, Models.Warning.TypeList type)
+        {
+            Models.Warning warning = new Models.Warning();
+            warning.Content = content;
+            warning.UserID = user;
+            warning.Type = type;
+            return warning;
         }
     }
 }
