@@ -135,9 +135,11 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="flex-column flex-grow-1 min-vh-100">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
     @if (Pages.User.CurrentUser.Exists)
@@ -172,7 +174,7 @@
         </div>
     </div>
     }
-    <footer class="border-top footer sticky-footer text-muted" style="position:relative">
+    <footer class="border-top footer sticky-footer text-muted" style="position:sticky">
         <div class="container">
             &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
 
