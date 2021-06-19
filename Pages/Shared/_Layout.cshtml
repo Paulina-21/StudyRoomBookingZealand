@@ -57,7 +57,7 @@
 <body>
     <header>
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg">
+        <div class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png" height="25" alt="">
@@ -65,8 +65,8 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="" role="button"><i class="fa fa-bars" aria-hidden="true" style="color:black"></i></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav">
+                <nav class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav navbar-left">
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Index">
                                 Home
@@ -76,49 +76,37 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Privacy">Privacy</a>
                         </li>
-                        @{
-                            if (!Pages.User.CurrentUser.Exists)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/User/Login">Login</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/User/Logout">Logout</a>
-                                </li>
-                            }
-                        }
+                        
+                    </ul>
                         @{
                             if (Pages.User.CurrentUser.Exists)
                             {
                                 if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
-                                    </li>
+                                    <ul class="navbar-nav navbar-left">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
+                                        </li>
+                                    </ul>
                                 }
                                 {
-                                    <li class="nav-item">
-                                        <a asp-page="/User/Profile/ProfilePage" class="nav-link text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
-                                    </li>
+                                <ul class="navbar-nav navbar-right">
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#WarningModal">
                                             @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
                                             {
-                                            <i class="fa fa-bell" style="font-size:20px">
+                                                <i class="fa fa-bell" style="font-size:20px">
 
-                                                @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count < 10)
-                                                {
-                                                <span style="position:relative; left:-4px; top:-8px; font-size:14px">@WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count</span>
-                                                }
-                                                else
-                                                {
-                                                    <span style="position:relative; left:-4px; top:-8px; font-size:14px">9+</span>
-                                                }
+                                                    @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count < 10)
+                                                    {
+                                                        <span style="position:relative; left:-4px; top:-8px; font-size:14px">@WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="position:relative; left:-4px; top:-8px; font-size:14px">9+</span>
+                                                    }
 
-                                            </i>
+                                                </i>
                                             }
                                             else
                                             {
@@ -126,13 +114,30 @@
                                             }
                                         </a>
                                     </li>
+                                    <li class="nav-item" style="margin-right:-7px">
+                                        <a asp-page="/User/Profile/ProfilePage" class="nav-link text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Profile/ProfilePage"><i class="fas fa-user-circle" style="font-size:20px"></i></a>
+                                    </li>
+                                    <li class="nav-item" style="margin-left:20px">
+                                        <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#LogoutModal"><i class="fas fa-sign-out-alt" style="font-size:20px"></i></a>
+                                    </li>
+                                </ul>
                                 }
                             }
+                            else
+                            {
+                               <ul class="navbar-nav navbar-right">
+                                   <li class="nav-item" style="margin-left:20px">
+                                        <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Login"><i class="fas fa-sign-in-alt" style="font-size:20px"></i></a>
+                                   </li>
+                                </ul>
+                            }
                         }
-                    </ul>
-                </div>
+                </nav>
             </div>
-        </nav>
+        </div>
     </header>
     <div class="container">
         <div class="flex-column flex-grow-1 min-vh-100">
@@ -147,28 +152,48 @@
     <div class="modal fade" id="WarningModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #FFE975">
-                    <h4 class="modal-title text-dark" id="WarningModalLabel">Notifications</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header row" style="background: #FFE975; margin:0px">
+                    <h4 class="modal-title text-dark text-center col-11" id="WarningModalLabel">Notifications</h4>
+                    <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
                     {
-                            <div class="row">
                                 @foreach (Models.Warning warning in WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id))
                                 {
-                                        <p class="col-10" style="font-size:16px">@warning.Content</p>
-                                        <p class="col-2"><a class="btn btn-dark" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></p>
+                                <div class="row">
+                                    <p class="col-10" style="font-size:16px; margin-bottom:5px">@warning.Content</p>
+                                    <p class="col-2" style="margin-bottom: 5px"><a class="btn btn-dark" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></p>
+                                </div>
+                                <hr style="margin-top:0px; margin-bottom:5px; border-top: 1px solid gray">
                                 }
-                            </div>
-                        <a class="btn btn-danger" asp-page="/Shared/WarningsHelper" asp-page-handler="Delete">Clear all</a>
-                    }
-                    else
-                    {
-                            <span class="text">You do not have any new notifications</span>
-                    }
+                            <a class="btn btn-danger" asp-page="/Shared/WarningsHelper" asp-page-handler="Delete">Clear all</a>
+                        }
+                        else
+                        {
+                        <span class="text">You do not have any new notifications</span>
+                        }
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header row" style="background: #FFE975; margin:0px">
+                    <h4 class="modal-title text-dark text-center col-11" id="LogoutModalLabel">Are you sure you want to log out?</h4>
+                    <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-4"></div>
+                    <a class="btn btn-dark col-4" asp-page="/User/Logout">
+                        Log out
+                    </a>
+                    <div class="col-4"></div>
                 </div>
             </div>
         </div>

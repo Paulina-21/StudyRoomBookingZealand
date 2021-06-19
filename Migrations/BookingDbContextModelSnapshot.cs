@@ -35,9 +35,6 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("SmartBoardBooked")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Student_GroupID")
                         .HasColumnType("int");
 
@@ -48,8 +45,6 @@ namespace StudyroomBookingZealand.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BookingID");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
                 });
@@ -121,17 +116,17 @@ namespace StudyroomBookingZealand.Migrations
                     b.Property<string>("Adress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Big")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("SmartBoard")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("SmartBoardBooked")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -163,6 +158,9 @@ namespace StudyroomBookingZealand.Migrations
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsTeacher")
                         .HasColumnType("bit");
@@ -209,20 +207,6 @@ namespace StudyroomBookingZealand.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Warnings");
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Booking", b =>
-                {
-                    b.HasOne("StudyroomBookingZealand.Models.Room", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyroomBookingZealand.Models.Room", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

@@ -48,9 +48,9 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Rooms.Find(id);
         }
 
-        public List<Room> SmartBoardRooms()
+        public List<Room> BigRooms()
         {
-            return _service.Rooms.Where(r=>r.SmartBoard==true).ToList();
+            return _service.Rooms.Where(r=>r.Big==true).ToList();
         }
 
         public void UpdateRoom(Room r)
@@ -71,7 +71,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         }
         public int CheckAvailability(int roomid, DateTime date) //returns 2 if all seats are available, 1 if only one seat is left, 0 if none
         {
-            if (_service.Rooms.Find(roomid).Type == Models.Room.TypeList.Classroom)
+            if (_service.Rooms.Find(roomid).Big == true)
             {
                 switch (_service.Bookings.Where(b => b.RoomId == roomid && b.Active==true).Where(b => b.FromDateTime == date).ToList().Count)
                 {

@@ -17,7 +17,7 @@
                         <th scope="col">Room Name</th>
                         <th scope="col" style="text-align: center;">Preview</th>
                         <th scope="col" style="text-align: center;">Type of Room</th>
-                        <th scope="col" style="text-align: center;">Have Smartboard ?</th>
+                        <th scope="col" style="text-align: center;">Booking seats</th>
                     </tr>
                 </thead>
                 @if (Model.Rooms != null) {
@@ -30,7 +30,7 @@
                                 <img src="~/images/rooms/classroom.jpg" class="img-fluid img-thumbnail align-content-center">
                             </td>
                             <td style="vertical-align: middle; text-align: center; ">@r.Type</td>
-                            <td style="vertical-align: middle; text-align: center;">@(r.SmartBoard ? "Yes" : "No")</td>
+                            <td style="vertical-align: middle; text-align: center;">@(r.Big ? "2" : "1")</td>
                             <td style="vertical-align: middle; text-align: center;"><a asp-page="SelectTime" class="btn btn-primary" asp-route-id="@r.RoomId">Book</a></td>
                             
                         </tr>
