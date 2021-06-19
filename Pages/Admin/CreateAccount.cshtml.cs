@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Models;
@@ -29,6 +30,8 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
+            PasswordHasher<Models.User> hasher = new PasswordHasher<Models.User>();
+            User.Password = hasher.HashPassword(User, User.Password);
             _usersService.AddUser(User);
             return RedirectToPage("/Admin/ListUsers");
         }
