@@ -22,12 +22,6 @@
             <th>
                 Group
             </th>
-            <th>
-                SmartBoard?
-            </th>
-            <th>
-                SmartBoard Booked ?
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -52,11 +46,6 @@
                     @item.Student_GroupID
                 </td>
                 <td>
-                    @item.SmartBoardBooked
-                </td>
-                <td>
-                    @item.SmartBoardBooked
-                </td>
                 @if ((CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.IsTeacher)|| (CurrentUser.LoggedUser != null && CurrentUser.LoggedUser.GroupId == item.Student_GroupID))
                 {
                     <td>

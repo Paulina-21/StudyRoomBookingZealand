@@ -29,6 +29,7 @@ namespace StudyroomBookingZealand.Models
         public string Email { get; set; }
         public bool IsTeacher { get; set; }
         public int GroupId { get; set; }
+        public string ImagePath { get; set; }
         public string FullName
         {
             get { return FirstName +" "+ LastName; }
