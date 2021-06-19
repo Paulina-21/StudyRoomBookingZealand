@@ -28,6 +28,7 @@
     .footer:hover {
         background-color: #FFE766;
     }
+    
 
     /*.card:hover {*/
         /*box-shadow: 8px 8px 8px lightgrey;*/
@@ -103,7 +104,27 @@
                                         <a asp-page="/User/Profile/ProfilePage" class="nav-link text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" data-toggle="modal" data-target="#WarningModal">Warnings</a>
+                                        <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#WarningModal">
+                                            @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
+                                            {
+                                            <i class="fa fa-bell" style="font-size:20px">
+
+                                                @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count < 10)
+                                                {
+                                                <span style="position:relative; left:-4px; top:-8px; font-size:14px">@WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count</span>
+                                                }
+                                                else
+                                                {
+                                                    <span style="position:relative; left:-4px; top:-8px; font-size:14px">9+</span>
+                                                }
+
+                                            </i>
+                                            }
+                                            else
+                                            {
+                                                <i class="far fa-bell" style="font-size:20px"></i>
+                                            }
+                                        </a>
                                     </li>
                                 }
                             }
@@ -114,9 +135,11 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="flex-column flex-grow-1 min-vh-100">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
     @if (Pages.User.CurrentUser.Exists)
@@ -124,8 +147,8 @@
     <div class="modal fade" id="WarningModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="WarningModalLabel">Your warnings</h5>
+                <div class="modal-header" style="background: #FFE975">
+                    <h4 class="modal-title text-dark" id="WarningModalLabel">Notifications</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -133,15 +156,13 @@
                 <div class="modal-body">
                     @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
                     {
-                        <table class="table">
-                            @foreach (Models.Warning warning in WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id))
-                            {
-                                <tr>
-                                    <td>@warning.Content</td>
-                                        <td><a class="btn btn-primary" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></td>
-                                </tr>
-                            }
-                        </table>
+                            <div class="row">
+                                @foreach (Models.Warning warning in WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id))
+                                {
+                                        <p class="col-10" style="font-size:16px">@warning.Content</p>
+                                        <p class="col-2"><a class="btn btn-dark" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></p>
+                                }
+                            </div>
                         <a class="btn btn-danger" asp-page="/Shared/WarningsHelper" asp-page-handler="Delete">Clear all</a>
                     }
                     else
@@ -153,7 +174,7 @@
         </div>
     </div>
     }
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer sticky-footer text-muted" style="position:sticky">
         <div class="container">
             &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
 
