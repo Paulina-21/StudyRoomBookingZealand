@@ -1,4 +1,5 @@
-﻿using StudyroomBookingZealand.Services.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
+using StudyroomBookingZealand.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,8 @@ namespace StudyroomBookingZealand.Pages.User
         
         public static bool Login(string[] login, bool rememberme, Models.User user)
         {
-           if (login[1] == user.Password)
+            PasswordHasher<Models.User> hasher = new PasswordHasher<Models.User>();
+            if (login[1]==user.Password)
             {
                 if (rememberme)
                 {
@@ -45,6 +47,19 @@ namespace StudyroomBookingZealand.Pages.User
                 }
                 LoggedUser = user;
                 return true;
+            }
+            else
+            {
+                if (hasher.VerifyHashedPassword(user, user.Password, login[1]) == PasswordVerificationResult.Success)
+                {
+                    if (rememberme)
+                    {
+                        login[1] = user.Password;
+                        Data.Helpers.JsonFileHelper<string[]>.WriteToJson(login, JsonLoggedInUser);
+                    }
+                    LoggedUser = user;
+                    return true;
+                }
             }
             return false;
         }

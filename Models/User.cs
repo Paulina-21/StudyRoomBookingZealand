@@ -20,7 +20,6 @@ namespace StudyroomBookingZealand.Models
         [StringLength(50)]
         public string Address { set; get; }
         [Required]
-        [StringLength(20)]
         public string Password { set; get; }
         [Required]
         [StringLength(10)]

@@ -37,6 +37,10 @@
             <input asp-for="@Model.User.PhoneNr" class="form-control" />
         </div>
         <div class="form-group">
+            <label asp-for="@Model.User.ImagePath"> ImagePath </label>
+            <input asp-for="@Model.User.ImagePath" class="form-control" />
+        </div>
+        <div class="form-group">
             <label asp-for="@Model.User.IsTeacher"> Is this user a Teacher ? </label>
             @Html.EditorFor(model => model.User.IsTeacher)
         </div>

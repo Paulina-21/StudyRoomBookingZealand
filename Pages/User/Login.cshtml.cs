@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudyroomBookingZealand.Pages.User;
 using StudyroomBookingZealand.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudyroomBookingZealand.Pages.User
 {
@@ -23,6 +25,7 @@ namespace StudyroomBookingZealand.Pages.User
         [BindProperty]
         public string Username { get; set; }
         [BindProperty]
+        [StringLength(20)]
         public string Password { get; set; }
         public IActionResult OnGet()
         {
@@ -59,8 +62,9 @@ namespace StudyroomBookingZealand.Pages.User
         }
         public IActionResult OnPost()
         {
-            string[] Login = new string[2] { Username, Password };
+            PasswordHasher<Models.User> hasher = new PasswordHasher<Models.User>();
             Models.User userAccount = UsersService.GetUserByUsername(Username);
+            string[] Login = new string[2] { Username, Password };
             if (userAccount == null)
             {
                 InvalidUsername = true;
