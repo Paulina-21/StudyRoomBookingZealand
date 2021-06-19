@@ -2,10 +2,50 @@
 @model StudyroomBookingZealand.Pages.User.Profile.ViewProfileModel
 @{
 }
-<h1> Profile </h1>
-<div class="box">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudyroomBookingZealand</title>
+
+    <title>User Profile</title>
+    <link rel="stylesheet" href="~/css/profilepage.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+
+<div class="container bootstrap snippets ">
     <div class="row">
-        Name: @Model.ViewUser.FullName
-        Phone number: @Model.ViewUser.PhoneNr
+        <div class="profile-nav col-3">
+            <div class="panel">
+                <div class="user-heading round">
+                    <a href="#">
+                        <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg" alt="">
+                    </a>
+                    <h1 class="text-black-50 font-weight-bolder">@Model.ViewUser.FullName</h1>
+                    @if (Model.ViewUser.IsTeacher)
+                    {<p class="text-black-50"><b>ADMIN</b></p>}
+                    else
+                    {<p class="text-black-50"><b>Student</b></p>}
+
+                </div>
+            </div>
+        </div>
+        <div class="profile-info col-3">
+            <div class="panel">
+                <div class="panel-body bio-graph-info d-flex flex-column justify-content-start">
+                    <h1>Your Information</h1>
+                    <p class="text-left">First Name: @Model.ViewUser.FirstName</p>
+                    <p class="text-left">Last Name: @Model.ViewUser.LastName</p>
+                    <p class="text-left">Emai: @Model.ViewUser.Email</p>
+                    <p class="text-left">Phone: @Model.ViewUser.PhoneNr</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
