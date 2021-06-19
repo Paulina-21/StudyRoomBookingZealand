@@ -22,7 +22,6 @@ namespace StudyroomBookingZealand.Models
             get { return ToDateTime.Subtract(FromDateTime); } 
         }
         public int RoomId { set; get; }
-        public bool SmartBoardBooked { get; set; }
         public int UserId { get; set; }
         public const int BookingLimit = 4;
         public bool Active { get; set; }

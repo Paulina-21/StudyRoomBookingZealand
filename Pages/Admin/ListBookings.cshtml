@@ -27,9 +27,6 @@
                 Group Leader name
             </th>
             <th>
-                SmartBoard Booked ?
-            </th>
-            <th>
                 Active
             </th>
         </tr>
@@ -61,9 +58,6 @@
                         {
                         <span>@UserService.GetUserById(item.UserId).FullName</span>
                         }
-                    </td>
-                    <td>
-                        @item.SmartBoardBooked
                     </td>
                     <td>
                         @item.Active
