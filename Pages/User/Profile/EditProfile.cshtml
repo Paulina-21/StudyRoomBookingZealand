@@ -2,36 +2,64 @@
 @model StudyroomBookingZealand.Pages.User.Profile.EditProfileModel
 @{
 }
-<h1>Edit your account</h1>
 
-<form method="post">
-    <div class="col-md-4">
-        <div class="form-group">
-            <input type="hidden" asp-for="@Model.LoggedUser.Id" />
-            <label asp-for="@Model.LoggedUser.FirstName"> First Name </label>
-            <input asp-for="@Model.LoggedUser.FirstName" class="form-control" />
+<div class="container bootstrap snippets bootdey">
+    <h1 style="color: black"><span class="glyphicon glyphicon-user"></span>Edit Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="" class="avatar img-circle" alt="avatar">
+                <h6>Upload a different photo...</h6>
+
+                <input type="file" class="form-control">
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="@Model.LoggedUser.LastName"> Last Name </label>
-            <input asp-for="@Model.LoggedUser.LastName" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.LoggedUser.Address"> Address </label>
-            <input asp-for="@Model.LoggedUser.Address" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.LoggedUser.Password"> Password </label>
-            <input asp-for="@Model.LoggedUser.Password" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.LoggedUser.PhoneNr"> Phone Number </label>
-            <input asp-for="@Model.LoggedUser.PhoneNr" class="form-control" />
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-outline-primary" value="Save Changes" />
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <div class="alert alert-info alert-dismissable">
+                <a class="panel-close close" data-dismiss="alert">×</a>
+                <i class="fa fa-coffee"></i>
+                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+            </div>
+            <h3>Personal info</h3>
+
+            <form method="post" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.LoggedUser.Id" />
+                    <label asp-for="@Model.LoggedUser.FirstName" class="col-lg-3 control-label">First name:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="@Model.LoggedUser.FirstName" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.LoggedUser.LastName" class="col-lg-3 control-label">Last name:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="@Model.LoggedUser.LastName" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.LoggedUser.Address" class="col-lg-3 control-label">Address:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="@Model.LoggedUser.Address" class=" form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.LoggedUser.PhoneNr" class="col-lg-3 control-label">Phone:</label>
+                    <div class="col-lg-8">
+                        <input asp-for="@Model.LoggedUser.PhoneNr" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-8">
+                        <input type="submit" style="background: black" class="btn btn-primary btn-outline-primary" value="Save Changes" />
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</form>
-<div>
-    <a asp-page="/ProfilePage">Discard Changes</a>
 </div>
+<hr>
