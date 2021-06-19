@@ -6,48 +6,41 @@
 @{
 }
 @inject ILocations LocationsService
-<div>Choose a room from @LocationsService.GetLocation(BookRoomModel.Location).Name</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Image
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Address
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+@*<div><h1>Choose a room from @LocationsService.GetLocation(BookRoomModel.Location).Name</h1> </div>*@
 
-        @if (Model.Rooms != null)
-        {
-            @foreach (Room r in Model.Rooms)
-            {
-                <tr>
-                    <td>Image</td>
-                    <td>@r.Name</td>
-                    <td>@r.Type</td>
-                    <td>@r.Adress</td>
-                    <td>
-                        <a asp-page="SelectTime" class="btn btn-primary" asp-route-id="@r.RoomId">Select</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-<div>
-    <a asp-page="StartBooking" class="btn btn-outline-primary">Back to Location selector</a>
+<div class="container" style="padding: 2rem 0rem;">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-image">
+                <thead>
+                    <tr>
+                        <th scope="col">Room Name</th>
+                        <th scope="col" style="text-align: center;">Preview</th>
+                        <th scope="col" style="text-align: center;">Type of Room</th>
+                        <th scope="col" style="text-align: center;">Have Smartboard ?</th>
+                    </tr>
+                </thead>
+                @if (Model.Rooms != null) {
+                    @foreach (Room r in Model.Rooms)
+                    {
+                        <tbody>
+                        <tr>
+                            <th scope="row" style="vertical-align: middle;">@r.Name</th>
+                            <td class="w-25">
+                                <img src="~/images/rooms/classroom.jpg" class="img-fluid img-thumbnail align-content-center">
+                            </td>
+                            <td style="vertical-align: middle; text-align: center; ">@r.Type</td>
+                            <td style="vertical-align: middle; text-align: center;">@(r.SmartBoard ? "Yes" : "No")</td>
+                            <td style="vertical-align: middle; text-align: center;"><a asp-page="SelectTime" class="btn btn-primary" asp-route-id="@r.RoomId">Book</a></td>
+                            
+                        </tr>
+                        </tbody>
+                    }
+                }
+            </table>   
+        </div>
+    </div>
 </div>
-
-
 
 
 
