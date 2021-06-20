@@ -60,9 +60,9 @@
                                         }
                                         else
                                         {
-                                             <div>
-                                                 <button class="btn btn-secondary">Reserve shared room</button>
-                                             </div>
+                                            <div>
+                                                <button class="btn btn-secondary">Reserve shared room</button>
+                                            </div>
                                         }
                                     }
                                     else
@@ -76,7 +76,7 @@
                                         else
                                         {
                                             <div>
-                                                 <button class="btn btn-secondary">Reserve</button>
+                                                <button class="btn btn-secondary">Reserve</button>
                                             </div>
                                         }
                                     }
@@ -93,7 +93,7 @@
                         <span class="text-danger">You have reached the maximum bookings limit</span>
                     </div>
                 }
-                @if (Pages.User.CurrentUser.LoggedUser.GroupId==0)
+                @if (Pages.User.CurrentUser.LoggedUser.GroupId == 0)
                 {
                     <div>
                         <span class="text-danger">You need to have a group to be able to book rooms</span>

@@ -48,7 +48,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                     return Page();
                 }
             }
-            
+
         }
         public IActionResult OnPostDay()
         {
@@ -74,8 +74,8 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 string content = $"{CurrentUser.LoggedUser.FullName} has made a new booking";
                 foreach (Models.User user in GroupService.GetStudentsFromGroup(CurrentUser.LoggedUser.GroupId))
                 {
-                    if(user.Id!=CurrentUser.LoggedUser.Id)
-                    WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.DeletedBooking));
+                    if (user.Id != CurrentUser.LoggedUser.Id)
+                        WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.DeletedBooking));
                 }
             }
             return RedirectToPage("/Index");
