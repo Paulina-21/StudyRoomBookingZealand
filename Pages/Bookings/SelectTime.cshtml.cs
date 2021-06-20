@@ -71,11 +71,13 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public IActionResult OnPostPrevious()
         {
             FromDate = FromDate.AddDays(-1);
+            DateList = RenderIntervals();
             return Page();
         }
         public IActionResult OnPostNext()
         {
             FromDate = FromDate.AddDays(1);
+            DateList = RenderIntervals();
             return Page();
         }
         public IActionResult OnPostBook(int id, int datetime)
