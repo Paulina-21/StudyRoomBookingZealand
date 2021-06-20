@@ -21,89 +21,75 @@
             </div>
         </div>
         <div class="col-6">
-            @if (Model.Stage == 0)// calendar and day picker
+            @if (SelectTimeModel.Stage == 0)// calendar and day picker
             {
                 <form method="post">
                     <div>
                         Pick the day you want to reserve
                     </div>
-                    <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="FromDate">
-                    <input type="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day" />
+                    <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="@Model.Date">
+                    <input type="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day" asp-route-date="@Model.Date"/>
                 </form>
             }
             else //time of day picker
             {
-                <table class="table-borderless">
-                    @{
-                        int time = 8;
-                        int time2 = 10;
-                        while (time < 16)
-                        {
-                            var datetime = new DateTime(Model.FromDate.Year, Model.FromDate.Month, Model.FromDate.Day);
-                            datetime = datetime.AddHours(time);
-                            <tr>
-                                <td>
-                                    @time - @time2
-                                </td>
-                                <td>
-                                    @if (RoomService.CheckAvailability(room.RoomId, datetime) == 0 || !Model.ValidTime(datetime))
-                                    {
-                                        <button class="btn btn-outline-danger">Unavailable</button>
-                                    }
-                                    else if (RoomService.CheckAvailability(room.RoomId, datetime) == 1)
-                                    {
-                                        if (!SelectTimeModel.LimitReached && Pages.User.CurrentUser.LoggedUser.GroupId != 0)
-                                        {
-                                            <form method="post">
-                                                <input type="submit" value="Reserve shared room" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            <div>
-                                                <button class="btn btn-secondary">Reserve shared room</button>
-                                            </div>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (!SelectTimeModel.LimitReached && Pages.User.CurrentUser.LoggedUser.GroupId != 0)
-                                        {
-                                            <form method="post">
-                                                <input type="submit" value="Reserve" class="btn btn-primary" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@datetime" />
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            <div>
-                                                <button class="btn btn-secondary">Reserve</button>
-                                            </div>
-                                        }
-                                    }
-                                </td>
-                            </tr>
-                            time = time + 2;
-                            time2 = time2 + 2;
-                        }
-                    }
-                </table>
-                @if (SelectTimeModel.LimitReached)
-                {
-                    <div>
-                        <span class="text-danger">You have reached the maximum bookings limit</span>
-                    </div>
-                }
-                @if (Pages.User.CurrentUser.LoggedUser.GroupId == 0)
-                {
-                    <div>
-                        <span class="text-danger">You need to have a group to be able to book rooms</span>
-                    </div>
-                }
-                <div>
-                    <form method="post">
-                        <input class="btn btn-outline-primary" type="submit" value="Back to day selector" asp-page-handler="Back" />
-                    </form>
+        <div class="container-fluid">
+            <div class="row" style="display:flex;justify-content:center;align-items:center;">
+                <h4 class="text-center">Viewing seats for @SelectTimeModel.FromDate.ToString("dd/MM/yy")</h4>
+            </div>
+            @foreach (DateTime date in Model.RenderIntervals())
+            {
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 row">
+                <div class="col-8" style="display:flex;justify-content:center;align-items:center;">
+                    <p>From: @date.Hour:00 Until: @date.AddHours(SelectTimeModel.HoursPerInterval).Hour:00</p>
                 </div>
+                <div class="col-4">
+                    @if (RoomService.CheckAvailability(room.RoomId, date) == 0 || !Model.ValidTime(date))
+                    {
+                        <form method="post" class="row" style="margin-bottom:0px">
+                            <button class="btn btn-secondary">Unavailable</button>
+                        </form>
+                        <div class="row">
+                            <p class="text-right">0/2 seats left</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post" class="row" style="margin-bottom:0px">
+                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@date">Book</button>
+                        </form>
+                        <div class="row">
+                            <p class="text-right">@RoomService.CheckAvailability(room.RoomId, date) /2 seats left</p>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+            }
+            @if (SelectTimeModel.LimitReached)
+            {
+                <div>
+                    <p class="text-danger text-center">You have reached the maximum bookings limit</p>
+                </div>
+            }
+            @if (Pages.User.CurrentUser.LoggedUser.GroupId == 0)
+            {
+                <div>
+                    <p class="text-danger text-center">You need to have a group to be able to book rooms</p>
+                </div>
+            }
+            <div class="row" style="display:flex;justify-content:center;align-items:center;">
+                <form method="post">
+                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Previous">Previous day</button>
+                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Back">Back to day selector</button>
+                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Next">Next day</button>
+                </form>
+            </div>
+        </div>
+                
             }
         </div>
     </div>
