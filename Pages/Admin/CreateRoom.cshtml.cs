@@ -17,7 +17,7 @@ namespace StudyroomBookingZealand.Pages.Admin
         public Room Room { set; get; }
         [BindProperty]
         public int LocationId { get; set; }
-        public SelectList Options { get; set; }
+        public static SelectList Options { get; set; }
        
         private IRoom _roomService;
         private ILocations _locationsService;
@@ -40,6 +40,10 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             Room.LocationId = LocationId;
             _roomService.AddRoom(Room);
             return Redirect("/Locations/Rooms/ListRooms");

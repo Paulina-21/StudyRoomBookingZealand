@@ -27,6 +27,10 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             _userService.UpdateUser(User);
             return Redirect("/Admin/ListUsers");
         }

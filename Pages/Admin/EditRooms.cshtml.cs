@@ -19,7 +19,7 @@ namespace StudyroomBookingZealand.Pages.Admin
         public Room Room { get; set; }
         [BindProperty]
         public int LocationId { get; set; }
-        public SelectList Options { get; set; }
+        public static SelectList Options { get; set; }
         public EditRoomsModel(IRoom room, ILocations locations)
         {
             _roomService = room;
@@ -38,7 +38,10 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
-            
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             Room.LocationId = LocationId;
             _roomService.UpdateRoom(Room);
             return Redirect("/Admin/ListRooms");
