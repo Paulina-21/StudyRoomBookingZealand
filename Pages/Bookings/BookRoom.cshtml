@@ -12,12 +12,13 @@
     <div class="row">
         <div class="col-12">
             <table class="table table-image">
-                <thead>
+                <thead style="background:#FFE975">
                     <tr>
                         <th scope="col">Room Name</th>
                         <th scope="col" style="text-align: center;">Preview</th>
                         <th scope="col" style="text-align: center;">Type of Room</th>
                         <th scope="col" style="text-align: center;">Booking seats</th>
+                        <th></th>
                     </tr>
                 </thead>
                 @if (Model.Rooms != null) {
@@ -31,7 +32,7 @@
                             </td>
                             <td style="vertical-align: middle; text-align: center; ">@r.Type</td>
                             <td style="vertical-align: middle; text-align: center;">@(r.Big ? "2" : "1")</td>
-                            <td style="vertical-align: middle; text-align: center;"><a asp-page="SelectTime" class="btn btn-primary" asp-route-id="@r.RoomId">Book</a></td>
+                            <td style="vertical-align: middle; text-align: center;"><a asp-page="SelectTime" class="btn btn-dark" asp-route-id="@r.RoomId">Book</a></td>
                             
                         </tr>
                         </tbody>

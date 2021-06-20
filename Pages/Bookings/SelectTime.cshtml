@@ -4,97 +4,122 @@
 @using StudyroomBookingZealand.Services.Interfaces
 @using StudyroomBookingZealand.Models
 @inject IRoom RoomService
+@inject ILocations LocationService
 @{
     Room room = RoomService.GetRoomById(SelectTimeModel.SelectedRoom);
 }
 <div>
     <div class="row">
         <div class="col-6">
-            <div class="row">
-                @room.Name
-            </div>
-            <div class="row">
-                @room.Type
-            </div>
-            <div class="row">
-                @room.Adress
+            <div class="container bootstrap snippets ">
+                <div class="row">
+                    <div class="profile-nav col-3">
+                        <div class="panel">
+                            <div class="user-heading round">
+                                <a href="#">
+                                    <img src="@room.ImagePath" style="max-height:200px; max-width:290px" alt="Room picture">
+                                </a>
+                                <h1 class="text-black-50 font-weight-bolder">@room.Name</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-info col-3">
+                        <div class="panel">
+                            <div class="panel-body bio-graph-info d-flex flex-column justify-content-start">
+                                <h1>Room details</h1>
+                                <p class="text-left">Type: @room.Type</p>
+                                <p class="text-left">Room number: @room.Adress</p>
+                                <p class="text-left">Location: @LocationService.GetLocation(room.LocationId).Name</p>
+                                <p class="text-left">Description: lorem</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-6">
-            @if (SelectTimeModel.Stage == 0)// calendar and day picker
-            {
-                <form method="post">
-                    <div>
-                        Pick the day you want to reserve
-                    </div>
-                    <input type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="@Model.Date">
-                    <input type="submit" class="btn btn-primary" value="Continue" asp-page-handler="Day" asp-route-date="@Model.Date"/>
-                </form>
-            }
-            else //time of day picker
-            {
-                int i = 0;
-        <div class="container-fluid">
-            <div class="row" style="display:flex;justify-content:center;align-items:center;">
-                <h4 class="text-center">Viewing seats for @SelectTimeModel.FromDate.ToString("dd/MM/yy")</h4>
-            </div>
-            @foreach (DateTime date in SelectTimeModel.DateList)
-            {
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10 row">
-                <div class="col-8" style="display:flex;justify-content:center;align-items:center;">
-                    <p>From: @date.Hour:00 Until: @date.AddHours(SelectTimeModel.HoursPerInterval).Hour:00</p>
-                </div>
-                <div class="col-4">
-                    @if (RoomService.CheckAvailability(room.RoomId, date) == 0 || !Model.ValidTime(date))
+                    @if (SelectTimeModel.Stage == 0)// calendar and day picker
                     {
-                        <form method="post" class="row" style="margin-bottom:0px">
-                            <button class="btn btn-secondary">Unavailable</button>
-                        </form>
-                        <div class="row">
-                            <p class="text-right">0/2 seats left</p>
+                        <div class="row" style="display:flex;justify-content:center;align-items:center;">
+                            <form method="post">
+                                <h4>
+                                    Pick the day you want to reserve
+                                </h4>
+                                <input class="custom-control-inline" type="date" value="@DateTime.Now" min="@DateTime.Now" max="@DateTime.Now.AddMonths(1)" asp-for="@Model.Date">
+                                <input type="submit" class="btn btn-dark custom-control-inline" value="Continue" asp-page-handler="Day" asp-route-date="@Model.Date" />
+                            </form>
                         </div>
                     }
-                    else
+                    else //time of day picker
                     {
-                        <form method="post" class="row" style="margin-bottom:0px">
-                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@i">Book</button>
-                        </form>
-                        <div class="row">
-                            <p class="text-right">@RoomService.CheckAvailability(room.RoomId, date) /2 seats left</p>
+                        int i = 0;
+                        <div class="container-fluid">
+                            <div class="row" style="display:flex;justify-content:center;align-items:center;">
+                                <h4 class="text-center">Viewing seats for @SelectTimeModel.FromDate.ToString("dd/MM/yy")</h4>
+                            </div>
+                            @foreach (DateTime date in SelectTimeModel.DateList)
+                            {
+                                <div class="row" style="padding-bottom:10px;display:flex;justify-content:center;align-items:center; flex-direction:row">
+                                    <div class="col-1"></div>
+                                    <div class="col-10 row " style="display:flex;justify-content:center;align-items:center;">
+                                        <div class="card text-dark container-fluid" style="background: #FFE975; padding-right:0px; margin-right:0px;">
+                                            <div class="card-body row">
+                                                <div class="col-6" style="display:flex;justify-content:center;align-items:center;">
+                                                    <p style="margin-bottom:0px;">From: @date.Hour:00 Until: @date.AddHours(SelectTimeModel.HoursPerInterval).Hour:00</p>
+                                                </div>
+                                                <div class="col-6" style="display:flex;justify-content:center;align-items:center;">
+                                                    @if (RoomService.CheckAvailability(room.RoomId, date) == 0 || !Model.ValidTime(date))
+                                                    {
+
+                                                        <div>
+                                                            <p class="text-center text-wrap" style="margin-bottom:0px;">0/@RoomService.CheckSize(room.RoomId) seats available</p>
+                                                        </div>
+                                                        <form method="post" style="margin-bottom:0px">
+                                                            <button class="btn btn-secondary">Unavailable</button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <div>
+                                                            <p class="text-center text-wrap" style="margin-bottom:0px;">@RoomService.CheckAvailability(room.RoomId, date) /@RoomService.CheckSize(room.RoomId) seats available</p>
+                                                        </div>
+                                                        <form method="post" style="margin-bottom:0px">
+                                                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@i">Book</button>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                                i++;
+                            }
+                            @if (SelectTimeModel.LimitReached)
+                            {
+                                <div>
+                                    <p class="text-danger text-center">You have reached the maximum bookings limit</p>
+                                </div>
+                            }
+                            @if (Pages.User.CurrentUser.LoggedUser.GroupId == 0)
+                            {
+                                <div>
+                                    <p class="text-danger text-center">You need to have a group to be able to book rooms</p>
+                                </div>
+                            }
+                            <div class="row" style="display:flex;justify-content:center;align-items:center;">
+                                <form method="post" class="container-fluid">
+                                    <button class="btn btn-outline-dark " type="submit" asp-page-handler="Previous"><i class="fas fa-arrow-left"></i> Previous day</button>
+                                    <button class="btn btn-dark " type="submit" asp-page-handler="Back">Back to day selector</button>
+                                    <button class="btn btn-outline-dark " type="submit" asp-page-handler="Next">Next day <i class="fas fa-arrow-right"></i></button>
+                                </form>
+                            </div>
                         </div>
+
                     }
                 </div>
             </div>
-            <div class="col-1"></div>
-        </div>
-                i++;
-            }
-            @if (SelectTimeModel.LimitReached)
-            {
-                <div>
-                    <p class="text-danger text-center">You have reached the maximum bookings limit</p>
-                </div>
-            }
-            @if (Pages.User.CurrentUser.LoggedUser.GroupId == 0)
-            {
-                <div>
-                    <p class="text-danger text-center">You need to have a group to be able to book rooms</p>
-                </div>
-            }
-            <div class="row" style="display:flex;justify-content:center;align-items:center;">
-                <form method="post">
-                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Previous">Previous day</button>
-                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Back">Back to day selector</button>
-                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Next">Next day</button>
-                </form>
-            </div>
-        </div>
-                
-            }
-        </div>
-    </div>
     <div>
         <a asp-page="BookRoom" class="btn btn-outline-primary" asp-route-id="@RoomService.GetRoomById(SelectTimeModel.SelectedRoom).LocationId">Back to rooms</a>
     </div>
