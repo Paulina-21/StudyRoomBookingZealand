@@ -22,11 +22,15 @@ namespace StudyroomBookingZealand.Pages.Bookings
             WarningService = warnserv;
             GroupService = groupservice;
         }
-        public int Stage; //0= default, 1=day selected
+        public static int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
         public static bool LimitReached;
+        public const int OpeningHour = 8;
+        public const int HoursPerInterval = 2;
+        public const int ClosingHour = 16;
         [BindProperty]
-        public DateTime FromDate { get; set; }
+        public static DateTime FromDate { get; set; }
+        public DateTime Date { get; set; }
         [BindProperty]
         public DateTime Duration { get; set; }
         public IActionResult OnGet(int id)
@@ -50,14 +54,25 @@ namespace StudyroomBookingZealand.Pages.Bookings
             }
             
         }
-        public IActionResult OnPostDay()
+        public IActionResult OnPostDay(DateTime date)
         {
+            FromDate = date;
             Stage = 1;
             return Page();
         }
         public IActionResult OnPostBack()
         {
             Stage = 0;
+            return Page();
+        }
+        public IActionResult OnPostPrevious()
+        {
+            FromDate = FromDate.AddDays(-1);
+            return Page();
+        }
+        public IActionResult OnPostNext()
+        {
+            FromDate = FromDate.AddDays(1);
             return Page();
         }
         public IActionResult OnPostBook(int id, DateTime datetime)
@@ -84,6 +99,18 @@ namespace StudyroomBookingZealand.Pages.Bookings
         {
             if (dateTime.CompareTo(DateTime.Now) > 0) return true;
             else return false;
+        }
+        public List<DateTime> RenderIntervals()
+        {
+            int time = OpeningHour;
+            List<DateTime> list = new List<DateTime>();
+            while (time < ClosingHour)
+            {
+                DateTime dateTime = new DateTime(FromDate.Year, FromDate.Month, FromDate.Day, time, 0, 0);
+                list.Add(dateTime);
+                time = time + HoursPerInterval;
+            }
+            return list;
         }
     }
 }
