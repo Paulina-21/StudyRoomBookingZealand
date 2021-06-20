@@ -6,63 +6,67 @@
 }
 
 @inject ILocations LocationsService
-<div class="col-sm">
-    <form class="form-inline">
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="text" placeholder="Location Name" class="form-control " asp-for="@Model.SearchCriteria">
-            
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Search</button>
-        <a type="button" class="btn btn-primary mb-2" asp-page="/Admin/CreateLocation">Create +</a>
-    </form>
 
-   
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Location Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                No of Rooms
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Locations != null)
-        {
-            @foreach (var item in Model.Locations)
+    <div>
+        <a asp-page="/Admin/Admin">Back</a>
+    </div>
+    <div class="col-sm">
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" placeholder="Location Name" class="form-control " asp-for="@Model.SearchCriteria">
+
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+            <a type="button" class="btn btn-primary mb-2" asp-page="/Admin/CreateLocation">Create +</a>
+        </form>
+
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Location Name
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    No of Rooms
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Locations != null)
             {
-                <tr>
-                    <td>
-                        @item.LocationId
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Address
-                    </td>
+                @foreach (var item in Model.Locations)
+                {
+                    <tr>
+                        <td>
+                            @item.LocationId
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
 
-                    <td>
-                        @LocationsService.GetRoomsForLocation(item.LocationId).Count
-                    </td>
+                        <td>
+                            @LocationsService.GetRoomsForLocation(item.LocationId).Count
+                        </td>
 
-                    <td>
-                        <a asp-page="/Admin/EditLocations" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-page="/Locations/DeleteLocation" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
+                        <td>
+                            <a asp-page="/Admin/EditLocations" asp-route-id="@item.LocationId">Edit</a> |
+                            <a asp-page="/Locations/DeleteLocation" asp-route-id="@item.LocationId">Delete</a>
+                        </td>
 
-                </tr>
+                    </tr>
+                }
             }
-        }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>

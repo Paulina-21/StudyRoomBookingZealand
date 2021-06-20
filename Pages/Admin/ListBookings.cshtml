@@ -8,6 +8,9 @@
 @inject IUsers UserService;
 
 
+<div>
+    <a asp-page="/Admin/Admin">Back</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -52,18 +55,18 @@
                     <td>
                         @if (item.Student_GroupID != 0)
                         {
-                        <span>@UserService.GetUserById(GroupService.GetGroupById(item.Student_GroupID).Owner).FullName</span>
+                            <span>@UserService.GetUserById(GroupService.GetGroupById(item.Student_GroupID).Owner).FullName</span>
                         }
                         else
                         {
-                        <span>@UserService.GetUserById(item.UserId).FullName</span>
+                            <span>@UserService.GetUserById(item.UserId).FullName</span>
                         }
                     </td>
                     <td>
                         @item.Active
                     </td>
                     <td>
-                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a> 
+                        <a asp-page="/Bookings/EditBooking" asp-route-id="@item.BookingID">Edit</a>
                         <a asp-page="/Bookings/DeleteBooking" asp-route-id="@item.BookingID">Cancel</a>
                     </td>
                 </tr>
