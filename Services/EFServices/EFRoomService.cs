@@ -91,5 +91,10 @@ namespace StudyroomBookingZealand.Services.EFServices
             }
             else return 0;
         }
+        public int CheckSize(int roomid)
+        {
+            if (_service.Rooms.Find(roomid).Big == true) return 2;
+            else return 1;
+        }
     }
 }
