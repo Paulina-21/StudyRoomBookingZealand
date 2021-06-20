@@ -33,11 +33,12 @@
             }
             else //time of day picker
             {
+                int i = 0;
         <div class="container-fluid">
             <div class="row" style="display:flex;justify-content:center;align-items:center;">
                 <h4 class="text-center">Viewing seats for @SelectTimeModel.FromDate.ToString("dd/MM/yy")</h4>
             </div>
-            @foreach (DateTime date in Model.RenderIntervals())
+            @foreach (DateTime date in SelectTimeModel.DateList)
             {
         <div class="row">
             <div class="col-1"></div>
@@ -58,7 +59,7 @@
                     else
                     {
                         <form method="post" class="row" style="margin-bottom:0px">
-                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@date">Book</button>
+                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@i">Book</button>
                         </form>
                         <div class="row">
                             <p class="text-right">@RoomService.CheckAvailability(room.RoomId, date) /2 seats left</p>
@@ -68,6 +69,7 @@
             </div>
             <div class="col-1"></div>
         </div>
+                i++;
             }
             @if (SelectTimeModel.LimitReached)
             {
