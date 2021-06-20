@@ -25,6 +25,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public static int Stage; //0= default, 1=day selected
         public static int SelectedRoom;
         public static bool LimitReached;
+        public static List<DateTime> DateList;
         public const int OpeningHour = 8;
         public const int HoursPerInterval = 2;
         public const int ClosingHour = 16;
@@ -35,6 +36,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public DateTime Duration { get; set; }
         public IActionResult OnGet(int id)
         {
+            Stage = 0;
             if (CurrentUser.LoggedUser == null)
             {
                 return RedirectToPage("/User/Login");
@@ -57,6 +59,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         public IActionResult OnPostDay(DateTime date)
         {
             FromDate = date;
+            DateList = RenderIntervals();
             Stage = 1;
             return Page();
         }
@@ -75,13 +78,13 @@ namespace StudyroomBookingZealand.Pages.Bookings
             FromDate = FromDate.AddDays(1);
             return Page();
         }
-        public IActionResult OnPostBook(int id, DateTime datetime)
+        public IActionResult OnPostBook(int id, int datetime)
         {
             Models.Booking booking = new Models.Booking();
             booking.RoomId = id;
             booking.UserId = CurrentUser.LoggedUser.Id;
-            booking.FromDateTime = datetime;
-            booking.ToDateTime = datetime.AddHours(2);
+            booking.FromDateTime = DateList[datetime];
+            booking.ToDateTime = DateList[datetime].AddHours(2);
             booking.Student_GroupID = CurrentUser.LoggedUser.GroupId;
             BookService.AddBooking(booking);
             if (CurrentUser.LoggedUser.GroupId != 0)
