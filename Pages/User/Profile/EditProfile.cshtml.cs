@@ -23,6 +23,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         }
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             CurrentUser.Update(CurrentUser.LoggedUser, LoggedUser);
             UserService.UpdateUser(CurrentUser.LoggedUser);
             return RedirectToPage("ProfilePage");

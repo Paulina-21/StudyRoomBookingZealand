@@ -29,28 +29,35 @@
             <form method="post" class="form-horizontal" role="form">
                 <div class="form-group">
                     <input type="hidden" asp-for="@Model.LoggedUser.Id" />
+                    <input type="hidden" asp-for="@Model.LoggedUser.Username" />
+                    <input type="hidden" asp-for="@Model.LoggedUser.Password" />
+                    <input type="hidden" asp-for="@Model.LoggedUser.Email" />
                     <label asp-for="@Model.LoggedUser.FirstName" class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">
                         <input asp-for="@Model.LoggedUser.FirstName" class="form-control" type="text">
                     </div>
+                    <span class="text-danger" asp-validation-for="@Model.LoggedUser.FirstName"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.LoggedUser.LastName" class="col-lg-3 control-label">Last name:</label>
                     <div class="col-lg-8">
                         <input asp-for="@Model.LoggedUser.LastName" class="form-control" type="text">
                     </div>
+                    <span class="text-danger" asp-validation-for="@Model.LoggedUser.LastName"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.LoggedUser.Address" class="col-lg-3 control-label">Address:</label>
                     <div class="col-lg-8">
                         <input asp-for="@Model.LoggedUser.Address" class=" form-control" type="text">
                     </div>
+                    <span class="text-danger" asp-validation-for="@Model.LoggedUser.Address"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.LoggedUser.PhoneNr" class="col-lg-3 control-label">Phone:</label>
                     <div class="col-lg-8">
                         <input asp-for="@Model.LoggedUser.PhoneNr" class="form-control" type="text">
                     </div>
+                    <span class="text-danger" asp-validation-for="@Model.LoggedUser.PhoneNr"></span>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"></label>

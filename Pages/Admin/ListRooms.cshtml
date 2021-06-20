@@ -32,6 +32,9 @@
                 Location Name
             </th>
             <th>
+                Room number
+            </th>
+            <th>
                 Big
             </th>
             <th>
@@ -57,6 +60,9 @@
                         @LocationService.GetLocation(item.LocationId).Name
                     </td>
                     <td>
+                        @item.RoomNR
+                    </td>
+                    <td>
                         @(item.Big ? "Yes" : "No")
                     </td>
                     <td>
@@ -66,12 +72,12 @@
                         @BookingService.BookingByRoomId(@item.RoomId).Count
                     </td>
                     <td>
-                        <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a> |
+                        <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a> 
                         <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
                     </td>
                     <td>
                         <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
-                        }
+                        
                     </td>
                 </tr>
             }
