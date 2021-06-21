@@ -29,11 +29,11 @@
                             <p style="margin-bottom:0">
                                 @if (CurrentUser.LoggedUser.Id == u.Id)
                                 {
-                                    <a class="btn btn-dark" asp-page="ProfilePage">View profile</a>
+                                    <a class="btn btn-custom btn-dark" asp-page="ProfilePage">View profile</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-dark" asp-page="ViewProfile" asp-route-id="@u.Id">View profile</a>
+                                    <a class="btn btn-custom btn-dark" asp-page="ViewProfile" asp-route-id="@u.Id">View profile</a>
                                 }
                             </p>
                         </div>
@@ -63,7 +63,7 @@
                 <div class="col-8">
                     <form method="post" class="row" style="margin-bottom:0">
                         <input class="text " asp-for="NewGroupMember" placeholder="Member's full name" />
-                        <input class="btn btn-dark" style="margin-left:10px" type="submit" value="Add" asp-page-handler="Invite" />
+                        <input class="btn btn-custom btn-dark" style="margin-left:10px" type="submit" value="Add" asp-page-handler="Invite" />
                     </form>
                     <div class="row">
                         @switch (Model.InvalidName)
