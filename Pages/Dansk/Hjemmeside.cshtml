@@ -1,0 +1,30 @@
+﻿@page
+@using StudyroomBookingZealand.Pages.User
+@model StudyroomBookingZealand.Pages.Dansk.HjemmesideModel
+@{
+}
+@if (CurrentUser.Exists == true)
+{
+    <h1 style="color: azure">
+        Hej, @CurrentUser.LoggedUser.FirstName!
+    </h1>
+}
+
+<div class="text-center" style="color: azure">
+    <h1 class="display-4">Velkommen til Zealands StudyRoom4Book</h1>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core"> powered by CEESHARP</a>.</p>*@
+</div>
+
+<style>
+    body {
+        background-image: url("/images/zealand.jpg");
+        background-repeat: no-repeat, repeat;
+        background-position-x: left;
+        background-color: #cccccc;
+        background-size: cover;
+    }
+/*.footer {*/
+        /*background: linear-gradient(to right, rgba(255, 255, 100, 0.8), rgba(255, 215, 38, 1));*/
+        /*background: linear-gradient(to right, rgba(255, 215, 38, 1), rgba(255, 215, 38, 0.8), rgba(255, 255, 255, 0.8), rgba(255, 215, 38, 0.8),rgba(255, 215, 38, 1));
+    }*/
+</style>

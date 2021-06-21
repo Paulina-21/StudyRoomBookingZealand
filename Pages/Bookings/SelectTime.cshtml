@@ -8,6 +8,14 @@
 @{
     Room room = RoomService.GetRoomById(SelectTimeModel.SelectedRoom);
 }
+<style>
+    .btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active {
+        color: #FFD180;
+        background-color: #343A40;
+        border-color: #837171;
+        color: white !important;
+    }
+</style>
 <div>
     <div class="row">
         <div class="col-6">
@@ -75,7 +83,7 @@
                                                             <p class="text-center text-wrap" style="margin-bottom:0px;">0/@RoomService.CheckSize(room.RoomId) seats available</p>
                                                         </div>
                                                         <form method="post" style="margin-bottom:0px">
-                                                            <button class="btn btn-secondary">Unavailable</button>
+                                                            <button type="submit" asp-page-handler="LimitReached" class="btn btn-secondary">Unavailable</button>
                                                         </form>
                                                     }
                                                     else
@@ -85,7 +93,14 @@
                                                             <p class="text-center text-wrap" style="margin-bottom:0px;">@RoomService.CheckAvailability(room.RoomId, date) /@RoomService.CheckSize(room.RoomId) seats available</p>
                                                         </div>
                                                         <form method="post" style="margin-bottom:0px">
-                                                            <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@i">Book</button>
+                                                            @if (SelectTimeModel.LimitReached)
+                                                            {
+                                                                <button type="submit" asp-page-handler="LimitReached" class="btn btn-dark">Book</button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button type="submit" class="btn btn-dark" asp-page-handler="Book" asp-route-id="@room.RoomId" asp-route-datetime="@i">Book</button>
+                                                            }
                                                         </form>
                                                     }
                                                 </div>
@@ -110,9 +125,9 @@
                             }
                             <div class="row" style="display:flex;justify-content:center;align-items:center;">
                                 <form method="post" class="container-fluid">
-                                    <button class="btn btn-outline-dark " type="submit" asp-page-handler="Previous"><i class="fas fa-arrow-left"></i> Previous day</button>
+                                    <button class="btn btn-custom btn-outline-dark " type="submit" asp-page-handler="Previous"><i class="fas fa-arrow-left"></i> Previous day</button>
                                     <button class="btn btn-dark " type="submit" asp-page-handler="Back">Back to day selector</button>
-                                    <button class="btn btn-outline-dark " type="submit" asp-page-handler="Next">Next day <i class="fas fa-arrow-right"></i></button>
+                                    <button class="btn btn-custom btn-outline-dark " type="submit" asp-page-handler="Next">Next day <i class="fas fa-arrow-right"></i></button>
                                 </form>
                             </div>
                         </div>

@@ -8,6 +8,14 @@
     ViewData["Title"] = "ProfilePage";
     Model.BookingsForUser();
 }
+<style>
+    .btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active {
+        color: #FFD180;
+        background-color: #343A40;
+        border-color: #837171;
+        color: white !important;
+    }
+</style>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,7 +58,7 @@
                     }
                     else
                     {
-                        <li><a data-toggle="modal" data-target="#GroupModal"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
+                        <li><a data-toggle="modal" data-target="#GroupModal" style="cursor:pointer"> <i class="fas fa-user-friends"></i> Your Groups</a></li>
                     }
 
                 </ul>
@@ -83,7 +91,7 @@
                             <form method="post" style="margin-bottom:0px">
                                 @if (ProfilePageModel.BookingsPage > 1)
                                 {
-                                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Previous"><i class="fas fa-arrow-left"></i></button>
+                                    <button class="btn btn-custom btn-outline-dark" type="submit" asp-page-handler="Previous"><i class="fas fa-arrow-left"></i></button>
                                 }
                             </form>
                         </div>
@@ -97,7 +105,7 @@
                             <form method="post" style="margin-bottom:0px">
                                 @if (ProfilePageModel.BookingsPage < ProfilePageModel.LastBookingsPage)
                                 {
-                                    <button class="btn btn-outline-dark" type="submit" asp-page-handler="Next"><i class="fas fa-arrow-right"></i></button>
+                                    <button class="btn btn-custom btn-outline-dark" type="submit" asp-page-handler="Next"><i class="fas fa-arrow-right"></i></button>
                                 }
                             </form>
                         </div>
@@ -143,13 +151,8 @@
                                             </div>
                                             <div class="col-8">
                                                 <div class="row card-header" style="padding-bottom:0px; padding-top:0px;">
-                                                    <p class="col-9" style="font-size:16px;">@RoomService.GetRoomById(booking.RoomId).Name</p>
+                                                    <p class="col-9" style="font-size:16px;">@RoomService.GetRoomById(booking.RoomId).Name <span style="font-size:10px">unavailable</span></p>
                                                     <div class="col-1"></div>
-                                                    <form method="post" class="col-1" style="margin:0; padding:0px; left:5px">
-                                                        <button type="submit" class="close" asp-page-handler="Cancel" asp-route-bid="@booking.BookingID" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </form>
                                                 </div>
                                                 <div style="padding-top:10px">
                                                     <p style="font-size:11px;" class="text-left">From: @booking.FromDateTime</p>
@@ -171,8 +174,8 @@
 <div class="modal fade" id="GroupModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" style="background:#FFE975" id="WarningModalLabel">You do not belong to any groups, do you want to create a new one?</h4>
+            <div class="modal-header"  style="background:#FFE975;">
+                <h4 class="modal-title" id="WarningModalLabel">You do not belong to any groups, do you want to create a new one?</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

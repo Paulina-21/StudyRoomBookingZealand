@@ -22,19 +22,26 @@
     }
 
     .card-image {
-        height: 100px;
+        height: 60px;
         width: 200px;
     }
     .footer {
         background: linear-gradient(to bottom, rgba(255, 233, 117, 0.6), rgba(255, 233, 117, 1));
         background-color: #FFE975;
         background-color: transparent;
+        height: 60px !important;
+        bottom: 0px !important;
     }
 
     .footer:hover {
         background-color: #FFE766;
     }
-    
+    .btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active {
+        color: #FFD180;
+        background-color: #343A40;
+        border-color: #837171;
+        color:white !important;
+    }
 
 /*.card:hover {*/
         /*box-shadow: 8px 8px 8px lightgrey;*/
@@ -91,43 +98,43 @@
                             {
                                 <ul class="navbar-nav navbar-left">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
+                                        <a class="nav-link" asp-page="/Bookings/StartBooking">Book</a>
                                     </li>
                                 </ul>
                             }
                             {
                                 <ul class="navbar-nav navbar-right">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#WarningModal">
+                                        <a class="nav-link text-dark" style="cursor: pointer" data-toggle="modal" data-target="#WarningModal">
                                             @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
                                             {
-                                                <i class="fa fa-bell" style="font-size:20px">
+                                                <i class="fa fa-bell" style="font-size: 20px">
 
                                                     @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count < 10)
                                                     {
-                                                        <span style="position:relative; left:-4px; top:-8px; font-size:14px">@WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count</span>
+                                                        <span style="position: relative; left: -4px; top: -8px; font-size: 14px">@WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count</span>
                                                     }
                                                     else
                                                     {
-                                                        <span style="position:relative; left:-4px; top:-8px; font-size:14px">9+</span>
+                                                        <span style="position: relative; left: -4px; top: -8px; font-size: 14px">9+</span>
                                                     }
 
                                                 </i>
                                             }
                                             else
                                             {
-                                                <i class="far fa-bell" style="font-size:20px"></i>
+                                                <i class="far fa-bell" style="font-size: 20px"></i>
                                             }
                                         </a>
                                     </li>
-                                    <li class="nav-item" style="margin-right:-7px">
+                                    <li class="nav-item" style="margin-right: -7px">
                                         <a asp-page="/User/Profile/ProfilePage" class="nav-link text-dark">@Pages.User.CurrentUser.LoggedUser.FirstName</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Profile/ProfilePage"><i class="fas fa-user-circle" style="font-size:20px"></i></a>
+                                        <a class="nav-link text-dark" style="cursor: pointer" asp-page="/User/Profile/ProfilePage"><i class="fas fa-user-circle" style="font-size: 20px"></i></a>
                                     </li>
-                                    <li class="nav-item" style="margin-left:20px">
-                                        <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#LogoutModal"><i class="fas fa-sign-out-alt" style="font-size:20px"></i></a>
+                                    <li class="nav-item" style="margin-left: 20px">
+                                        <a class="nav-link text-dark" style="cursor: pointer" data-toggle="modal" data-target="#LogoutModal"><i class="fas fa-sign-out-alt" style="font-size: 20px"></i></a>
                                     </li>
                                 </ul>
                             }
@@ -135,11 +142,30 @@
                         else
                         {
                             <ul class="navbar-nav navbar-right">
-                                <li class="nav-item" style="margin-left:20px">
-                                    <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Login"><i class="fas fa-sign-in-alt" style="font-size:20px"></i></a>
+                                <li class="nav-item" style="margin-left: 20px">
+                                    <a class="nav-link text-dark" style="cursor: pointer" asp-page="/User/Login"><i class="fas fa-sign-in-alt" style="font-size: 20px"></i></a>
                                 </li>
                             </ul>
                         }
+                        <!--THIS IS FROM MOODLE-->
+                        <ul class="navbar-nav navbar-right d-none d-md-flex custom-menu" id="yui_3_17_2_1_1624276067546_347" style="margin-left: 70px">
+                            <!-- custom_menu -->
+                            <li class="dropdown nav-item" id="yui_3_17_2_1_1624276067546_346">
+                                <a class="dropdown-toggle nav-link" id="drop-down-60d07c6514d3260d07c64e37689" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" title="Language" aria-controls="drop-down-menu-60d07c6514d3260d07c64e37689">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            <img src="/images/language.png" height="25" style="background-color: white; display: inline-block"/>
+                                        </font>
+                                    </font>
+                                </a>
+                                <div class="dropdown-menu" role="menu" id="drop-down-menu-60d07c6514d3260d07c64e37689" aria-labelledby="drop-down-60d07c6514d3260d07c64e37689">
+                                    <a class="dropdown-item" role="menuitem" asp-page="/Dansk/Hjemmeside" title="Dansk (da_rum)"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dansk (da)</font></font></a>
+                                    <a class="dropdown-item" role="menuitem" asp-page="/Index" title="English (en)"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">English (en)</font></font></a>
+                                </div>
+                            </li>
+                            <!-- page_heading_menu -->
+                        </ul>
+                        <!--END OF PART FROM MOODLE-->
                     }
                 </nav>
             </div>
@@ -211,46 +237,23 @@
 
 
 @*Previous Footer*@
-            @*<footer class="border-top footer sticky-footer text-muted" style="position:sticky">
-            <div class="container">
-                &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        <div class="card-image" style="background-color: transparent">
-                    <a href="https://zealand.com/">
-                        <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
-                    </a>
-                </div>
+<footer class="footer sticky-footer text-muted" style="position:sticky;">
+    <div class="container-fluid" style="height:60px">
+        <div class="row">
+            <div class="col-4" style="display:flex;justify-content:flex-start;align-items:center;">
+                <h5>&copy; 2021 - StudyroomBookingZealand - <a asp-page="/Privacy">Privacy</a> </h5>
             </div>
-        </footer>*@
-    
-    <!--<footer class="footer">
-        <div class="container">
-            <p>Sticky footer content</p>-->
-    @*<ul class="list-inline">
-            <li class="list-inline card-image" style="background-color: transparent;">
-
+            <div class="card-image col-4" style="background-color: transparent; display:flex;justify-content:center;align-items:center;">
                 <a href="https://zealand.com/">
-                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" image-align="left" />
-                </a>
-            </li>
-            <li class="list-inline-item"><a href="#">Contact</a></li>
-            <li class="list-inline-item"><a href="https://github.com/Paulina-21/StudyRoomBookingZealand">&copy; 2021 - StudyroomBookingZealand</a></li>
-        </ul>*@
-    <!--</div>
-    </footer>-->
-
-
-    <footer class="border-top footer sticky-footer text-muted" style="position: sticky">
-        <div class="container" style="text-align: right; display: inline-block">
-            <div class="card-image" style="background-color: transparent; width: 160px; height: 90px; display: inline-block">
-                <a href="https://zealand.com/">
-                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" image-align="justify" />
+                    <img src="https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png" height="25" />
                 </a>
             </div>
-            <text style="text-align:inherit; color: black; display: inline-block">&copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a></text>
-
+            <div class="col-4" style="display:flex;justify-content:flex-end;align-items:center;">
+                <h5><a type="button" class="btn btn-custom btn-outline-dark" asp-page="/Privacy">Contact <i class="fas fa-phone"></i></a></h5>
+            </div>
         </div>
-
-    </footer>
+    </div>
+</footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
