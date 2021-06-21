@@ -94,7 +94,7 @@ namespace StudyroomBookingZealand.Services.EFServices
             }
             else if (_service.Bookings.Where(b => b.RoomId == roomid && b.Active==true).Where(b => b.FromDateTime == date).ToList().Count == 0)
             {
-                return 2;
+                return 1;
             }
             else return 0;
         }
