@@ -19,7 +19,7 @@ namespace StudyroomBookingZealand.Models
         public TypeList Type { get; set; }
         public enum TypeList
         {
-            Classroom, Room, Lounge, Office //classroom can be booked by 2 groups at the same time
+            Classroom, Room, Lounge, Office, SmartBoard //classroom can be booked by 2 groups at the same time
         }
         public bool Big { set; get; }
     }
