@@ -7,7 +7,11 @@
 @inject IBooking BookingService;
 @inject IUsers UsersService;
 @inject IRoom RoomService;
-
+<style>
+    .card {
+        background-color: #FFE975;
+    }
+</style>
 <div class="text-center">
     <h1>Welcome to the Admin Page</h1>
 </div>
@@ -31,7 +35,7 @@
         </div>
         <div class="card-footer">
             <form method="post">
-                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageUsers" />
+                <input type="submit" class="btn btn-dark btn-custom" value="Manage" asp-page-handler="ManageUsers" />
             </form>
         </div>
     </div>
@@ -44,7 +48,7 @@
         </div>
         <div class="card-footer">
             <form method="post">
-                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageRooms" />
+                <input type="submit" class="btn btn-dark btn-custom" value="Manage" asp-page-handler="ManageRooms" />
             </form>
         </div>
     </div>
@@ -57,7 +61,7 @@
         </div>
         <div class="card-footer">
             <form method="post">
-                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageLocations" />
+                <input type="submit" class="btn btn-dark btn-custom" value="Manage" asp-page-handler="ManageLocations" />
             </form>
         </div>
     </div>
@@ -70,7 +74,7 @@
         </div>
         <div class="card-footer">
             <form method="post">
-                <input type="submit" class="btn btn-light" value="Manage" asp-page-handler="ManageBookings" />
+                <input type="submit" class="btn btn-dark btn-custom" value="Manage" asp-page-handler="ManageBookings" />
             </form>
         </div>
     </div>
