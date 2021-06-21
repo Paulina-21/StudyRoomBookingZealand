@@ -55,7 +55,6 @@ namespace StudyroomBookingZealand.Services.EFServices
             return _service.Rooms.Where(r => r.LocationId == id).ToList();
         }
 
-
         public void UpdateLocation(Location l)
         {
             _service.Locations.Update(l);

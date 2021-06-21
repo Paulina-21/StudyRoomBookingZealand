@@ -23,7 +23,7 @@ namespace StudyroomBookingZealand.Pages
 
         public IActionResult OnGet()
         {
-            if (!CurrentUser.Exists)
+            if (!CurrentUser.Exists) //will attempt to log in the user with the data from the json file
             {
                 string[] login = new string[2];
                 login = CheckUser();
@@ -43,8 +43,10 @@ namespace StudyroomBookingZealand.Pages
                 }
             }
             else if(!CurrentUser.LoggedUser.IsTeacher) return Page();
+            //admins get redirected to their own homepage
             else return RedirectToPage("/Admin/Admin"); ;
         }
+        //used to check the json file if there are any user credentials inside or not
         public static string[] CheckUser() 
         {
             string[] login = new string[2];
