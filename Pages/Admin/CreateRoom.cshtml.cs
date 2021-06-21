@@ -46,7 +46,7 @@ namespace StudyroomBookingZealand.Pages.Admin
             }
             Room.LocationId = LocationId;
             _roomService.AddRoom(Room);
-            return Redirect("/Locations/Rooms/ListRooms");
+            return Redirect("/Admin/ListRooms");
         }
     }
 }
