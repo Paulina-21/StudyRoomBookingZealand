@@ -47,15 +47,22 @@ namespace StudyroomBookingZealand.Pages.User
             }
             else
             {
-                if (hasher.VerifyHashedPassword(user, user.Password, login[1]) == PasswordVerificationResult.Success)
+                try
                 {
-                    if (rememberme)
+                    if (hasher.VerifyHashedPassword(user, user.Password, login[1]) == PasswordVerificationResult.Success)
                     {
-                        login[1] = user.Password;
-                        Data.Helpers.JsonFileHelper<string[]>.WriteToJson(login, JsonLoggedInUser);
+                        if (rememberme)
+                        {
+                            login[1] = user.Password;
+                            Data.Helpers.JsonFileHelper<string[]>.WriteToJson(login, JsonLoggedInUser);
+                        }
+                        LoggedUser = user;
+                        return true;
                     }
-                    LoggedUser = user;
-                    return true;
+                }
+                catch
+                {
+                    return false;
                 }
             }
             return false;
