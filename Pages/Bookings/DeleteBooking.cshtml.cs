@@ -43,6 +43,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
         {
             if(CurrentUser.IsAdmin) //It will only send an email if the user is admin
             {
+                
                 #region Sending emails
                 List<string> receivers = Data.Helpers.EmailHelper.GatherEmails(_bookingService.BookingOwners(id));
                 string subject = "Warning - Your booked room will be deleted in 3 days";
@@ -65,7 +66,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
                 //Async programming piece of code. It creates a new task that will be executed in 72 hours. In this case it will delete a booking in 3 days.
                 // Fixed by changing method to async
-                await Task.Delay(new TimeSpan(72, 0, 0)).ContinueWith(o =>
+                await Task.Delay(new TimeSpan(0, 0, 10)).ContinueWith(o =>
             {
                 _bookingService.DeleteBooking(id);
             });
