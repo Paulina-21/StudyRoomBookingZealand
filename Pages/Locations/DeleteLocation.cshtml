@@ -45,7 +45,7 @@
             </th>
             @{
                 <td>
-                    @LocationsService.GetRoomsForLocation(Model.Location.LocationId).Count;
+                    @LocationsService.GetRoomsForLocation(Model.Location.LocationId).Count
                 </td>
             }
 
@@ -59,4 +59,8 @@
     <form method="post">
         <input align="right" type="submit" class="btn btn-danger" value="Remove" style="background-color: red; color: white" asp-route-id="@Model.Location.LocationId" asp-page="/Locations/DeleteLocation" />
     </form>
+    <div class="badge-pill">
+        <br/>
+        <a class="float-left" asp-page="/Admin/ListLocations"> Click here to go Back</a>
+    </div>
 </td>         

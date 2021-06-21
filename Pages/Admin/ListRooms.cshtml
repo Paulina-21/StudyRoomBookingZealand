@@ -9,83 +9,88 @@
 @inject IBooking BookingService;
 
 
-    <div>
-        <a asp-page="/Admin/Admin">Back</a>
-    </div>
-    <div class="col-sm">
-        <form class="form-inline">
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="text" placeholder="Room Name" class="form-control " asp-for="@Model.SearchCriteria">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-            <a type="button" class="btn btn-primary mb-2" asp-page="/Admin/CreateRoom">Create +</a>
-        </form>
-    </div>
+
+<div class="col-sm">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" placeholder="Room Name" class="form-control " asp-for="@Model.SearchCriteria">
+            <button type="submit" class="btn btn-primary mb-2" style="background: black">Search</button>
+            <a type="button" class="btn btn-primary mb-2" style="background: black" asp-page="/Admin/CreateRoom">Create +</a>
+        </div>
+    </form>
+</div>
 
 
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Room Name
-                </th>
-                <th>
-                    Location Name
-                </th>
-                <th>
-                    Room number
-                </th>
-                <th>
-                    Big
-                </th>
-                <th>
-                    Type
-                </th>
-                <th>Nr. of Bookings</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Rooms != null)
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Room Name
+            </th>
+            <th>
+                Location Name
+            </th>
+            <th>
+                Room number
+            </th>
+            <th>
+                Big
+            </th>
+            <th>
+                Type
+            </th>
+            <th>Nr. of Bookings</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Rooms != null)
+        {
+            @foreach (var item in Model.Rooms)
             {
-                @foreach (var item in Model.Rooms)
-                {
-                    <tr>
-                        <td>
-                            @item.RoomId
-                        </td>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @*Returns a location based of the RoomID*@
-                            @LocationService.GetLocation(item.LocationId).Name
-                        </td>
-                        <td>
-                            @item.RoomNR
-                        </td>
-                        <td>
-                            @(item.Big ? "Yes" : "No")
-                        </td>
-                        <td>
-                            @item.Type
-                        </td>
-                        <td>
-                            @BookingService.BookingByRoomId(@item.RoomId).Count
-                        </td>
-                        <td>
-                            <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a>
-                            <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
-                        </td>
-                        <td>
-                            <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
+                <tr>
+                    <td>
+                        @item.RoomId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @*Returns a location based of the RoomID*@
+                        @LocationService.GetLocation(item.LocationId).Name
+                    </td>
+                    <td>
+                        @item.RoomNR
+                    </td>
+                    <td>
+                        @(item.Big ? "Yes" : "No")
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @BookingService.BookingByRoomId(@item.RoomId).Count
+                    </td>
+                    <td>
+                        <a asp-page="/Admin/EditRooms" asp-route-id="@item.RoomId">Edit</a>
+                        
+                    </td>
+                    <td>
+                        <a asp-page="/Locations/Rooms/DeleteRoom" asp-route-id="@item.RoomId">Delete</a>
+                    </td>
+                    <td>
+                        <a asp-page="/Bookings/ListBookings" asp-route-id="@item.LocationId">View Bookings</a>
 
-                        </td>
-                    </tr>
-                }
+                    </td>
+                </tr>
             }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-primary" style="background: black" asp-page="/Admin/Admin">Back</a>
+</div>

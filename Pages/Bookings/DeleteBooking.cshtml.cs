@@ -64,6 +64,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
 
 
                 //Async programming piece of code. It creates a new task that will be executed in 72 hours. In this case it will delete a booking in 3 days.
+                // Fixed by changing method to async
                 await Task.Delay(new TimeSpan(72, 0, 0)).ContinueWith(o =>
             {
                 _bookingService.DeleteBooking(id);

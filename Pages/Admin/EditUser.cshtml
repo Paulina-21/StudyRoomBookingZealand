@@ -5,7 +5,7 @@
 <h1>Edit User Account Info</h1>
 
 <form method="post">
-    <div class="col-md-4">
+    <div class="col-md-4 offset-md-4 card card-container" style="margin-bottom: 0">
         <div class="form-group">
             <input type="hidden" asp-for="@Model.User.Id" />
             <input type="hidden" asp-for="@Model.User.Password" />
@@ -42,7 +42,7 @@
             @Html.EditorFor(model => model.User.IsTeacher)
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-outline-primary" value="Update" />
+            <input type="submit" class="btn btn-primary btn-outline-primary" style="background: black" value="Update" />
         </div>
         <div class="badge-pill">
             <a asp-page="/Index"> Click here to go Back</a>
@@ -53,3 +53,11 @@
 <div>
     <a asp-page="/Admin/ListUsers">Back</a>
 </div>
+
+<style>
+    .card-container.card {
+        max-width: 350px;
+        padding: 40px 40px;
+        background-image: linear-gradient(#FFE766, #FFE766);
+    }
+</style>

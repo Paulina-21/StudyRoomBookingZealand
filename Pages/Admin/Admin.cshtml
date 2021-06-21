@@ -1,21 +1,26 @@
 ﻿@page "Admin"
+@using StudyroomBookingZealand.Services.Interfaces
 @model StudyroomBookingZealand.Pages.Admin.AdminModel
 @{
     ViewData["Title"] = "Homepage";
 }
+@inject IBooking BookingService;
+@inject IUsers UsersService;
+@inject IRoom RoomService;
+
 <div class="text-center">
     <h1>Welcome to the Admin Page</h1>
+</div>
 
+<div class="alert alert-info alert-dismissable">
+    <a class="panel-close close" data-dismiss="alert">×</a>
+    <i class="fa fa-info-circle"></i>
+    There are currently:
+    <strong>@BookingService.GetAllBookings().Count bookings, </strong>
+    <strong>@UsersService.GetAllUsers().Count users, </strong>and
+    <strong>@RoomService.GetAllRooms().Count rooms</strong>
+    registered in our system !
 </div>
-@*<div class="alert alert-primary" role="alert">
-    There are currently @CustomerCatalog.GetAllCustomers().Count users registered in our system !
-</div>
-<div class="alert alert-primary" role="alert">
-    There are currently @StoreCatalog.GetAllStores().Count stores in our system!
-</div>
-<div class="alert alert-primary" role="alert">
-    There are currently @OrderCatalog.GetAllOrders().Count registered orders in our system !
-</div>*@
 <div class="card-deck">
     <div class="card">
         <div class="card-body">
