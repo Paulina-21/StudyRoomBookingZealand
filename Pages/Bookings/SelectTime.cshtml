@@ -8,7 +8,7 @@
 @{
     Room room = RoomService.GetRoomById(SelectTimeModel.SelectedRoom);
 }
-<style>
+<style> 
     .btn-custom:hover, .btn-custom:focus, .btn-custom:active, .btn-custom.active {
         color: #FFD180;
         background-color: #343A40;
@@ -16,6 +16,9 @@
         color: white !important;
     }
 </style>
+@{
+    string extension = @room.Type + ".jpg";
+}
 <div>
     <div class="row">
         <div class="col-6">
@@ -25,7 +28,7 @@
                         <div class="panel">
                             <div class="user-heading round">
                                 <a href="#">
-                                    <img src="@room.ImagePath" style="max-height:200px; max-width:290px" alt="Room picture">
+                                    <img src="~/images/rooms/@extension" style="max-height:200px; max-width:290px" alt="Room picture">
                                 </a>
                                 <h1 class="text-black-50 font-weight-bolder">@room.Name</h1>
                             </div>
