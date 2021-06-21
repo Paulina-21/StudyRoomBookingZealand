@@ -21,7 +21,7 @@ namespace StudyroomBookingZealand.Pages.Shared
         {
             Models.Warning warning = WarningService.GetWarning(id);
             WarningService.DeleteWarning(id);
-            switch (warning.Type)
+            switch (warning.Type) //based on the warning's type you get redirected to different pages
             {
                 case Models.Warning.TypeList.DeletedBooking:
                     return RedirectToPage("/User/Profile/ProfilePage");
@@ -44,7 +44,7 @@ namespace StudyroomBookingZealand.Pages.Shared
             WarningService.ClearWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id);
             return RedirectToPage("/Index");
         }
-        public static Models.Warning CreateWarning(string content, int user, Models.Warning.TypeList type)
+        public static Models.Warning CreateWarning(string content, int user, Models.Warning.TypeList type) 
         {
             Models.Warning warning = new Models.Warning();
             warning.Content = content;

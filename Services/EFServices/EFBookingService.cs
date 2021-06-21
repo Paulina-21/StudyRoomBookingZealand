@@ -95,6 +95,7 @@ namespace StudyroomBookingZealand.Services.EFServices
             MarkExpiredBookings();
             return _service.Bookings.Where(b => b.Student_GroupID == _service.Users.Find(id).GroupId).ToList();
         }
+        //used to automatically cancel bookings that are past their expiration date
         public void MarkExpiredBookings()
         {
             foreach(Models.Booking b in _service.Bookings.Where(b => b.ToDateTime < System.DateTime.Now))
@@ -103,10 +104,5 @@ namespace StudyroomBookingZealand.Services.EFServices
             }
             _service.SaveChanges();
         }
-        //public List<Booking> SearchByName(string searchCriteria)
-        //{
-        //    //Doesnt work need to redo
-        // //   return _service.Bookings.Where(b => b.Booker.Name.StartsWith(searchCriteria)).ToList();
-        //}
     }
 }

@@ -62,14 +62,18 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         public void AcceptInvitation(int id)
         {
             Models.Invitation i = InvitationService.GetInvitation(id);
+            #region Notification for the group members
             string content = $"{UserService.GetUserById(CurrentUser.LoggedUser.Id).FullName} has joined your group";
             foreach(Models.User user in GroupService.GetStudentsFromGroup(UserService.GetUserById(i.Sender).GroupId))
             {
                 WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.GroupAction));
             }
+            #endregion
+            #region Adding the user to the group
             GroupService.AddStudentToGroup(UserService.GetUserById(i.Sender).GroupId, i.Receiver);
             CurrentUser.LoggedUser.GroupId = UserService.GetUserById(i.Sender).GroupId;
             GroupService.UpdateGroup(UserService.GetUserById(i.Sender).GroupId);
+            #endregion
             InvitationService.DeleteInvitation(id);
         }
         public void DeclineInvitation(int id)
