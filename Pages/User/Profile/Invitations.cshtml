@@ -3,48 +3,60 @@
 @{
     ViewData["Title"] = "Invitations";
 }
-<h1>Your invitations:</h1>
 <div>
-    <table class="table-borderless">
-           <tr>
-               <td>Sender</td>
-               <td>Group Members</td>
-           </tr>
-        @foreach (Models.Invitation i in Model.InvitationsList)
-        {
-            int j = 0;
-            if (Model.GetUser(i.Sender).GroupId != CurrentUser.LoggedUser.GroupId)
-            {
-            <tr>
-                <td>@Model.GetUser(i.Sender).FullName</td>
-                <td>
-                    @foreach (Models.User u in Model.GetStudentsFromGroup(i.Sender))
-                    {
-                        j++;
-                        @if (j == Model.GetStudentsFromGroup(i.Sender).Count)
-                        {
-                            @u.FullName
-                        }
-                        else
-                        {
-                            <span class="text">@u.FullName, </span>
-                        }
+    <h1 style="margin-bottom:50px">Your invitations:</h1>
+    <div class="row container-fluid">
+        <div class="col-2"></div>
+        <div class="col-8 card" style="background-color:#FFE975">
+            <div class="row card-header bg-dark text-white" style="margin-top:-5px"> 
+                <div style="margin-bottom:0" class="col-3">
+                    <h4>Sender</h4>
+                </div>
+                <div style="margin-bottom:0" class="col-6">
+                    <h4>Group Members</h4>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <div class="card-body">
+                @foreach (Models.Invitation i in Model.InvitationsList)
+                {
 
-                    }
-                </td>
-                <td>
-                    <form method="post">
-                        <input type="submit" class="btn btn-success" value="Accept" asp-page-handler="Accept" asp-route-id="@i.Id"/>
-                        <input type="submit" class="btn btn-danger" value="Decline" asp-page-handler="Decline" asp-route-id="@i.Id"/>
-                    </form>
-                </td>
-            </tr>
-            }
-            else
-            {
-                Model.DeclineInvitation(i.Id);
-            }
-        }
+                    int j = 0;
+                    <div class="row">
+                        @if (Model.GetUser(i.Sender).GroupId != CurrentUser.LoggedUser.GroupId)
+                        {
+                                <p style="display:flex;justify-content:flex-start;align-items:center;" class="col-3">@Model.GetUser(i.Sender).FullName</p>
+                                <p style="display:flex;justify-content:center;align-items:center;" class="col-6">
+                                    @foreach (Models.User u in Model.GetStudentsFromGroup(i.Sender))
+                                    {
+                                        j++;
+                                        @if (j == Model.GetStudentsFromGroup(i.Sender).Count)
+                                        {
+                                            @u.FullName
+                                        }
+                                        else
+                                        {
+                                    <span class="text text-wrap">@u.FullName,&nbsp;</span>
+                                    }
 
-    </table>
-</div>
+                                    }
+                                    </p>
+                                    <div class="col-3" style="display:flex;justify-content:flex-end;align-items:center;">
+                                        <form method="post" style="margin-bottom:0">
+                                            <button type="submit" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@i.Id"><i class="fas fa-check"></i></button>
+                                            <button type="submit" class="btn btn-danger" asp-page-handler="Decline" asp-route-id="@i.Id"><i class="fas fa-times"></i></button>
+                                        </form>
+                                    </div>
+                                
+                            }
+                            else
+                            {
+                                Model.DeclineInvitation(i.Id);
+                            }
+                    </div>
+                }
+            </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
