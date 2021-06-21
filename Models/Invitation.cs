@@ -16,7 +16,7 @@ namespace StudyroomBookingZealand.Models
         public int Id { set; get; }
         public int Sender { get; set; } //uses id for finding the user
         public int Receiver { get; set; }
-        public enum state
+        public enum state //unused
         {
             TBD, Accepted, Rejected
         }
