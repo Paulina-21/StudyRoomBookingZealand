@@ -11,10 +11,12 @@ namespace StudyroomBookingZealand.Services.EFServices
     public class EFLocationService : ILocations
     {
         private BookingDbContext _service;
+        private IRoom RoomService;
 
-        public EFLocationService(BookingDbContext db)
+        public EFLocationService(BookingDbContext db, IRoom roomserv)
         {
             _service = db;
+            RoomService = roomserv;
         }
 
         public void AddLocation(Location l)
@@ -31,6 +33,10 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public void DeleteLocation(int id)
         {
+            foreach(Models.Room r in _service.Rooms.Where(r => r.LocationId == id).ToList())
+            {
+                RoomService.DeleteRoom(r.RoomId);
+            }
             _service.Locations.Remove(GetLocation(id));
             _service.SaveChanges();
         }

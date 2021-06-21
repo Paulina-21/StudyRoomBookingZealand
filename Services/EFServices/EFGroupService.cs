@@ -10,9 +10,11 @@ namespace StudyroomBookingZealand.Services.EFServices
     public class EFGroupService : IGroups
     {
         private BookingDbContext _service;
-        public EFGroupService(BookingDbContext db)
+        private IBooking BookingService;
+        public EFGroupService(BookingDbContext db, IBooking bookserv)
         {
             _service = db;
+            BookingService = bookserv;
         }
         public void AddGroup(Group g)
         {
@@ -25,6 +27,10 @@ namespace StudyroomBookingZealand.Services.EFServices
             foreach(Models.User user in _service.Users.Where(u => u.GroupId == id).ToList())
             {
                 user.GroupId = 0;
+            }
+            foreach (Models.Booking  b in _service.Bookings.Where(b=>b.Student_GroupID == id).ToList())
+            {
+                BookingService.DeleteBooking(b.BookingID);
             }
             _service.Groups.Remove(GetGroupById(id));
             _service.SaveChanges();
