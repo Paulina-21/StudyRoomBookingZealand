@@ -3,7 +3,7 @@
 @{
 }
 <form method="post">
-    <div class="col-md-4">
+    <div class="col-md-4 offset-md-4 card card-container" style="margin-bottom: 0">
         <div class="form-group">
             <input type="hidden" asp-for="@Model.Location.LocationId" />
             <label asp-for="@Model.Location.Name"> Location Name </label>
@@ -16,10 +16,18 @@
             <span class="text-danger" asp-validation-for="@Model.Location.Address"></span>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-outline-primary" value="Save Changes" />
+            <input type="submit" class="btn btn-primary btn-outline-primary" style="background: black" value="Save Changes" />
+        </div>
+        <div>
+            <a asp-page="/Admin/ListLocations">Back</a>
         </div>
     </div>
 </form>
-<div>
-    <a asp-page="/Admin/ListLocations">Back</a>
-</div>
+
+<style>
+    .card-container.card {
+        max-width: 350px;
+        padding: 40px 40px;
+        background-image: linear-gradient(#FFE766, #FFE766);
+    }
+</style>

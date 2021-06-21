@@ -19,19 +19,15 @@
 
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
-            <div class="alert alert-info alert-dismissable">
-                <a class="panel-close close" data-dismiss="alert">×</a>
-                <i class="fa fa-coffee"></i>
-                This is an <strong>.alert</strong>. Use this to show important messages to the user.
-            </div>
+
             <h3>Personal info</h3>
 
             <form method="post" class="form-horizontal" role="form">
                 <div class="form-group">
-                    <input type="hidden" asp-for="@Model.LoggedUser.Id" />
-                    <input type="hidden" asp-for="@Model.LoggedUser.Username" />
-                    <input type="hidden" asp-for="@Model.LoggedUser.Password" />
-                    <input type="hidden" asp-for="@Model.LoggedUser.Email" />
+                    <input type="hidden" asp-for="@Model.LoggedUser.Id"/>
+                    <input type="hidden" asp-for="@Model.LoggedUser.Username"/>
+                    <input type="hidden" asp-for="@Model.LoggedUser.Password"/>
+                    <input type="hidden" asp-for="@Model.LoggedUser.Email"/>
                     <label asp-for="@Model.LoggedUser.FirstName" class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-8">
                         <input asp-for="@Model.LoggedUser.FirstName" class="form-control" type="text">
@@ -62,7 +58,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label"></label>
                     <div class="col-lg-8">
-                        <input type="submit" style="background: black" class="btn btn-primary btn-outline-primary" value="Save Changes" />
+                        <input type="submit" style="background: black" class="btn btn-primary btn-outline-primary" value="Save Changes"/>
                     </div>
                 </div>
             </form>
