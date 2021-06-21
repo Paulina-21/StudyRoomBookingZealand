@@ -11,10 +11,12 @@ namespace StudyroomBookingZealand.Services.EFServices
     public class EFRoomService : IRoom
     {
         private BookingDbContext _service;
+        private IBooking BookingService;
 
-        public EFRoomService(BookingDbContext db)
+        public EFRoomService(BookingDbContext db, IBooking bookserv)
         {
             _service = db;
+            BookingService = bookserv;
         }
 
         public void AddRoom(Room r)
@@ -25,6 +27,10 @@ namespace StudyroomBookingZealand.Services.EFServices
 
         public void DeleteRoom(int id)
         {
+            foreach(Models.Booking b in _service.Bookings.Where(b => b.RoomId == id).ToList())
+            {
+                BookingService.DeleteBooking(b.BookingID);
+            }
             _service.Rooms.Remove(GetRoomById(id));
             _service.SaveChanges();
 
