@@ -230,16 +230,28 @@
 
 
 @*Previous Footer*@
-            @*<footer class="border-top footer sticky-footer text-muted" style="position:sticky">
-            <div class="container">
-                &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        <div class="card-image" style="background-color: transparent">
-                    <a href="https://zealand.com/">
-                        <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
-                    </a>
-                </div>
+<footer class="@*border-top*@ footer sticky-footer text-muted" @*style="position: sticky"*@>
+    <div class="container">
+        <div class="row">
+            <div class="card-image" style="background-color: transparent">
+                <a href="https://zealand.com/">
+                    <img src="https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png" height="25" />
+                    @*<img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />*@
+                </a>
             </div>
-        </footer>*@
+            <div class="col-xs-12 col-sm-6 col-md-4 footers-one">
+                <h5>&copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a> </h5>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2 footers-two">
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2 footers-three">
+                <h5 align="center"><br /><a asp-area="" asp-page="/Privacy">Contact</a></h5>
+            </div>
+
+        </div>
+    </div>
+</footer>
     
     <!--<footer class="footer">
         <div class="container">
@@ -258,7 +270,7 @@
     </footer>-->
 
 
-    <footer class="border-top footer sticky-footer text-muted" style="position: sticky">
+    @*<footer class="border-top footer sticky-footer text-muted" style="position: sticky">
         <div class="container" style="text-align: right; display: inline-block">
             <div class="card-image" style="background-color: transparent; width: 160px; height: 90px; display: inline-block">
                 <a href="https://zealand.com/">
@@ -269,7 +281,7 @@
 
         </div>
 
-    </footer>
+    </footer>*@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
