@@ -77,11 +77,12 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             else InvalidName = 1;
             return Page();
         }
-        public IActionResult OnPostKick(int id)
+        public IActionResult OnPostKick(int id) //method used when the owner kicks a member
         {
             Models.Group group = GroupService.GetGroupById(UserService.GetUserById(id).GroupId);
-            if (GroupService.GetStudentsFromGroup(group.GroupId).Count == 1) //this if is probably never used
+            if (GroupService.GetStudentsFromGroup(group.GroupId).Count == 1)
             {
+                //this is probably never used
                 GroupService.RemoveStudentFromGroup(id);
                 GroupService.DeleteGroup(group.GroupId);
             }
@@ -106,14 +107,17 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             }
             else return Page();
         }
-        public IActionResult OnPostLeave()
+        public IActionResult OnPostLeave()//method used when a user leaves the group
         {
+            #region Notifications for the other group members
             string content = $"{CurrentUser.LoggedUser.FullName} has left your group";
             foreach (Models.User user in GroupService.GetStudentsFromGroup(CurrentUser.LoggedUser.GroupId))
             {
                 if(user.Id!=CurrentUser.LoggedUser.Id)
                 WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.GroupAction));
             }
+            #endregion
+            //if the owner leaves, the group gets deleted
             if (GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner == CurrentUser.LoggedUser.Id)
             {
                 GroupService.DeleteGroup(CurrentUser.LoggedUser.GroupId);

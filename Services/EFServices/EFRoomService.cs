@@ -69,6 +69,7 @@ namespace StudyroomBookingZealand.Services.EFServices
         {
             return _service.Rooms.Where(r => r.LocationId == id && r.Name.StartsWith(searchCriteria)).ToList();
         }
+        //This method checks if a room is available at a specific time, and how many seats it has available
         public int CheckAvailability(int roomid, DateTime date) //returns 2 if all seats are available, 1 if only one seat is left, 0 if none
         {
             if (_service.Rooms.Find(roomid).Big == true)

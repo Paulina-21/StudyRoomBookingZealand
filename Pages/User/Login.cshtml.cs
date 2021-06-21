@@ -18,8 +18,8 @@ namespace StudyroomBookingZealand.Pages.User
         {
             UsersService = service;
         }
-        public bool InvalidUsername;
-        public bool InvalidPassword;
+        public bool InvalidUsername; //used to tell the user on the view that the username is wrong
+        public bool InvalidPassword; //same but for password
         [BindProperty]
         public bool RememberMe { get; set; }
         [BindProperty]
@@ -30,10 +30,11 @@ namespace StudyroomBookingZealand.Pages.User
         public IActionResult OnGet()
         {
             
-            InvalidUsername = false;
-            InvalidPassword = false;
+            InvalidUsername = false; 
+            InvalidPassword = false; 
             return Page();
         }
+        //this method uses the login credentials from the json file to try and log in the user automatically
         public IActionResult OnGetAutoLogin(Models.User user)
         {
             if (user!=null)
@@ -65,16 +66,16 @@ namespace StudyroomBookingZealand.Pages.User
             PasswordHasher<Models.User> hasher = new PasswordHasher<Models.User>();
             Models.User userAccount = UsersService.GetUserByUsername(Username);
             string[] Login = new string[2] { Username, Password };
-            if (userAccount == null)
+            if (userAccount == null) //account was not found, so the username is wrong
             {
                 InvalidUsername = true;
                 return Page();
             }
-            else if(CurrentUser.Login(Login, RememberMe, userAccount))
+            else if(CurrentUser.Login(Login, RememberMe, userAccount)) // account found and password matches
             {
                 return RedirectToPage("/Index");
             }
-            else
+            else //password didnt match
             {
                 InvalidPassword = true;
                 return Page();

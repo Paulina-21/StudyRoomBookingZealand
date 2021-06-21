@@ -30,7 +30,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         public static int BookingsPage;
         public static int LastBookingsPage;
         public const int BookingsPerPage = 4;
-        public Dictionary<int, List<Models.Booking>> Catalog = new Dictionary<int, List<Booking>>();
+        public Dictionary<int, List<Models.Booking>> Catalog = new Dictionary<int, List<Booking>>(); //stores the pages with the bookings
         public bool HasInvitations
         {
             get
@@ -57,7 +57,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             BookingsPage = 1;
             return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost() //used to create a new group
         {
             Models.Group newgroup = new Models.Group();
             newgroup.Owner = CurrentUser.LoggedUser.Id;
@@ -67,7 +67,7 @@ namespace StudyroomBookingZealand.Pages.User.Profile
             GroupService.UpdateGroup(newgroup.GroupId);
             return Page();
         }
-        public IActionResult OnPostCancel(int bid)
+        public IActionResult OnPostCancel(int bid) //used to cancel a booking
         {
             Booking b = BookingService.GetBookingById(bid);
             b.Active = false;
@@ -94,6 +94,8 @@ namespace StudyroomBookingZealand.Pages.User.Profile
         {
             return GroupService.GetStudentsFromGroup(UserService.GetUserById(id).GroupId);
         }
+
+        //this method gets the bookings for the user and splits them into pages
         public void BookingsForUser()
         {
             List<Models.Booking> bookings = BookingService.GetBookingsByUserId(CurrentUser.LoggedUser.Id);
