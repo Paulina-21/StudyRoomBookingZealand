@@ -13,16 +13,24 @@
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="@Model.Room.LocationId"> Location Name </label>
-            <select name="LocationId" asp-items="Model.Options"></select>
+            <select name="LocationId" asp-items="CreateRoomModel.Options"></select>
+            <span class="text-danger" asp-validation-for="@Model.Room.LocationId"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.Room.Name"> Name </label>
             <input asp-for="@Model.Room.Name" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Room.Name"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Room.RoomNR"> Room number </label>
+            <input asp-for="@Model.Room.RoomNR" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.Room.RoomNR"></span>
         </div>
         <div class="form-group">
             <select asp-for="@Model.Room.Type" asp-items="Html.GetEnumSelectList<Room.TypeList>()">
-                <option value="">Choose a group</option>
+                <option value="@Room.TypeList.Classroom">Choose a group</option>
             </select>
+            <span class="text-danger" asp-validation-for="@Model.Room.Type"></span>
             <label asp-for="@Model.Room.Big"> Can be booked by 2 groups at once </label>
             @Html.EditorFor(model => model.Room.Big)
         </div>
@@ -31,6 +39,7 @@
         </div>
     </div>
 </form>
+
 <div>
-    <a asp-page="/Index">Back</a>
+    <a asp-page="/Admin/ListRooms">Back</a>
 </div>

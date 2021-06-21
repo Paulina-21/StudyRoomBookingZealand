@@ -7,6 +7,7 @@
     https://moodle.zealand.dk/pluginfile.php/1/core_admin/logo/0x200/1620740136/Zealand%20Logo%20-%20Moodle.png*@
 
 <style>
+
     .navbar {
         background-color: #ffe766
     }
@@ -24,13 +25,18 @@
         height: 100px;
         width: 200px;
     }
+    .footer {
+        background: linear-gradient(to bottom, rgba(255, 233, 117, 0.6), rgba(255, 233, 117, 1));
+        background-color: #FFE975;
+        background-color: transparent;
+    }
 
     .footer:hover {
         background-color: #FFE766;
     }
     
 
-    /*.card:hover {*/
+/*.card:hover {*/
         /*box-shadow: 8px 8px 8px lightgrey;*/
         /*background-color: #FFE766;
     }*/
@@ -76,20 +82,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Privacy">Privacy</a>
                         </li>
-                        
+
                     </ul>
-                        @{
-                            if (Pages.User.CurrentUser.Exists)
+                    @{
+                        if (Pages.User.CurrentUser.Exists)
+                        {
+                            if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
                             {
-                                if (!Pages.User.CurrentUser.LoggedUser.IsTeacher)
-                                {
-                                    <ul class="navbar-nav navbar-left">
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
-                                        </li>
-                                    </ul>
-                                }
-                                {
+                                <ul class="navbar-nav navbar-left">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/StartBooking">Book</a>
+                                    </li>
+                                </ul>
+                            }
+                            {
                                 <ul class="navbar-nav navbar-right">
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#WarningModal">
@@ -124,17 +130,17 @@
                                         <a class="nav-link text-dark" style="cursor:pointer" data-toggle="modal" data-target="#LogoutModal"><i class="fas fa-sign-out-alt" style="font-size:20px"></i></a>
                                     </li>
                                 </ul>
-                                }
-                            }
-                            else
-                            {
-                               <ul class="navbar-nav navbar-right">
-                                   <li class="nav-item" style="margin-left:20px">
-                                        <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Login"><i class="fas fa-sign-in-alt" style="font-size:20px"></i></a>
-                                   </li>
-                                </ul>
                             }
                         }
+                        else
+                        {
+                            <ul class="navbar-nav navbar-right">
+                                <li class="nav-item" style="margin-left:20px">
+                                    <a class="nav-link text-dark" style="cursor:pointer" asp-page="/User/Login"><i class="fas fa-sign-in-alt" style="font-size:20px"></i></a>
+                                </li>
+                            </ul>
+                        }
+                    }
                 </nav>
             </div>
         </div>
@@ -149,69 +155,103 @@
 
     @if (Pages.User.CurrentUser.Exists)
     {
-    <div class="modal fade" id="WarningModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header row" style="background: #FFE975; margin:0px">
-                    <h4 class="modal-title text-dark text-center col-11" id="WarningModalLabel">Notifications</h4>
-                    <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
-                    {
-                                @foreach (Models.Warning warning in WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id))
-                                {
+        <div class="modal fade" id="WarningModal" tabindex="-1" role="dialog" aria-labelledby="WarningModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header row" style="background: #FFE975; margin:0px">
+                        <h4 class="modal-title text-dark text-center col-11" id="WarningModalLabel">Notifications</h4>
+                        <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @if (WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id).Count > 0)
+                        {
+                            @foreach (Models.Warning warning in WarningService.GetWarningsForUser(Pages.User.CurrentUser.LoggedUser.Id))
+                            {
                                 <div class="row">
                                     <p class="col-10" style="font-size:16px; margin-bottom:5px">@warning.Content</p>
                                     <p class="col-2" style="margin-bottom: 5px"><a class="btn btn-dark" asp-route-id="@warning.Id" asp-page="/Shared/WarningsHelper">Go to</a></p>
                                 </div>
                                 <hr style="margin-top:0px; margin-bottom:5px; border-top: 1px solid gray">
-                                }
+                            }
                             <a class="btn btn-danger" asp-page="/Shared/WarningsHelper" asp-page-handler="Delete">Clear all</a>
                         }
                         else
                         {
-                        <span class="text">You do not have any new notifications</span>
+                            <span class="text">You do not have any new notifications</span>
                         }
                     </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header row" style="background: #FFE975; margin:0px">
-                    <h4 class="modal-title text-dark text-center col-11" id="LogoutModalLabel">Are you sure you want to log out?</h4>
-                    <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body row">
-                    <div class="col-4"></div>
-                    <a class="btn btn-dark col-4" asp-page="/User/Logout">
-                        Log out
-                    </a>
-                    <div class="col-4"></div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header row" style="background: #FFE975; margin:0px">
+                        <h4 class="modal-title text-dark text-center col-11" id="LogoutModalLabel">Are you sure you want to log out?</h4>
+                        <button type="button" class="close col-1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-4"></div>
+                        <a class="btn btn-dark col-4" asp-page="/User/Logout">
+                            Log out
+                        </a>
+                        <div class="col-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-    <footer class="border-top footer sticky-footer text-muted" style="position:sticky">
-        <div class="container">
-            &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
 
-            <div class="card-image" style="background-color: transparent">
+
+                                    @*!!!!!!!!!!!DON"T DELETE THESE YET!!!!!!!"*@
+
+
+@*Previous Footer*@
+            @*<footer class="border-top footer sticky-footer text-muted" style="position:sticky">
+            <div class="container">
+                &copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <div class="card-image" style="background-color: transparent">
+                    <a href="https://zealand.com/">
+                        <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
+                    </a>
+                </div>
+            </div>
+        </footer>*@
+    
+    <!--<footer class="footer">
+        <div class="container">
+            <p>Sticky footer content</p>-->
+    @*<ul class="list-inline">
+            <li class="list-inline card-image" style="background-color: transparent;">
+
                 <a href="https://zealand.com/">
-                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" align="right" />
+                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" image-align="left" />
+                </a>
+            </li>
+            <li class="list-inline-item"><a href="#">Contact</a></li>
+            <li class="list-inline-item"><a href="https://github.com/Paulina-21/StudyRoomBookingZealand">&copy; 2021 - StudyroomBookingZealand</a></li>
+        </ul>*@
+    <!--</div>
+    </footer>-->
+
+
+    <footer class="border-top footer sticky-footer text-muted" style="position: sticky">
+        <div class="container" style="text-align: right; display: inline-block">
+            <div class="card-image" style="background-color: transparent; width: 160px; height: 90px; display: inline-block">
+                <a href="https://zealand.com/">
+                    <img src="/images/Zealand-Logo.png" class="card-img-bottom" alt="" image-align="justify" />
                 </a>
             </div>
-        </div>
-    </footer>
+            <text style="text-align:inherit; color: black; display: inline-block">&copy; 2021 - StudyroomBookingZealand - <a asp-area="" asp-page="/Privacy">Privacy</a></text>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        </div>
+
+    </footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

@@ -11,26 +11,32 @@
         <div class="form-group">
             <label asp-for="@Model.User.FirstName"> First Name </label>
             <input asp-for="@Model.User.FirstName" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.FirstName"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.LastName"> Last Name </label>
             <input asp-for="@Model.User.LastName" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.LastName"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.Address"> Address </label>
             <input asp-for="@Model.User.Address" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.Address"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.Username"> Username </label>
             <input asp-for="@Model.User.Username" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.Username"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.Password"> Password </label>
             <input asp-for="@Model.User.Password" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.Password"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.Email"> Email </label>
             <input asp-for="@Model.User.Email" class="form-control" />
+            <span class="text-danger" asp-validation-for="@Model.User.Email"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.User.PhoneNr"> Phone Number </label>
@@ -49,7 +55,6 @@
         </div>
     </div>
 </form>
- 
 <div>
-    <a asp-page="/Index">Back</a>
+    <a asp-page="/Admin/ListUsers">Back</a>
 </div>

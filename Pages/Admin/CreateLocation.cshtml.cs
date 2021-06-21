@@ -31,6 +31,10 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             _locationsService.AddLocation(Location);
             return RedirectToPage("/Admin/ListLocations");
         }

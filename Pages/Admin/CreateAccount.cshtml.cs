@@ -30,6 +30,10 @@ namespace StudyroomBookingZealand.Pages.Admin
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             PasswordHasher<Models.User> hasher = new PasswordHasher<Models.User>();
             User.Password = hasher.HashPassword(User, User.Password);
             _usersService.AddUser(User);
