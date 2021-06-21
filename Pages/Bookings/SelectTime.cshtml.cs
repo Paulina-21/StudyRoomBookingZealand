@@ -81,6 +81,11 @@ namespace StudyroomBookingZealand.Pages.Bookings
             DateList = RenderIntervals();
             return Page();
         }
+        public IActionResult OnPostLimitReached()
+        {
+            DateList = RenderIntervals();
+            return Page();
+        }
         public IActionResult OnPostBook(int id, int datetime)
         {
             #region Booking creation
@@ -103,7 +108,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 }
             }
             #endregion
-            return RedirectToPage("/Index");
+            return RedirectToPage("/User/Profile/ProfilePage");
         }
         public bool ValidTime(DateTime dateTime) //checks that the datetime picked is not earlier than the current datetime
         {
