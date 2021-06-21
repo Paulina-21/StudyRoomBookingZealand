@@ -54,7 +54,7 @@ namespace StudyroomBookingZealand.Pages.Bookings
                     return Page();
                 }
             }
-            
+
         }
         //this method switches from the day picker to the booking buttons
         public IActionResult OnPostDay(DateTime date)
@@ -103,8 +103,8 @@ namespace StudyroomBookingZealand.Pages.Bookings
                 string content = $"{CurrentUser.LoggedUser.FullName} has made a new booking";
                 foreach (Models.User user in GroupService.GetStudentsFromGroup(CurrentUser.LoggedUser.GroupId))
                 {
-                    if(user.Id!=CurrentUser.LoggedUser.Id)
-                    WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.DeletedBooking));
+                    if (user.Id != CurrentUser.LoggedUser.Id)
+                        WarningService.AddWarning(Shared.WarningsHelperModel.CreateWarning(content, user.Id, Models.Warning.TypeList.DeletedBooking));
                 }
             }
             #endregion
