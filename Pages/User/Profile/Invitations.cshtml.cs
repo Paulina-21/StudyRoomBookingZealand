@@ -10,10 +10,10 @@ namespace StudyroomBookingZealand.Pages.User.Profile
 {
     public class InvitationsModel : PageModel
     {
-        IInvitations InvitationService;
-        IUsers UserService;
-        IGroups GroupService;
-        IWarning WarningService;
+        public IInvitations InvitationService;
+        public IUsers UserService;
+        public IGroups GroupService;
+        public IWarning WarningService;
         public InvitationsModel(IInvitations invitationservice, IUsers userservice, IGroups groupservice, IWarning warnserv)
         {
             InvitationService = invitationservice;
