@@ -2,73 +2,100 @@
 @model StudyroomBookingZealand.Pages.User.Profile.ManageGroupModel
 @using StudyroomBookingZealand.Services.Interfaces;
 @inject IGroups GroupService
+@inject IUsers UserService
 @{
     ViewData["Title"] = "Group Management";
 }
-<h1>Group's name</h1>
 <div>
-    <table class="table-borderless">
-        <tr>
-            <td></td>
-            <td>Name</td>
-            <td></td>
-        </tr>
-        @foreach (Models.User u in Model.StudentsList)
-        {
-            <tr>
-                <td>Image</td>
-                <td>
-                    @u.FullName
-                </td>
-                <td>
-                    @if (CurrentUser.LoggedUser.Id == u.Id)
-                    {
-                        <a asp-page="ProfilePage">View profile</a>
-                    }
-                    else
-                    {
-                        <a asp-page="ViewProfile" asp-route-id="@u.Id">View profile</a>
-                    }
-                </td>
-                @if (CurrentUser.LoggedUser.Id == GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner && u.Id != CurrentUser.LoggedUser.Id)
+<h1 style="margin-bottom:50px">@UserService.GetUserById(GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner).FullName's group</h1>
+<div class="container-fluid row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="container-fluid card col-12" style="background-color:#FFE975">
+            <div class="card-header bg-dark text-white">
+                <h3 style="margin:0">Group members</h3>
+            </div>
+            <div class="card-body">
+                @foreach (Models.User u in Model.StudentsList)
                 {
-                <td>
-                    <form method="post">
-                        <input type="submit" class="btn btn-danger" value="X" asp-page-handler="Kick" asp-route-id="@u.Id" />
-                    </form>
-                </td>
+                    <div class="row" style="margin-bottom:10px">
+                        <div class="col-2" style="display:flex;justify-content:flex-start;align-items:center;">
+                            <img src="" alt="Image" />
+                        </div>
+                        <p class="col-6 text-dark" style="display:flex;justify-content:center;align-items:center; font-size:20px; margin-bottom:0">
+                            @u.FullName
+                        </p>
+                        <div class="col-2" style="display:flex;justify-content:flex-end;align-items:center;">
+                            <p style="margin-bottom:0">
+                                @if (CurrentUser.LoggedUser.Id == u.Id)
+                                {
+                                    <a class="btn btn-dark" asp-page="ProfilePage">View profile</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-dark" asp-page="ViewProfile" asp-route-id="@u.Id">View profile</a>
+                                }
+                            </p>
+                        </div>
+                        @if (CurrentUser.LoggedUser.Id == GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner && u.Id != CurrentUser.LoggedUser.Id)
+                        {
+                            <div class="col-2" style="display:flex;justify-content:flex-end;align-items:center; margin-left:-2px">
+                                <form method="post" style="margin-bottom:0">
+                                    <button type="submit" class="close" asp-page-handler="Kick" asp-route-id="@u.Id"><i style="font-size:26px" class="fas fa-user-slash"></i></button>
+                                </form>
+                            </div>
+                        }
+                        @if(u.Id == GroupService.GetGroupById(CurrentUser.LoggedUser.GroupId).Owner)
+                        {
+                            <div class="col-2" style="display:flex;justify-content:flex-end;align-items:center; margin-left:-2px">
+                                <i style="font-size:26px" class="fas fa-crown"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-2"></div>
+                        }
+                    </div>
+
                 }
-            </tr>
-        }
-    </table>
-    <div>
-        <form method="post">
-            <input class="text" asp-for="NewGroupMember" placeholder="Member's full name" />
-            @switch (Model.InvalidName)
-            {
-                case 1:
-                    <span class="text-danger">User could not be found</span>;
-                    break;
-                case 2:
-                    <span class="text-success">Invitation sent succesfully</span>;
-                    break;
-                case 3:
-                    <span class="text-danger">You are already in this group</span>;
-                    break;
-                case 4:
-                    <span class="text-danger">This person is already in your group</span>;
-                    break;
-                case 5:
-                    <span class="text-danger">This person already has a pending invitation</span>;
-                    break;
-                default: break;
-            }
-            <input class="btn btn-primary" type="submit" value="Add member" asp-page-handler="Invite" />
-        </form>
+            </div>
+            <div class="card-footer row" style="margin-top:-10px">
+                <div class="col-8">
+                    <form method="post" class="row" style="margin-bottom:0">
+                        <input class="text " asp-for="NewGroupMember" placeholder="Member's full name" />
+                        <input class="btn btn-dark" style="margin-left:10px" type="submit" value="Add" asp-page-handler="Invite" />
+                    </form>
+                    <div class="row">
+                        @switch (Model.InvalidName)
+                        {
+                            case 1:
+                                <span class="text-danger">User could not be found</span>;
+                                break;
+                            case 2:
+                                <span class="text-success">Invitation sent succesfully</span>;
+                                break;
+                            case 3:
+                                <span class="text-danger">You are already in this group</span>;
+                                break;
+                            case 4:
+                                <span class="text-danger">This person is already in your group</span>;
+                                break;
+                            case 5:
+                                <span class="text-danger">This person already has a pending invitation</span>;
+                                break;
+                            default: break;
+                        }
+                    </div>
+                </div>
+                <div class="col-4" style="display:flex;justify-content:flex-end;align-items:center;">
+                    <form method="post" style="margin-bottom:0">
+                        <input type="submit" value="Leave" class="btn btn-danger" asp-page-handler="Leave" />
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <form method="post">
-            <input type="submit" value="Leave group" class="btn btn-danger" asp-page-handler="Leave"/>
-        </form>
-    </div>
+    <div class="col-2"></div>
+</div>
+    
 </div>
