@@ -35,7 +35,7 @@ namespace StudyroomBookingZealand.Pages.Locations
         public IActionResult OnPost(int id)
         {
             _locationService.DeleteLocation(id);
-            return Redirect("/Locations/ListLocations");
+            return Redirect("/Admin/ListLocations");
         }
        
     }
