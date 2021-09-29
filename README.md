@@ -11,6 +11,7 @@ Features:
 - Booking a variety of rooms at multiple campuses
 - Cancelling bookings in case the students changed their minds
 - Administrative system for teachers to manage the data on the system
+- Notifications system to warn users of important changes to their bookings or groups
 
 Technologies used:
 - Razor Pages
