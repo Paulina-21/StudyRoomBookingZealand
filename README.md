@@ -19,3 +19,8 @@ Technologies used:
 - Html
 - Css
 - Bootstrap
+
+How to use the project:
+1. Download the project zip file into your own visual studio
+2. Use the sql script to populate the database with data
+3. Log into one of the accounts
